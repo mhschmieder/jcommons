@@ -44,9 +44,9 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
     SEMICOLON( 1, "Semicolon", StringConstants.SEMICOLON ),
     RETURN( 4, "Return", StringConstants.CR + StringConstants.LF );
 
-    private int index;
-    private String label;
-    private String abbreviation;
+    private final int index;
+    private final String label;
+    private final String abbreviation;
 
     Delimiter( final int pIndex,
                final String pLabel,
@@ -87,6 +87,14 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
     public Delimiter valueOfAbbreviation( String abbreviatedLabel ) {
         return ( Delimiter ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
                 abbreviatedLabel, values() );
+    }
+
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
+        return label();
     }
 
     /**

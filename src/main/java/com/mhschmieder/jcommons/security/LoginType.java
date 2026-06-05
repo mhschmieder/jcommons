@@ -37,14 +37,14 @@ public enum LoginType implements Labeled< LoginType > {
     SERVER( "Server" ), 
     PROXY( "Proxy" );
     
-    private String label;
+    private final String label;
     
     LoginType( final String pLabel ) {
         label = pLabel;
     }
 
     @Override
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -52,6 +52,14 @@ public enum LoginType implements Labeled< LoginType > {
     public LoginType valueOfLabel( final String text ) {
         return ( LoginType ) EnumUtilities.getLabeledEnumFromLabel(
                 text, values() );
+    }
+
+    @Override
+    public String toString() {
+        // NOTE: This override takes care of displaying the current choice in
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
+        return label();
     }
 
     public static LoginType defaultValue() {

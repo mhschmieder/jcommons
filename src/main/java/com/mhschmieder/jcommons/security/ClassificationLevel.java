@@ -50,10 +50,11 @@ public enum ClassificationLevel implements Labeled< ClassificationLevel >,
     CUI( "CUI", "CUI" ), 
     CONFIDENTIAL( "Confidential", "C" ), 
     SECRET( "Secret", "S" ), 
-    TOP_SECRET( "Top Secret", "TS" );
+    TOP_SECRET( "Top Secret", "TS" ),
+    SCI( "SCI", "SCI" );
     
-    private String label;
-    private String abbreviation;
+    private final String label;
+    private final String abbreviation;
     
     ClassificationLevel( final String pLabel,
                          final String pAbbreviation ) {
@@ -62,7 +63,7 @@ public enum ClassificationLevel implements Labeled< ClassificationLevel >,
     }
 
     @Override 
-    public final String label() {
+    public String label() {
         return label;
     }
 
@@ -73,24 +74,26 @@ public enum ClassificationLevel implements Labeled< ClassificationLevel >,
     }
 
     @Override 
-    public final String abbreviation() {
+    public String abbreviation() {
         return abbreviation;
     }
 
     @Override
-    public ClassificationLevel valueOfAbbreviation( final String abbreviatedText ) {
-        return ( ClassificationLevel ) EnumUtilities.getAbbreviatedEnumFromAbbreviation( 
-            abbreviatedText, values() );
-    }
-
-    public static ClassificationLevel defaultValue() {
-        return UNCLASSIFIED;
+    public ClassificationLevel valueOfAbbreviation(
+            final String abbreviatedText ) {
+        return ( ClassificationLevel ) EnumUtilities.
+                getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
     }
 
     @Override
     public String toString() {
         // NOTE: This override takes care of displaying the current choice in
-        //  its custom label form when a Combo Box is hosted by a Table Cell.
+        //  its custom label form when a Combo Box is hosted by a Table Cell. It
+        //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    public static ClassificationLevel defaultValue() {
+        return UNCLASSIFIED;
     }
 }
