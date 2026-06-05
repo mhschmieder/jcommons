@@ -81,4 +81,24 @@ public class TimeUtilities {
         return millisecondsToFormattedHoursMinutesSeconds( 
                 timeMilliseconds, false );
     }
+
+    public static long secondsFromFormattedHoursMinutesSeconds(
+            final String formattedHoursMinutesSeconds ) {
+        final int hoursMinutesSeparatorIndex = formattedHoursMinutesSeconds
+                .indexOf( ":" );
+        final String hours = formattedHoursMinutesSeconds.substring(
+                0, hoursMinutesSeparatorIndex + 1 );
+        final String minutesSeconds = formattedHoursMinutesSeconds.substring(
+                hoursMinutesSeparatorIndex + 1 );
+        final int minutesSecondsSeparatorIndex = minutesSeconds.indexOf(
+                ":" );
+        final String minutes = minutesSeconds.substring(
+                0, minutesSecondsSeparatorIndex + 1 );
+        final String seconds = minutesSeconds.substring(
+                minutesSecondsSeparatorIndex + 1 );
+
+        return TimeUnit.HOURS.toSeconds( Long.parseLong( hours ) )
+                + TimeUnit.MINUTES.toSeconds( Long.parseLong( minutes ) )
+                + Long.parseLong( seconds );
+    }
 }
