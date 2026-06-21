@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see https://opensource.org/licenses/MIT.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see https://opensource.org/licenses/MIT.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -47,8 +47,8 @@ public class PathUtilities {
      */
     public PathUtilities() {}
 
-    // Get a unique revision tagged filename, given a fully specified path as the
-    // filename candidate.
+    // Get a unique revision tagged filename, given a fully specified path as
+    // the filename candidate.
     public static Path getUniqueRevisionTaggedFilePath( 
             final StringBuilder filenameCandidate ) {
         Path path = Paths.get( filenameCandidate.toString() );

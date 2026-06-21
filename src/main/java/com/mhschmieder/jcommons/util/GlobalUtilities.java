@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -89,7 +89,7 @@ public class GlobalUtilities {
      * Make the Client Properties using Java JVM arguments and JNLP properties.
      * <p>
      * The general strategy is to try to find them in the named arguments, and
-     * then if still uninitialized, fetch them from the the System Properties.
+     * then if still uninitialized, fetch them from the System Properties.
      *
      * @param namedArguments
      *            The named arguments passed to the application launcher,
@@ -171,9 +171,10 @@ public class GlobalUtilities {
      *            using the default Locale of US-English
      * @return A {@link ResourceBundle} returned by the JVM's Security Manager
      */
-    public static ResourceBundle getResourceBundle( final ClientProperties clientProperties,
-                                                    final String bundleName,
-                                                    final boolean ignoreUserLocale ) {
+    public static ResourceBundle getResourceBundle(
+            final ClientProperties clientProperties,
+            final String bundleName,
+            final boolean ignoreUserLocale ) {
         final Locale locale = ignoreUserLocale
             ? Locale.forLanguageTag( "en-US" )
             : clientProperties.locale;

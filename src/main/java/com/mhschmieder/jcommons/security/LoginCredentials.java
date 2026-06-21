@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -33,11 +33,11 @@ package com.mhschmieder.jcommons.security;
 public class LoginCredentials {
 
     // Declare default constants, where appropriate, for all fields.
-    @SuppressWarnings("nls") public static final String USER_NAME_DEFAULT = "";
-    @SuppressWarnings("nls") public static final String PASSWORD_DEFAULT  = "";
+    public static final String USER_NAME_DEFAULT = "";
+    public static final String PASSWORD_DEFAULT  = "";
 
-    private String                                      userName;
-    private String                                      password;
+    private String userName;
+    private String password;
 
     // Default Constructor; sets all instance variables to default values.
     public LoginCredentials() {

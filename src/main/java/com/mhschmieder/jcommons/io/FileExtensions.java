@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -42,24 +42,23 @@ public class FileExtensions {
     private FileExtensions() {}
 
     // Declare constants for file type descriptions and extensions.
-    public static final String                            ALL_DESCRIPTION             = "All Files";
-    @SuppressWarnings("nls") public static final String   ALL_EXTENSIONS              = "*.*";
+    public static final String ALL_DESCRIPTION = "All Files";
+    public static final String ALL_EXTENSIONS = "*.*";
    
     
-    public static final String                            BMP_DESCRIPTION             = "BMP";                 //$NON-NLS-1$
-    @SuppressWarnings("nls") public static final String[] BMP_EXTENSIONS              =
-                                                                         new String[] {
+    public static final String BMP_DESCRIPTION = "BMP";
+    public static final String[] BMP_EXTENSIONS  = new String[] {
                                                                                         "*.bmp",
                                                                                         "*.dib" };
 
-    public static final String                            CSV_DESCRIPTION             = "CSV";                 //$NON-NLS-1$
-    @SuppressWarnings("nls") public static final String   CSV_EXTENSIONS              = "*.csv";
+    public static final String CSV_DESCRIPTION             = "CSV";                 //$NON-NLS-1$
+    public static final String CSV_EXTENSIONS              = "*.csv";
 
-    public static final String                            DXF_DESCRIPTION             =
+    public static final String DXF_DESCRIPTION             =
                                                                           "AutoCAD DXF";                       //$NON-NLS-1$
-    @SuppressWarnings("nls") public static final String   DXF_EXTENSIONS              = "*.dxf";
+    public static final String  XF_EXTENSIONS              = "*.dxf";
 
-    public static final String                            EPS_DESCRIPTION             =
+    public static final String EPS_DESCRIPTION             =
                                                                           "Encapsulated PostScript";           //$NON-NLS-1$
     @SuppressWarnings("nls") public static final String[] EPS_EXTENSIONS              =
                                                                          new String[] {

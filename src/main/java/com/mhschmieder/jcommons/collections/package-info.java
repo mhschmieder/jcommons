@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 Mark Schmieder. All rights reserved.
+ * Copyright (c) 2025, 2026 Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,37 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
-package com.mhschmieder.jcommons.lang;
-
-import java.io.Serializable;
-import java.util.Comparator;
-
 /**
- * Float based {@link Comparator} meant for use by Collections.sort() (e.g.).
- * <p>
- * In other words, a sorting comparator class that sorts by float value.
+ * This package contains custom classes for collection-oriented building blocks.
  */
-public class FloatComparator implements Comparator< Float >, Serializable {
-    /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
-     */
-    private static final long serialVersionUID = 1L;
-
-    public FloatComparator() {
-        // NOTE: No data members or superclass, so nothing to do here.
-    }
-
-    /**
-     * Returns an integer corresponding to the comparisons results of two
-     * floats.
-     * 
-     * @param float1 The first float to compare, as the comparison source
-     * @param float2 The second float to compare, as the comparison target
-     * @return A negative integer if the first argument is less than the second
-     * argument; zero if equal to; or a positive integer if greater than
-     */
-    @Override
-    public int compare( final Float float1, final Float float2 ) {
-        return float1.compareTo(  float2  );
-    }
-}
+package com.mhschmieder.jcommons.collections;

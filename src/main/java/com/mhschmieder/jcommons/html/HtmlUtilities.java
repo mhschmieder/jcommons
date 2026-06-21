@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -59,8 +59,10 @@ public class HtmlUtilities {
     }
 
     @SuppressWarnings("nls")
-    public static StringBuilder getHtmlTableColumnHeader( final String tableColumnHeader ) {
-        final StringBuilder htmlTableColumnHeader = new StringBuilder( "<th><b><i>" );
+    public static StringBuilder getHtmlTableColumnHeader(
+            final String tableColumnHeader ) {
+        final StringBuilder htmlTableColumnHeader = new StringBuilder(
+                "<th><b><i>" );
         htmlTableColumnHeader.append( tableColumnHeader );
         htmlTableColumnHeader.append( "</i></b></th>" );
         return htmlTableColumnHeader;
@@ -68,10 +70,10 @@ public class HtmlUtilities {
 
     @SuppressWarnings("nls")
     public static StringBuilder getHtmlImageHeader( final String imageLabel ) {
-        final StringBuilder imageHeader = new StringBuilder( "<p /><h1 align=\"center\">" );
+        final StringBuilder imageHeader = new StringBuilder(
+                "<p /><h1 align=\"center\">" );
         imageHeader.append( imageLabel );
         imageHeader.append( "</h1>" );
         return imageHeader;
     }
-
 }

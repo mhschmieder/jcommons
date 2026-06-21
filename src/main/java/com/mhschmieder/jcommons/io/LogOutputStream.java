@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -37,20 +37,20 @@ import java.io.OutputStream;
 import java.util.logging.Logger;
 
 /**
- * This class is a workaround for legacy code that uses System.out and
- * System.err println() methods, alongside the use of printStackTrace() calls
+ * This class is a workaround for legacy code that uses System.out() and
+ * System.err() println() methods, alongside the use of printStackTrace() calls
  * in exceptions. It also formats the output for cross-platform conformance.
  */
 public class LogOutputStream extends OutputStream {
 
     /** Define a static Logger to log the legacy STDERR/STDOUT messages. */
-    private static Logger      LOGGER                  =
-                                      Logger.getLogger( LogOutputStream.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(
+            LogOutputStream.class.getName() );
 
-    private final StringBuffer buffer                  = new StringBuffer();
+    private final StringBuffer buffer = new StringBuffer();
 
-    private final char         lineSeparatorEndUnixDos = 'n';
-    private final char         lineSeparatorEndMac     = 'r';
+    private final char lineSeparatorEndUnixDos = 'n';
+    private final char lineSeparatorEndMac     = 'r';
 
     @Override
     public void write( final int b ) throws IOException {

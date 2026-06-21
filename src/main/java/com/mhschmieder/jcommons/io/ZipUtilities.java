@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see https://opensource.org/licenses/MIT.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see https://opensource.org/licenses/MIT.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -58,9 +58,9 @@ public class ZipUtilities {
     public ZipUtilities() {}
 
     /**
-     * This method finds an occurrence of a particular file name in a
-     * supplied ZIP file, and returns a ready-to-use ZIP Entry wrapped in an
-     * Optional so as to avoid null pointer exceptions.
+     * This method finds an occurrence of a particular file name in a supplied
+     * ZIP file, and returns a ready-to-use ZIP Entry wrapped in an Optional, to
+     * avoid null pointer exceptions.
      *
      * @param zipFile
      *            The ZIP File to search for a specific File Name
@@ -69,14 +69,16 @@ public class ZipUtilities {
      * @return A ZIP Entry corresponding to a file match, or null if not
      *         present, but wrapped as an Optional for code safety
      */
-    public static Optional< ? extends ZipEntry > findFileNameInZip( final ZipFile zipFile,
-                                                                    final String fileName ) {
+    public static Optional< ? extends ZipEntry > findFileNameInZip(
+            final ZipFile zipFile,
+            final String fileName ) {
         // Each file access has to start a new stream due to auto-close.
         final Stream< ? extends ZipEntry > zipStream = zipFile.stream();
-        final Predicate< ZipEntry > isCorrectFileName = zipEntry -> zipEntry.getName()
-                .equals( fileName );
+        final Predicate< ZipEntry > isCorrectFileName = zipEntry
+                -> zipEntry.getName().equals( fileName );
     
-        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry.isDirectory();
+        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry
+                .isDirectory();
         final Optional< ? extends ZipEntry > optionalZipEntry = zipStream
                 .filter( isFile.and( isCorrectFileName ) ).findFirst();
     
@@ -95,14 +97,17 @@ public class ZipUtilities {
      * @return A ZIP Entry corresponding to the first match, or null if not
      *         present, but wrapped as an Optional for code safety
      */
-    public static Optional< ? extends ZipEntry > findFileTypeInZip( final ZipFile zipFile,
-                                                                    final String fileType ) {
+    public static Optional< ? extends ZipEntry > findFileTypeInZip(
+            final ZipFile zipFile,
+            final String fileType ) {
         // Each file access has to start a new stream due to auto-close.
         final Stream< ? extends ZipEntry > zipStream = zipFile.stream();
-        final Predicate< ZipEntry > isCorrectFileType = zipEntry -> FilenameUtils
-                .isExtension( zipEntry.getName().toLowerCase( Locale.ENGLISH ), fileType );
+        final Predicate< ZipEntry > isCorrectFileType = zipEntry
+                -> FilenameUtils.isExtension(
+                        zipEntry.getName().toLowerCase( Locale.ENGLISH ), fileType );
     
-        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry.isDirectory();
+        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry
+                .isDirectory();
         final Optional< ? extends ZipEntry > optionalZipEntry = zipStream
                 .filter( isFile.and( isCorrectFileType ) ).findFirst();
     

@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the JCommons Library
+ * This file is part of the jcommons Library
  *
- * You should have received a copy of the MIT License along with the
- * JCommons Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcommons
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
@@ -85,11 +85,11 @@ public final class LogUtilities {
             sessionLogHeader.append( "User Name: " ); //$NON-NLS-1$
             sessionLogHeader.append( userName );
             sessionLogHeader.append( System.lineSeparator() );
-            sessionLogHeader.append( "User Home Directory: " ); //$NON-NLS-1$
+            sessionLogHeader.append( "User Home Directory: " );
             sessionLogHeader.append( clientProperties.userHomeDirectory );
             sessionLogHeader.append( System.lineSeparator() );
 
-            sessionLogHeader.append( "Operating System: " ); //$NON-NLS-1$
+            sessionLogHeader.append( "Operating System: " );
             sessionLogHeader.append( clientProperties.osNameVerbose );
 
             sessionLogHeader.append( System.lineSeparator() );
@@ -99,16 +99,16 @@ public final class LogUtilities {
             final long used = total - free;
             final long max = rt.maxMemory();
             final double memoryFactor = 1024d * 1024d * 1024d;
-            fmt.format( "Memory Free: %.3f Gb", //$NON-NLS-1$
+            fmt.format( "Memory Free: %.3f Gb",
                         free / memoryFactor );
             fmt.format( System.lineSeparator() );
             fmt.format( "Memory Total: %.3f Gb", //$NON-NLS-1$
                         total / memoryFactor );
             fmt.format( System.lineSeparator() );
-            fmt.format( "Memory Used: %.3f Gb", //$NON-NLS-1$
+            fmt.format( "Memory Used: %.3f Gb",
                         used / memoryFactor );
             fmt.format( System.lineSeparator() );
-            fmt.format( "Memory Max: %.3f Gb", //$NON-NLS-1$
+            fmt.format( "Memory Max: %.3f Gb",
                         max / memoryFactor );
             sessionLogHeader.append( fmt );
 

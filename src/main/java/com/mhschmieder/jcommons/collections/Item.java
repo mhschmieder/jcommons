@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 Mark Schmieder. All rights reserved.
+ * Copyright (c) 2025, 2026 Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,16 @@
  *
  * Project: https://github.com/mhschmieder/jcommons
  */
-package com.mhschmieder.jcommons.lang;
+package com.mhschmieder.jcommons.collections;
 
+import com.mhschmieder.jcommons.lang.LabeledObject;
+
+/**
+ * An {@code Item} is a general wrapper for any Object in Java, simply allowing
+ * for creation of other frameworks of groupings and abstractions of objects.
+ *
+ * @param <T> the generic type of object that gets wrapped by {@code Item}
+ */
 public interface Item< T extends Item< T > > extends Comparable< T >,
         LabeledObject {
 
