@@ -12,12 +12,12 @@ module jcommons {
     exports com.mhschmieder.jcommons.time;
     exports com.mhschmieder.jcommons.util;
     exports com.mhschmieder.jcommons.xml;
-    requires org.apache.commons.io;
-    requires org.apache.commons.rng.api;
+    requires commons.math3;
     requires java.logging;
     requires java.management;
-    requires commons.math3;
-    requires org.apache.commons.lang3;
     requires java.prefs;
     requires java.xml;
+    requires org.apache.commons.io;
+    requires org.apache.commons.lang3;
+    requires org.apache.commons.rng.api;
 }

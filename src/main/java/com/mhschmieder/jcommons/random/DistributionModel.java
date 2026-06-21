@@ -29,6 +29,7 @@
  * Project: https://github.com/mhschmieder/jcommons
  */
 package com.mhschmieder.jcommons.random;
+
 import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Indexed;
 import com.mhschmieder.jcommons.lang.Labeled;
