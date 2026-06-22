@@ -48,5 +48,4 @@ module jcommons {
     requires java.xml;
     requires org.apache.commons.io;
     requires org.apache.commons.lang3;
-    requires org.apache.commons.rng.api;
 }
