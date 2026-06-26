@@ -51,31 +51,41 @@ public class FileDiagnostics {
     public static boolean checkFileExists( final String filePath,
                                            final String fileType,
                                            final boolean reportNotExists ) {
+        boolean fileExists = false;
         try {
             final Path path = Paths.get( filePath );
-            final boolean fileExists = Files.exists(
-                    path, LinkOption.NOFOLLOW_LINKS );
+            fileExists = checkFileExists( path, fileType, reportNotExists );
+        } catch ( final Exception e ) {
+            e.printStackTrace();
+            System.out.println(
+                    ">> " + fileType
+                            + " Invalid or Denied Access: " + filePath );
+        }
+
+        return fileExists;
+    }
+
+    public static boolean checkFileExists( final Path path,
+                                           final String fileType,
+                                           final boolean reportNotExists ) {
+        boolean fileExists = true;
+        try {
+            fileExists = Files.exists( path, LinkOption.NOFOLLOW_LINKS );
             if ( !fileExists ) {
                 if ( reportNotExists ) {
                     System.out.println(
-                            ">> "
-                            + fileType
-                            + " Does Not Exist or is Empty: "
-                            + filePath );
+                            ">> " + fileType
+                                    + " Does Not Exist or is Empty: " + path );
                 }
-                return false;
             }
         } catch ( final Exception e ) {
             e.printStackTrace();
             System.out.println(
-                    ">> "
-                    + fileType
-                    + " Invalid or Denied Access: "
-                    + filePath );
-            return false;
+                    ">> " + fileType
+                            + " Invalid or Denied Access: " + path );
         }
 
-        return true;
+        return fileExists;
     }
 
     /**
