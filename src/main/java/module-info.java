@@ -40,12 +40,10 @@ module jcommons {
     exports com.mhschmieder.jcommons.text;
     exports com.mhschmieder.jcommons.time;
     exports com.mhschmieder.jcommons.util;
-    exports com.mhschmieder.jcommons.xml;
     requires commons.math3;
     requires java.logging;
     requires java.management;
     requires java.prefs;
-    requires java.xml;
     requires org.apache.commons.io;
     requires org.apache.commons.lang3;
 }
