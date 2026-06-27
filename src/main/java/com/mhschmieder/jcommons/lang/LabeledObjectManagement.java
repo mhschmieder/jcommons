@@ -50,12 +50,12 @@ import java.util.Locale;
  * This is partially accomplished by providing a helper method in TextUtilities
  * for creating a {@link NumberFormat} object, and another for appending an int.
  */
-public class LabeledObjectManager {
+public class LabeledObjectManagement {
 
     /**
      * The default constructor is disabled, as this is a static utilities class.
      */
-    private LabeledObjectManager() {}
+    private LabeledObjectManagement() {}
 
 
     // Find out if the candidate label is unique.

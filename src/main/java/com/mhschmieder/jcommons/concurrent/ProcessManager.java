@@ -48,14 +48,14 @@ public class ProcessManager {
     private static final HashMap< Integer, Process > processMap
             = new HashMap<>();
 
-    private static final HashMap< Integer, BufferedWriter > inputMap =
-            new HashMap<>();
+    private static final HashMap< Integer, BufferedWriter > inputMap
+            = new HashMap<>();
 
-    private static final HashMap< Integer, BufferedReader > outputMap =
-            new HashMap<>();
+    private static final HashMap< Integer, BufferedReader > outputMap
+            = new HashMap<>();
 
-    private static final ExecutorService executor =
-            Executors.newCachedThreadPool( Executors.defaultThreadFactory() );
+    private static final ExecutorService executor = Executors
+            .newCachedThreadPool( Executors.defaultThreadFactory() );
 
     private ProcessManager() {
     }
