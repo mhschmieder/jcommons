@@ -56,7 +56,7 @@ public class FileExtensions {
 
     public static final String DXF_DESCRIPTION             =
                                                                           "AutoCAD DXF";                       //$NON-NLS-1$
-    public static final String  XF_EXTENSIONS              = "*.dxf";
+    public static final String DXF_EXTENSIONS = "*.dxf";
 
     public static final String EPS_DESCRIPTION             =
                                                                           "Encapsulated PostScript";           //$NON-NLS-1$
