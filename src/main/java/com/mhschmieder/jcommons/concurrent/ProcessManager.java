@@ -37,6 +37,7 @@ import java.io.OutputStreamWriter;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,13 +46,10 @@ public class ProcessManager {
     private static final Logger LOGGER = System.getLogger(
             ProcessManager.class.getName() );
 
-    private static final HashMap< Integer, Process > processMap
+    private static final Map< Integer, Process > processMap = new HashMap<>();
+    private static final Map< Integer, BufferedWriter > inputMap
             = new HashMap<>();
-
-    private static final HashMap< Integer, BufferedWriter > inputMap
-            = new HashMap<>();
-
-    private static final HashMap< Integer, BufferedReader > outputMap
+    private static final Map< Integer, BufferedReader > outputMap
             = new HashMap<>();
 
     private static final ExecutorService executor = Executors
