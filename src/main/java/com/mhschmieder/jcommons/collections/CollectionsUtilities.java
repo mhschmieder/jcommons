@@ -31,7 +31,7 @@
 package com.mhschmieder.jcommons.collections;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@code CollectionsUtilities} is a static utilities class for common tools
@@ -45,25 +45,24 @@ public final class CollectionsUtilities {
     private CollectionsUtilities() {}
 
     /**
-     * Returns the current physical capacity of the supplied {@link ArrayList}.
+     * Returns the current physical capacity of the supplied {@link List}.
      * 
-     * @param arrayList The {@link ArrayList} whose capacity will be queried
-     * @return The current physical capacity of the supplied {@link ArrayList}
+     * @param list The {@link List} whose capacity will be queried
+     * @return The current physical capacity of the supplied {@link List}
      * @throws Exception Thrown if the {@code elementData} field does not exist
      */
-    public static int getPhysicalCapacity( final ArrayList arrayList ) 
-        throws Exception {
+    public static int getPhysicalCapacity( final List< ? > list )
+            throws Exception {
         // Starting with Java 8, new collections have capacity of zero, so treat
         // invalid references the same way. The first element added, changes the
         // ArrayList size to its default size or its specified initial capacity.
-        if ( arrayList == null ) {
+        if ( list == null ) {
             return 0;
         }
         
-        final Field field = ArrayList.class.getDeclaredField(
-                "elementData" );
+        final Field field = List.class.getDeclaredField( "elementData" );
         field.setAccessible(  true  );
         
-        return ( ( Object[] ) field.get(  arrayList  ) ).length;
+        return ( ( Object[] ) field.get(  list  ) ).length;
     }
 }
