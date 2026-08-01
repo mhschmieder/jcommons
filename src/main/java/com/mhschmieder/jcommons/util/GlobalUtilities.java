@@ -31,6 +31,7 @@
 package com.mhschmieder.jcommons.util;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.math3.util.FastMath;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -60,7 +61,7 @@ public class GlobalUtilities {
         // Figure out maximum number of columns in a line.
         int maxColumn = 0;
         for ( final Collection< String > line : vector ) {
-            maxColumn = Math.max( maxColumn, line.size() );
+            maxColumn = FastMath.max( maxColumn, line.size() );
         }
 
         // Expand all lines to the maximum number of columns.

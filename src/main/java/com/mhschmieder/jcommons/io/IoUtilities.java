@@ -34,6 +34,7 @@ import com.mhschmieder.jcommons.lang.StringConstants;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.SwappedDataInputStream;
+import org.apache.commons.math3.util.FastMath;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -121,7 +122,7 @@ public final class IoUtilities {
         }
 
         final int totalDataLength = dataOffset + numberOfDataPoints;
-        final int dataIndexLast = Math.min( totalDataLength, data.length ) - 1;
+        final int dataIndexLast = FastMath.min( totalDataLength, data.length ) - 1;
 
         try {
             // Load data into a double-precision array, pre-filling and/or

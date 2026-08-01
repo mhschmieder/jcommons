@@ -32,6 +32,7 @@ package com.mhschmieder.jcommons.util;
 
 import com.mhschmieder.jcommons.io.IoUtilities;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.math3.util.FastMath;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -76,8 +77,9 @@ public class PreferenceUtilities {
     // TODO: Use the same collection or array type for load and save.
     public static void saveMruPreferences( final List< String > mruFilenames,
                                            final Preferences preferences ) {
-        final int maximumNumberOfMruFiles = Math.min( PreferenceUtilities.MRU_CACHE_SIZE, 
-                                                      mruFilenames.size() );
+        final int maximumNumberOfMruFiles = FastMath.min(
+                PreferenceUtilities.MRU_CACHE_SIZE,
+                mruFilenames.size() );
     
         for ( int i = 0; i < maximumNumberOfMruFiles; i++ ) {
             final String mruFilename = mruFilenames.get( i );
