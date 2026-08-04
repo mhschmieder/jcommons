@@ -29,6 +29,7 @@
  * Project: https://github.com/mhschmieder/jcommons
  */
 /**
- * This package contains custom classes for collection-oriented building blocks.
+ * This package contains custom classes for collection-oriented building
+ * blocks.
  */
 package com.mhschmieder.jcommons.collections;

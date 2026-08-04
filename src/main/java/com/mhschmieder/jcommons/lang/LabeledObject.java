@@ -35,5 +35,4 @@ public interface LabeledObject {
     String getLabel();
 
     void setLabel( final String label );
-
 }

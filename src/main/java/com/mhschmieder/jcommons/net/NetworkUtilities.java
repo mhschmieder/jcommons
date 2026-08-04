@@ -49,13 +49,16 @@ import java.net.UnknownHostException;
 public final class NetworkUtilities {
 
     // Define a generalized server connection error for the status bar, etc.
-    public static final String SERVER_CONNECTION_ERROR_MESSAGE = "Error Connecting to Server."; //$NON-NLS-1$
-    public static final String AUTHORIZATION_ERROR_MESSAGE     = "Server Authorization Error."; //$NON-NLS-1$
+    public static final String SERVER_CONNECTION_ERROR_MESSAGE
+            = "Error Connecting to Server."; //$NON-NLS-1$
+    public static final String AUTHORIZATION_ERROR_MESSAGE
+            = "Server Authorization Error."; //$NON-NLS-1$
 
     // Declare the property value for UTF-8 encoded text content.
-    public static final String UTF8_ENCODED_TEXT_CONTENT       = "text/plain; charset=utf-8";   //$NON-NLS-1$
+    public static final String UTF8_ENCODED_TEXT_CONTENT
+            = "text/plain; charset=utf-8";   //$NON-NLS-1$
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static void addServerRequestProperties( final HttpURLConnection httpURLConnection,
                                                    final String requestType,
                                                    final LoginCredentials loginCredentials,
@@ -80,17 +83,22 @@ public final class NetworkUtilities {
             final String passwordEncoded = URLEncoder.encode( password, enc );
             httpURLConnection.setRequestProperty( "password", passwordEncoded );
 
-            httpURLConnection
-                    .setRequestProperty( "buildID",
-                                         Integer.toString( httpServletRequestProperties.clientBuildId ) );
+            httpURLConnection.setRequestProperty( "buildID",
+                                                  Integer.toString(
+                                                          httpServletRequestProperties.clientBuildId ) );
             httpURLConnection.setRequestProperty( "clientType",
                                                   httpServletRequestProperties.clientType );
-            httpURLConnection.setRequestProperty( "client", httpServletRequestProperties.localHostName );
-            httpURLConnection.setRequestProperty( "server", httpServletRequestProperties.webHostName );
+            httpURLConnection.setRequestProperty( "client",
+                                                  httpServletRequestProperties.localHostName );
+            httpURLConnection.setRequestProperty( "server",
+                                                  httpServletRequestProperties.webHostName );
 
-            httpURLConnection.setRequestProperty( "clientOS", clientProperties.osNameVerbose );
-            httpURLConnection.setRequestProperty( "screenSizeX", Double.toString( screenWidth ) );
-            httpURLConnection.setRequestProperty( "screenSizeY", Double.toString( screenHeight ) );
+            httpURLConnection.setRequestProperty( "clientOS",
+                                                  clientProperties.osNameVerbose );
+            httpURLConnection.setRequestProperty( "screenSizeX",
+                                                  Double.toString( screenWidth ) );
+            httpURLConnection.setRequestProperty( "screenSizeY",
+                                                  Double.toString( screenHeight ) );
         }
         catch ( final Exception e ) {
             e.printStackTrace();
@@ -107,14 +115,20 @@ public final class NetworkUtilities {
         }
         catch ( final UnknownHostException uhe ) {
             uhe.printStackTrace();
-            statusMessage = "Server Connection Error: Network Connection and/or Server Unavailable." //$NON-NLS-1$
+            statusMessage =
+                    "Server Connection Error: Network Connection and/or "
+                    + "Server Unavailable."
+                    //$NON-NLS-1$
                     + " Unable to connect to " + serviceType //$NON-NLS-1$
                     + " service."; //$NON-NLS-1$
             return statusMessage;
         }
         catch ( final NoRouteToHostException nrthe ) {
             nrthe.printStackTrace();
-            statusMessage = "Server Routing Error: Server Routing Unavailable or Incorrect." //$NON-NLS-1$
+            statusMessage =
+                    "Server Routing Error: Server Routing Unavailable or "
+                    + "Incorrect."
+                    //$NON-NLS-1$
                     + " Unable to connect to " + serviceType //$NON-NLS-1$
                     + " service."; //$NON-NLS-1$
             return statusMessage;
@@ -122,17 +136,21 @@ public final class NetworkUtilities {
         catch ( final SocketTimeoutException ste ) {
             ste.printStackTrace();
             statusMessage =
-                          "Socket Timeout Error: Timeout Expired Before Server Connection Established." //$NON-NLS-1$
-                                  + " Unable to connect to " + serviceType //$NON-NLS-1$
-                                  + " service."; //$NON-NLS-1$
+                    "Socket Timeout Error: Timeout Expired Before Server "
+                    + "Connection Established."
+                    //$NON-NLS-1$
+                    + " Unable to connect to " + serviceType //$NON-NLS-1$
+                    + " service."; //$NON-NLS-1$
             return statusMessage;
         }
         catch ( final IOException ioe ) {
             ioe.printStackTrace();
             statusMessage =
-                          "Server Connection Error: I/O Error Occurred While Opening Server Connection." //$NON-NLS-1$
-                                  + "Unable to connect to " + serviceType //$NON-NLS-1$
-                                  + " service."; //$NON-NLS-1$
+                    "Server Connection Error: I/O Error Occurred While "
+                    + "Opening Server Connection."
+                    //$NON-NLS-1$
+                    + "Unable to connect to " + serviceType //$NON-NLS-1$
+                    + " service."; //$NON-NLS-1$
             return statusMessage;
         }
 
@@ -141,7 +159,7 @@ public final class NetworkUtilities {
 
     // Utility method to get an Authorization Server Response after handling
     // its Response Code, Response Message and Header Fields.
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static AuthorizationServerResponse getAuthorizationServerResponse( final HttpURLConnection httpURLConnection ) {
         // Pre-load a generalized server connection error, separate from
         // detailed error and exception logging.
@@ -154,7 +172,8 @@ public final class NetworkUtilities {
         int httpResponseCode = HttpURLConnection.HTTP_NOT_FOUND;
 
         // If there were any servlet errors, forward for post-processing.
-        final String servletErrorMessage = httpURLConnection.getHeaderField( "errorMessage" );
+        final String servletErrorMessage = httpURLConnection.getHeaderField(
+                "errorMessage" );
 
         // Find out if the user is authorized, and if not, erase their login
         // information to make it harder for them to hack into the system.
@@ -166,51 +185,53 @@ public final class NetworkUtilities {
         // attach a special HTTP Authorization header field, so we are
         // disobeying the HTTP spec (we're supposed to provide password hints).
         final boolean authorizedOnServer =
-                                         httpURLConnection.getHeaderFieldInt( "validUser", 1 ) != 0;
+                httpURLConnection.getHeaderFieldInt( "validUser", 1 ) != 0;
 
         // Get the detailed user authorization message.
-        final String authorizationMessage = httpURLConnection
-                .getHeaderField( "authorizationMessage" );
+        final String authorizationMessage = httpURLConnection.getHeaderField(
+                "authorizationMessage" );
 
         // Overload the cached user license expiration date if a valid one was
         // returned; otherwise do not disturb the current cached value, as this
         // could lead to annoying multiple login dialogs.
-        final long expirationDate = httpURLConnection
-                .getHeaderFieldDate( "expirationDate",
-                                     ServerLoginCredentials.EXPIRATION_DATE_DEFAULT );
+        final long expirationDate = httpURLConnection.getHeaderFieldDate(
+                "expirationDate",
+                ServerLoginCredentials.EXPIRATION_DATE_DEFAULT );
 
         try {
             // Get the combined HTTP Response returned by the URL Connection.
-            httpResponse = NetworkUtilities.getHttpResponse( httpURLConnection );
+            httpResponse
+                    = NetworkUtilities.getHttpResponse( httpURLConnection );
 
             // Switch on the HTTP Response Code for pre-processing.
             httpResponseCode = httpURLConnection.getResponseCode();
             switch ( httpResponseCode ) {
-            case HttpURLConnection.HTTP_OK:
-                // Nothing to do; don't return a message as that means an
-                // error was seen on the server.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_INTERNAL_ERROR:
-                // Don't punish or confuse the user if there was an internal
-                // server error, as we don't let those affect downstream
-                // data. The error message was already dumped to the log.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_SEE_OTHER:
-                // This HTTP code is for a server indirection, which we have
-                // little if any control over and therefore should not punish
-                // the user.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_PRECON_FAILED:
-            case HttpURLConnection.HTTP_UNAUTHORIZED:
-            case HttpURLConnection.HTTP_NO_CONTENT:
-            case HttpURLConnection.HTTP_NOT_FOUND:
-            default:
-                // Propagate the HTTP error code to the caller to avoid
-                // loading non-existent resources.
-                break;
+                case HttpURLConnection.HTTP_OK:
+                    // Nothing to do; don't return a message as that means an
+                    // error was seen on the server.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_INTERNAL_ERROR:
+                    // Don't punish or confuse the user if there was an internal
+                    // server error, as we don't let those affect downstream
+                    // data. The error message was already dumped to the log.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_SEE_OTHER:
+                    // This HTTP code is for a server indirection, which we have
+                    // little if any control over and therefore should not
+                    // punish
+                    // the user.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_PRECON_FAILED:
+                case HttpURLConnection.HTTP_UNAUTHORIZED:
+                case HttpURLConnection.HTTP_NO_CONTENT:
+                case HttpURLConnection.HTTP_NOT_FOUND:
+                default:
+                    // Propagate the HTTP error code to the caller to avoid
+                    // loading non-existent resources.
+                    break;
             }
         }
         catch ( final IOException ioe ) {
@@ -219,27 +240,15 @@ public final class NetworkUtilities {
         }
 
         // Construct an Authorization Server Response object for status/context.
-        final AuthorizationServerResponse authorizationServerResponse =
-                                                                      new AuthorizationServerResponse( serverStatusMessage,
-                                                                                                       servletErrorMessage,
-                                                                                                       authorizedOnServer,
-                                                                                                       authorizationMessage,
-                                                                                                       expirationDate,
-                                                                                                       httpResponse,
-                                                                                                       httpResponseCode );
+        final AuthorizationServerResponse authorizationServerResponse
+                = new AuthorizationServerResponse( serverStatusMessage,
+                                                   servletErrorMessage,
+                                                   authorizedOnServer,
+                                                   authorizationMessage,
+                                                   expirationDate,
+                                                   httpResponse,
+                                                   httpResponseCode );
         return authorizationServerResponse;
-    }
-
-    // Utility method to get a URL for a CGI script.
-    // NOTE: This is hard-wired for now, but we should investigate whether
-    // there are any available method calls that will return the CGI directory
-    // of the website automatically.
-    @SuppressWarnings("nls")
-    public static URL getCgiFileURL( final String protocol,
-                                     final String hostname,
-                                     final int port,
-                                     final String filename ) {
-        return NetworkUtilities.getRelativeURL( protocol, hostname, port, "/cgi-bin/" + filename );
     }
 
     // Utility method to get a string representing an HTTP Response Code
@@ -264,9 +273,44 @@ public final class NetworkUtilities {
         return httpResponse.toString();
     }
 
+    // Utility method to get a URL for a CGI script.
+    // NOTE: This is hard-wired for now, but we should investigate whether
+    // there are any available method calls that will return the CGI directory
+    // of the website automatically.
+    @SuppressWarnings( "nls" )
+    public static URL getCgiFileURL( final String protocol,
+                                     final String hostname,
+                                     final int port,
+                                     final String filename ) {
+        return NetworkUtilities.getRelativeURL( protocol,
+                                                hostname,
+                                                port,
+                                                "/cgi-bin/" + filename );
+    }
+
+    // Utility method to get a relative URL for a server file.
+    // NOTE: We specify the website directly rather than using getCodebase(),
+    // as the latter gives us a location on the user's hard drive. Note also
+    // that we don't specify "/html" for the main web page directory, as the
+    // web server itself is a relative URL.
+    @SuppressWarnings( "nls" )
+    public static URL getRelativeURL( final String protocol,
+                                      final String hostname,
+                                      final int port,
+                                      final String filename ) {
+        try {
+            final String filepath = "/" + filename;
+            return new URL( protocol, hostname, port, filepath );
+        }
+        catch ( final MalformedURLException mue ) {
+            mue.printStackTrace();
+            return null;
+        }
+    }
+
     // Utility method to get an HTTP connection for a given URL, using the
     // default POST request method and UTF-8 encoded text content type.
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static HttpURLConnection getHttpURLConnection( final URL url ) {
         // NOTE: The "POST" request method is inferred by "setDoOutput" but
         // could also be "PUT" or "HEAD" in that context.
@@ -278,17 +322,20 @@ public final class NetworkUtilities {
     // TODO: Review the Content-Type to make sure it's appropriate for ZIP.
     public static HttpURLConnection getHttpURLConnection( final URL url,
                                                           final String requestMethod ) {
-        return getHttpURLConnection( url, requestMethod, UTF8_ENCODED_TEXT_CONTENT );
+        return getHttpURLConnection( url,
+                                     requestMethod,
+                                     UTF8_ENCODED_TEXT_CONTENT );
     }
 
     // Utility method to get an HTTP connection for a given URL, request
     // method, and content type.
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static HttpURLConnection getHttpURLConnection( final URL url,
                                                           final String requestMethod,
                                                           final String contentType ) {
         try {
-            final HttpURLConnection httpURLConnection = ( HttpURLConnection ) url.openConnection();
+            final HttpURLConnection httpURLConnection
+                    = ( HttpURLConnection ) url.openConnection();
 
             // The request method is one of: DELETE, GET, HEAD, OPTIONS, POST,
             // PUT, TRACE.
@@ -334,15 +381,16 @@ public final class NetworkUtilities {
     public static URL getJarResourceAsUrl( final String jarRelativePackagePath,
                                            final String resourceNameUnqualified,
                                            final String fileExtension ) {
-        final String jarResourceFilename = IoUtilities
-                .getJarResourceFilename( jarRelativePackagePath,
-                                         resourceNameUnqualified,
-                                         fileExtension );
+        final String jarResourceFilename = IoUtilities.getJarResourceFilename(
+                jarRelativePackagePath,
+                resourceNameUnqualified,
+                fileExtension );
 
         // Get the URL associated with the JAR-loaded resource.
         // NOTE: This doesn't work well between projects and libraries, so
         //  should be replaced by local uses of getResource() vs. calls here.
-        final URL jarResourceUrl = NetworkUtilities.class.getResource( jarResourceFilename );
+        final URL jarResourceUrl = NetworkUtilities.class.getResource(
+                jarResourceFilename );
 
         return jarResourceUrl;
     }
@@ -361,80 +409,68 @@ public final class NetworkUtilities {
         int httpResponseCode = HttpURLConnection.HTTP_NOT_FOUND;
 
         // If there were any servlet errors, forward for post-processing.
-        final String servletErrorMessage = httpURLConnection.getHeaderField( "errorMessage" ); //$NON-NLS-1$
+        final String servletErrorMessage = httpURLConnection.getHeaderField(
+                "errorMessage" ); //$NON-NLS-1$
 
         // In case it's needed, forward any Unauthorized User message.
-        final String unauthorizedUserMessage = httpURLConnection
-                .getHeaderField( "authorizationMessage" ); //$NON-NLS-1$
+        final String unauthorizedUserMessage = httpURLConnection.getHeaderField(
+                "authorizationMessage" ); //$NON-NLS-1$
 
         try {
             // Get the combined HTTP Response returned by the URL Connection.
-            httpResponse = NetworkUtilities.getHttpResponse( httpURLConnection );
+            httpResponse
+                    = NetworkUtilities.getHttpResponse( httpURLConnection );
 
             // Switch on the HTTP Response Code for pre-processing.
             httpResponseCode = httpURLConnection.getResponseCode();
             switch ( httpResponseCode ) {
-            case HttpURLConnection.HTTP_OK:
-                // Nothing to do; don't return a message as that means an
-                // error was seen on the server.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_INTERNAL_ERROR:
-                // Don't punish or confuse the user if there was an internal
-                // server error, as we don't let those affect downstream
-                // data. The error message was already dumped to the log.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_SEE_OTHER:
-                // This HTTP code is for a server indirection, which we have
-                // little if any control over and therefore should not punish
-                // the user.
-                serverStatusMessage = null;
-                break;
-            case HttpURLConnection.HTTP_PRECON_FAILED:
-            case HttpURLConnection.HTTP_UNAUTHORIZED:
-            case HttpURLConnection.HTTP_NO_CONTENT:
-            case HttpURLConnection.HTTP_NOT_FOUND:
-            default:
-                // Propagate the HTTP error code to the caller to avoid
-                // loading non-existent resources.
-                break;
+                case HttpURLConnection.HTTP_OK:
+                    // Nothing to do; don't return a message as that means an
+                    // error was seen on the server.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_INTERNAL_ERROR:
+                    // Don't punish or confuse the user if there was an internal
+                    // server error, as we don't let those affect downstream
+                    // data. The error message was already dumped to the log.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_SEE_OTHER:
+                    // This HTTP code is for a server indirection, which we have
+                    // little if any control over and therefore should not
+                    // punish
+                    // the user.
+                    serverStatusMessage = null;
+                    break;
+                case HttpURLConnection.HTTP_PRECON_FAILED:
+                case HttpURLConnection.HTTP_UNAUTHORIZED:
+                case HttpURLConnection.HTTP_NO_CONTENT:
+                case HttpURLConnection.HTTP_NOT_FOUND:
+                default:
+                    // Propagate the HTTP error code to the caller to avoid
+                    // loading non-existent resources.
+                    break;
             }
         }
         catch ( final IOException ioe ) {
             ioe.printStackTrace();
-            serverStatusMessage = "Server Communication Error: Response Incomplete or Not Received." //$NON-NLS-1$
-                    + "\nUnable to extract data response from server."; //$NON-NLS-1$
+            serverStatusMessage =
+                    "Server Communication Error: Response Incomplete or Not "
+                    + "Received."
+                    //$NON-NLS-1$
+                    + "\nUnable to extract data response from server.";
+            //$NON-NLS-1$
         }
 
         // Construct a Data Server Response object for status/context.
-        final DataServerResponse dataServerResponse = new DataServerResponse( serverStatusMessage,
-                                                                              servletErrorMessage,
-                                                                              unauthorizedUserMessage,
-                                                                              httpResponse,
-                                                                              httpResponseCode,
-                                                                              null );
+        final DataServerResponse dataServerResponse = new DataServerResponse(
+                serverStatusMessage,
+                servletErrorMessage,
+                unauthorizedUserMessage,
+                httpResponse,
+                httpResponseCode,
+                null );
         return dataServerResponse;
-    }
-
-    // Utility method to get a relative URL for a server file.
-    // NOTE: We specify the website directly rather than using getCodebase(),
-    // as the latter gives us a location on the user's hard drive. Note also
-    // that we don't specify "/html" for the main web page directory, as the
-    // web server itself is a relative URL.
-    @SuppressWarnings("nls")
-    public static URL getRelativeURL( final String protocol,
-                                      final String hostname,
-                                      final int port,
-                                      final String filename ) {
-        try {
-            final String filepath = "/" + filename;
-            return new URL( protocol, hostname, port, filepath );
-        }
-        catch ( final MalformedURLException mue ) {
-            mue.printStackTrace();
-            return null;
-        }
     }
 
     // Utility method to send a serialized object over an HTTP connection.
@@ -443,8 +479,8 @@ public final class NetworkUtilities {
                                           final boolean closeStream ) {
         try {
             // Send the request query object to the server.
-            final ObjectOutputStream oos = new ObjectOutputStream( httpURLConnection
-                    .getOutputStream() );
+            final ObjectOutputStream oos = new ObjectOutputStream(
+                    httpURLConnection.getOutputStream() );
             oos.writeObject( requestObject );
             oos.flush();
             if ( closeStream ) {

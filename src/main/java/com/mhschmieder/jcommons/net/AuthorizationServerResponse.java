@@ -39,14 +39,20 @@ package com.mhschmieder.jcommons.net;
  */
 public final class AuthorizationServerResponse extends HttpServletResponse {
 
-    /** Simple flag for whether user is authorized on server or not. */
+    /**
+     * Simple flag for whether user is authorized on server or not.
+     */
     private boolean _authorizedOnServer;
 
-    /** Detailed description of user authorization status. */
-    private String  _authorizationMessage;
+    /**
+     * Detailed description of user authorization status.
+     */
+    private String _authorizationMessage;
 
-    /** Long date format of user account expiration (ISO date format). */
-    private long    _expirationDate;
+    /**
+     * Long date format of user account expiration (ISO date format).
+     */
+    private long _expirationDate;
 
     public AuthorizationServerResponse( final String serverStatusMessage,
                                         final String servletErrorMessage,

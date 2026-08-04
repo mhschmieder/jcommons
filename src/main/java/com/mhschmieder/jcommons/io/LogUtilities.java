@@ -51,19 +51,20 @@ import java.util.Map.Entry;
 public final class LogUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private LogUtilities() {}
+    private LogUtilities() {
+    }
 
     /**
      * Print critical info about the client, the user and their computer.
      *
-     * @param clientProperties
-     *            The @ClientProperties for system and user-specific settings
-     * @param productBranding
-     *            The @ProductBranding terms approved by Marketing
-     * @param cssStylesheet
-     *            The name of the CSS Stylesheet used as the top-level default
+     * @param clientProperties The @ClientProperties for system and
+     *                         user-specific settings
+     * @param productBranding  The @ProductBranding terms approved by Marketing
+     * @param cssStylesheet    The name of the CSS Stylesheet used as the
+     *                         top-level default
      */
     public static void generateSessionLogHeader( final ClientProperties clientProperties,
                                                  final ProductBranding productBranding,
@@ -80,7 +81,8 @@ public final class LogUtilities {
         sessionLogHeader.append( System.lineSeparator() );
 
         try ( final Formatter fmt = new Formatter() ) {
-            final String userName = System.getProperty( "user.name" ); //$NON-NLS-1$
+            final String userName
+                    = System.getProperty( "user.name" ); //$NON-NLS-1$
 
             sessionLogHeader.append( "User Name: " ); //$NON-NLS-1$
             sessionLogHeader.append( userName );
@@ -99,41 +101,40 @@ public final class LogUtilities {
             final long used = total - free;
             final long max = rt.maxMemory();
             final double memoryFactor = 1024d * 1024d * 1024d;
-            fmt.format( "Memory Free: %.3f Gb",
-                        free / memoryFactor );
+            fmt.format( "Memory Free: %.3f Gb", free / memoryFactor );
             fmt.format( System.lineSeparator() );
             fmt.format( "Memory Total: %.3f Gb", //$NON-NLS-1$
                         total / memoryFactor );
             fmt.format( System.lineSeparator() );
-            fmt.format( "Memory Used: %.3f Gb",
-                        used / memoryFactor );
+            fmt.format( "Memory Used: %.3f Gb", used / memoryFactor );
             fmt.format( System.lineSeparator() );
-            fmt.format( "Memory Max: %.3f Gb",
-                        max / memoryFactor );
+            fmt.format( "Memory Max: %.3f Gb", max / memoryFactor );
             sessionLogHeader.append( fmt );
 
             final RuntimeMXBean bean = ManagementFactory.getRuntimeMXBean();
             final Map< String, String > propList = bean.getSystemProperties();
             for ( final Entry< String, String > entry : propList.entrySet() ) {
                 switch ( entry.getKey() ) {
-                case "gopherProxySet": //$NON-NLS-1$
-                case "http.nonProxyHosts": //$NON-NLS-1$
-                case "ftp.nonProxyHosts": //$NON-NLS-1$
-                case "socksNonProxyHosts": //$NON-NLS-1$
-                case "user.language": //$NON-NLS-1$
-                    sessionLogHeader.append( System.lineSeparator() );
-                    sessionLogHeader.append( entry );
-                    break;
-                default:
-                    break;
+                    case "gopherProxySet": //$NON-NLS-1$
+                    case "http.nonProxyHosts": //$NON-NLS-1$
+                    case "ftp.nonProxyHosts": //$NON-NLS-1$
+                    case "socksNonProxyHosts": //$NON-NLS-1$
+                    case "user.language": //$NON-NLS-1$
+                        sessionLogHeader.append( System.lineSeparator() );
+                        sessionLogHeader.append( entry );
+                        break;
+                    default:
+                        break;
                 }
             }
             sessionLogHeader.append( System.lineSeparator() );
             sessionLogHeader.append( "Java Uptime: " ); //$NON-NLS-1$
             sessionLogHeader.append( bean.getUptime() );
 
-            final String javaVersion = System.getProperty( "java.version" ); //$NON-NLS-1$
-            final String javaFxVersion = System.getProperty( "javafx.version" ); //$NON-NLS-1$
+            final String javaVersion
+                    = System.getProperty( "java.version" ); //$NON-NLS-1$
+            final String javaFxVersion
+                    = System.getProperty( "javafx.version" ); //$NON-NLS-1$
 
             sessionLogHeader.append( System.lineSeparator() );
             sessionLogHeader.append( "Java Version: " ); //$NON-NLS-1$
@@ -158,8 +159,7 @@ public final class LogUtilities {
     /**
      * Function for redirecting logging away from stdout and stderr to a file.
      *
-     * @param sessionLogFileName
-     *            Full path name of the session log file.
+     * @param sessionLogFileName Full path name of the session log file.
      */
     public static void redirectLogging( final String sessionLogFileName ) {
         // Chain a BufferedReader to an InputStreamReader to a FileInputStream,
@@ -172,11 +172,10 @@ public final class LogUtilities {
         // close right away vs. staying available for logging.
         // final LogOutputStream sessionLogOutputStream = new LogOutputStream();
         try {
-            final FileOutputStream sessionLogOutputStream =
-                                                          new FileOutputStream( sessionLogFileName );
-            @SuppressWarnings("resource") final PrintStream stdout =
-                                                                   new PrintStream( sessionLogOutputStream,
-                                                                                    true );
+            final FileOutputStream sessionLogOutputStream
+                    = new FileOutputStream( sessionLogFileName );
+            @SuppressWarnings( "resource" ) final PrintStream stdout
+                    = new PrintStream( sessionLogOutputStream, true );
             System.setOut( stdout );
             System.setErr( stdout );
         }
@@ -198,12 +197,12 @@ public final class LogUtilities {
         //  simply redirect to a file in the user's default temporary directory.
         // try ( final LogOutputStream sessionLogOutputStream = new
         // LogOutputStream() ) {
-        try ( final FileInputStream fileInputStream 
-                        = new FileInputStream( sessionLogFilename );
-                final InputStreamReader inputStreamReader
-                        = new InputStreamReader( fileInputStream );
-                final BufferedReader bufferedReader 
-                        = new BufferedReader( inputStreamReader ) ) {
+        try ( final FileInputStream fileInputStream = new FileInputStream(
+                sessionLogFilename );
+              final InputStreamReader inputStreamReader = new InputStreamReader(
+                      fileInputStream );
+              final BufferedReader bufferedReader = new BufferedReader(
+                      inputStreamReader ) ) {
             String line;
             while ( ( line = bufferedReader.readLine() ) != null ) {
                 // NOTE: Need the new line character as it gets discarded by

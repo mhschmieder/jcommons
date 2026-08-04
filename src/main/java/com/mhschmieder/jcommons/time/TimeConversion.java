@@ -32,52 +32,48 @@ package com.mhschmieder.jcommons.time;
 
 public final class TimeConversion {
 
-    /**
-     * The default constructor is disabled, as this is a static constants class.
-     */
-    private TimeConversion() {}
-
     public static final double MILLIS_TO_NANOS = 1_000_000.0d;
     public static final double SECONDS_TO_NANOS = MILLIS_TO_NANOS * 1_000.0d;
     public static final double MINUTES_TO_NANOS = SECONDS_TO_NANOS * 60.0d;
     public static final double HOURS_TO_NANOS = MINUTES_TO_NANOS * 60.0d;
     public static final double DAYS_TO_NANOS = HOURS_TO_NANOS * 24.0d;
-
-    public static final double NANOS_TO_MILLIS = 1.0d / MILLIS_TO_NANOS;
-    public static final double SECONDS_TO_MILLIS = SECONDS_TO_NANOS
-            / MILLIS_TO_NANOS;
-    public static final double MINUTES_TO_MILLIS = MINUTES_TO_NANOS
-            / MILLIS_TO_NANOS;
-    public static final double HOURS_TO_MILLIS = HOURS_TO_NANOS
-            / MILLIS_TO_NANOS;
     public static final double DAYS_TO_MILLIS = DAYS_TO_NANOS / MILLIS_TO_NANOS;
-
-    public static final double NANOS_TO_SECONDS = 1.0d / SECONDS_TO_NANOS;
-    public static final double MILLIS_TO_SECONDS = 1.0d / NANOS_TO_MILLIS;
-    public static final double MINUTES_TO_SECONDS = MINUTES_TO_NANOS
-            / SECONDS_TO_NANOS;
-    public static final double HOURS_TO_SECONDS = HOURS_TO_NANOS
-            / SECONDS_TO_NANOS;
-    public static final double DAYS_TO_SECONDS = DAYS_TO_NANOS
-            / SECONDS_TO_NANOS;
-
-    public static final double NANOS_TO_MINUTES = 1.0d / MINUTES_TO_NANOS;
-    public static final double MILLIS_TO_MINUTES = 1.0d / MINUTES_TO_MILLIS;
-    public static final double SECONDS_TO_MINUTES = 1.0d / MINUTES_TO_SECONDS;
-    public static final double HOURS_TO_MINUTES = HOURS_TO_NANOS
-            / MINUTES_TO_NANOS;
-    public static final double DAYS_TO_MINUTES = DAYS_TO_NANOS
-            / MINUTES_TO_NANOS;
-
-    public static final double NANOS_TO_HOURS = 1.0d / HOURS_TO_NANOS;
-    public static final double MILLIS_TO_HOURS = 1.0d / HOURS_TO_MILLIS;
-    public static final double SECONDS_TO_HOURS = 1.0d / HOURS_TO_SECONDS;
-    public static final double MINUTES_TO_HOURS = 1.0d / HOURS_TO_MINUTES;
-    public static final double DAYS_TO_HOURS = DAYS_TO_NANOS / HOURS_TO_NANOS;
-
-    public static final double NANOS_TO_DAYS = 1.0d / DAYS_TO_NANOS;
     public static final double MILLIS_TO_DAYS = 1.0d / DAYS_TO_MILLIS;
+    public static final double DAYS_TO_SECONDS = DAYS_TO_NANOS
+                                                 / SECONDS_TO_NANOS;
     public static final double SECONDS_TO_DAYS = 1.0d / DAYS_TO_SECONDS;
+    public static final double DAYS_TO_MINUTES = DAYS_TO_NANOS
+                                                 / MINUTES_TO_NANOS;
     public static final double MINUTES_TO_DAYS = 1.0d / DAYS_TO_MINUTES;
+    public static final double DAYS_TO_HOURS = DAYS_TO_NANOS / HOURS_TO_NANOS;
     public static final double HOURS_TO_DAYS = 1.0d / DAYS_TO_HOURS;
+    public static final double NANOS_TO_DAYS = 1.0d / DAYS_TO_NANOS;
+    public static final double HOURS_TO_MILLIS = HOURS_TO_NANOS
+                                                 / MILLIS_TO_NANOS;
+    public static final double MILLIS_TO_HOURS = 1.0d / HOURS_TO_MILLIS;
+    public static final double HOURS_TO_SECONDS = HOURS_TO_NANOS
+                                                  / SECONDS_TO_NANOS;
+    public static final double SECONDS_TO_HOURS = 1.0d / HOURS_TO_SECONDS;
+    public static final double HOURS_TO_MINUTES = HOURS_TO_NANOS
+                                                  / MINUTES_TO_NANOS;
+    public static final double MINUTES_TO_HOURS = 1.0d / HOURS_TO_MINUTES;
+    public static final double NANOS_TO_HOURS = 1.0d / HOURS_TO_NANOS;
+    public static final double MINUTES_TO_MILLIS = MINUTES_TO_NANOS
+                                                   / MILLIS_TO_NANOS;
+    public static final double MILLIS_TO_MINUTES = 1.0d / MINUTES_TO_MILLIS;
+    public static final double MINUTES_TO_SECONDS = MINUTES_TO_NANOS
+                                                    / SECONDS_TO_NANOS;
+    public static final double SECONDS_TO_MINUTES = 1.0d / MINUTES_TO_SECONDS;
+    public static final double NANOS_TO_MINUTES = 1.0d / MINUTES_TO_NANOS;
+    public static final double SECONDS_TO_MILLIS = SECONDS_TO_NANOS
+                                                   / MILLIS_TO_NANOS;
+    public static final double NANOS_TO_SECONDS = 1.0d / SECONDS_TO_NANOS;
+    public static final double NANOS_TO_MILLIS = 1.0d / MILLIS_TO_NANOS;
+    public static final double MILLIS_TO_SECONDS = 1.0d / NANOS_TO_MILLIS;
+    /**
+     * The default constructor is disabled, as this is a static constants
+     * class.
+     */
+    private TimeConversion() {
+    }
 }

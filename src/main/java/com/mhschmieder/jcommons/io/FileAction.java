@@ -33,12 +33,20 @@ package com.mhschmieder.jcommons.io;
 /**
  * Enumeration of the most basic file actions shared by most apps. As it is not
  * possible to inherit enums, it seemed unclear if it was wise to make a library
- * level enum when most apps will need to extend the set, but there are many core
- * functionalities that work around just these core basic file actions.
+ * level enum when most apps will need to extend the set, but there are many
+ * core functionalities that work around just these core basic file actions.
  * <p>
- * The "Custom" File Action allows for flagging that a file action isn't found in
- * the basic set, which may aid in hybrid architectures that add custom actions.
+ * The "Custom" File Action allows for flagging that a file action isn't found
+ * in the basic set, which may aid in hybrid architectures that add custom
+ * actions.
  */
 public enum FileAction {
-    NEW, OPEN, RUN_BATCH, CLOSE, SAVE, SAVE_AS, EXIT, CUSTOM;
+    NEW,
+    OPEN,
+    RUN_BATCH,
+    CLOSE,
+    SAVE,
+    SAVE_AS,
+    EXIT,
+    CUSTOM;
 }

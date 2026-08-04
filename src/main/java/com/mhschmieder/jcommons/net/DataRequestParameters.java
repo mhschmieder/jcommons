@@ -36,17 +36,24 @@ import com.mhschmieder.jcommons.util.DataUpdateType;
 import java.net.HttpURLConnection;
 
 /**
- * Base class for parameters common to all data update requests to data servers.
+ * Base class for parameters common to all data update requests to data
+ * servers.
  */
 public class DataRequestParameters {
 
-    /** The Data Request Type to cue the servlet which data engine to query. */
+    /**
+     * The Data Request Type to cue the servlet which data engine to query.
+     */
     protected String dataRequestType;
-    
-    /** The Data Update Type to switch the icon, title, etc. */
+
+    /**
+     * The Data Update Type to switch the icon, title, etc.
+     */
     protected DataUpdateType dataUpdateType;
 
-    /** Cache the Login Credentials to use for authorizing the data request. */
+    /**
+     * Cache the Login Credentials to use for authorizing the data request.
+     */
     protected LoginCredentials loginCredentials;
 
     public DataRequestParameters( final String pDataRequestType,
@@ -56,7 +63,7 @@ public class DataRequestParameters {
         dataUpdateType = pDataUpdateType;
         loginCredentials = pLoginCredentials;
     }
-    
+
     public String getDataRequestType() {
         return dataRequestType;
     }
@@ -68,30 +75,29 @@ public class DataRequestParameters {
     public LoginCredentials getLoginCredentials() {
         return loginCredentials;
     }
-    
+
     /**
      * Adds data request properties to the HTTP Request.
      * <p>
-     * NOTE: The base class implementation is blank, as most data requests
-     *  will use the file-based approach, but some requests are trivial
-     *  enough to instead tag a few custom HTTP parameters to the URL.
-     * 
+     * NOTE: The base class implementation is blank, as most data requests will
+     * use the file-based approach, but some requests are trivial enough to
+     * instead tag a few custom HTTP parameters to the URL.
+     *
      * @param httpURLConnection The HTTP URL Connection for the Request
      */
     public void addDataRequestProperties( final HttpURLConnection httpURLConnection ) {
     }
-    
+
     /**
      * Returns a server status message related to the sending of data request
      * input parameters to the HTTP Request, or null if no message received,
      * such as when this method is not needed due to no input parameters.
      * <p>
-     * NOTE: The base class implementation returns null, as not all data 
-     *  requests will send additional input parameters; some are simple enough
-     *  to instead tag a few custom HTTP parameters to the URL.
-     * 
+     * NOTE: The base class implementation returns null, as not all data
+     * requests will send additional input parameters; some are simple enough to
+     * instead tag a few custom HTTP parameters to the URL.
+     *
      * @param httpURLConnection The HTTP URL Connection for the Request
-     * 
      * @return The server status message, or null if no input parameters sent
      */
     public String sendDataRequestInputParameters( final HttpURLConnection httpURLConnection ) {

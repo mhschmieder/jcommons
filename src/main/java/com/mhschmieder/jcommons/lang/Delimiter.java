@@ -33,11 +33,11 @@ package com.mhschmieder.jcommons.lang;
 /**
  * An enumeration of Delimiter choices used for separating values in a
  * text-based data file. One obvious example of usage is in CSV files, which
- * unfortunately do not always follow the standard, so all common delimiters
- * are listed here, including the potentially OS-specific return sequence.
+ * unfortunately do not always follow the standard, so all common delimiters are
+ * listed here, including the potentially OS-specific return sequence.
  */
-public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >, 
-        Abbreviated< Delimiter > {
+public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
+                                 Abbreviated< Delimiter > {
     COMMA( 2, "Comma", StringConstants.COMMA ),
     TAB( 0, "Tab", StringConstants.TAB ),
     SPACE( 3, "Space", StringConstants.SPACE ),
@@ -51,9 +51,18 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
     Delimiter( final int pIndex,
                final String pLabel,
                final String pAbbreviation ) {
-        index =  pIndex;
+        index = pIndex;
         label = pLabel;
         abbreviation = pAbbreviation;
+    }
+
+    /**
+     * Returns the default delimiter, which by definition is always the comma.
+     *
+     * @return The default delimiter.
+     */
+    public static Delimiter defaultValue() {
+        return COMMA;
     }
 
     @Override
@@ -63,19 +72,8 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
 
     @Override
     public Delimiter valueOfIndex( final int pIndex ) {
-        return ( Delimiter ) EnumUtilities
-                .getIndexedEnumFromIndex( pIndex, values() );
-    }
-
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public Delimiter valueOfLabel( final String text ) {
-        return ( Delimiter ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+        return ( Delimiter ) EnumUtilities.getIndexedEnumFromIndex( pIndex,
+                                                                    values() );
     }
 
     @Override
@@ -86,7 +84,8 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
     @Override
     public Delimiter valueOfAbbreviation( String abbreviatedLabel ) {
         return ( Delimiter ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
-                abbreviatedLabel, values() );
+                abbreviatedLabel,
+                values() );
     }
 
     @Override
@@ -97,12 +96,14 @@ public enum Delimiter implements Indexed< Delimiter >, Labeled< Delimiter >,
         return label();
     }
 
-    /**
-     * Returns the default delimiter, which by definition is always the comma.
-     *
-     * @return The default delimiter.
-     */
-    public static Delimiter defaultValue() {
-        return COMMA;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public Delimiter valueOfLabel( final String text ) {
+        return ( Delimiter ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                    values() );
     }
 }

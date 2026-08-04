@@ -41,7 +41,7 @@ import java.nio.file.Paths;
 
 /**
  * {@code FileUtilities} is a static utilities class for common file
- * functionality that wasn't part of Core Java or Apache Commons IO at the time 
+ * functionality that wasn't part of Core Java or Apache Commons IO at the time
  * this library was created.
  */
 public final class FileUtilities {
@@ -49,7 +49,8 @@ public final class FileUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private FileUtilities() {}
+    private FileUtilities() {
+    }
 
     public static File makeFile( final String filePathname )
             throws IOException {
@@ -60,11 +61,11 @@ public final class FileUtilities {
 
     public static File makeTempFile( final String tempDirectoryPathname,
                                      final String tempFileBaseName,
-                                     final String suffix )
-            throws IOException {
+                                     final String suffix ) throws IOException {
         final Path tempDirectoryPath = Paths.get( tempDirectoryPathname );
-        final Path tempFilePath = Files.createTempFile(
-                tempDirectoryPath, tempFileBaseName, suffix );
+        final Path tempFilePath = Files.createTempFile( tempDirectoryPath,
+                                                        tempFileBaseName,
+                                                        suffix );
         return tempFilePath.toFile();
     }
 
@@ -73,13 +74,11 @@ public final class FileUtilities {
         try {
             final Path path = Paths.get( filePath );
             return Files.deleteIfExists( path );
-        } catch ( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             e.printStackTrace();
-            System.out.println(
-                    ">> "
-                    + fileType
-                    + " Invalid or Denied Access: "
-                    + filePath );
+            System.out.println( ">> " + fileType + " Invalid or Denied Access: "
+                                + filePath );
             return false;
         }
     }
@@ -89,18 +88,19 @@ public final class FileUtilities {
      * with the directory itself (conditional upon the supplied flag).
      *
      * @param rootDirectories The directories to delete (along with contents)
-     * @return {@code true} if directories were deleted; {@code false} otherwise
+     * @return {@code true} if directories were deleted; {@code false}
+     *         otherwise
      */
-    public static boolean deleteDirectories(
-            final File[] rootDirectories,
-            final boolean retainDirectoryStructure ) {
+    public static boolean deleteDirectories( final File[] rootDirectories,
+                                             final boolean retainDirectoryStructure ) {
         boolean sawErrors = false;
 
         for ( final File rootDirectory : rootDirectories ) {
             // Reset the root directory from any previous uses.
             if ( retainDirectoryStructure ) {
                 sawErrors |= deleteDirectoryContents( rootDirectory );
-            } else {
+            }
+            else {
                 sawErrors |= deleteDirectoryAndContents( rootDirectory );
             }
         }
@@ -130,7 +130,7 @@ public final class FileUtilities {
             return false;
         }
 
-       return true;
+        return true;
     }
 
     /**
@@ -161,9 +161,10 @@ public final class FileUtilities {
     // candidate, alongside a client-supplied version string.
     public static File getTimeAndVersionTaggedFile( final StringBuilder filenameCandidate,
                                                     final String version ) {
-        final StringBuilder timeAndVersionTaggedFilenameCandidate 
-                = FilenameUtilities.getTimeAndVersionTaggedFilename( filenameCandidate,
-                                                                     version );
+        final StringBuilder timeAndVersionTaggedFilenameCandidate
+                = FilenameUtilities.getTimeAndVersionTaggedFilename(
+                filenameCandidate,
+                version );
         return new File( timeAndVersionTaggedFilenameCandidate.toString() );
     }
 
@@ -172,9 +173,9 @@ public final class FileUtilities {
     public static File getUniqueVersionTaggedFile( final StringBuilder fileNameCandidate,
                                                    final String version ) {
         // Get the initial version tagged file name candidate.
-        final StringBuilder versionTaggedFileNameCandidate = FilenameUtilities
-                .getVersionTaggedFilename( fileNameCandidate,
-                                           version );
+        final StringBuilder versionTaggedFileNameCandidate
+                = FilenameUtilities.getVersionTaggedFilename( fileNameCandidate,
+                                                              version );
 
         // Conditionally revision tag the version tagged filename.
         return getUniqueRevisionTaggedFile( versionTaggedFileNameCandidate );
@@ -185,8 +186,9 @@ public final class FileUtilities {
     public static File getUniqueRevisionTaggedFile( final StringBuilder filenameCandidate ) {
         File uniqueFile = null;
         try {
-            final Path uniquePath = PathUtilities
-                    .getUniqueRevisionTaggedFilePath( filenameCandidate );
+            final Path uniquePath
+                    = PathUtilities.getUniqueRevisionTaggedFilePath(
+                    filenameCandidate );
             uniqueFile = uniquePath.toFile();
         }
         catch ( final Exception e ) {

@@ -41,7 +41,8 @@ public interface Copier< T > {
      * from the original collection rather than unique copies that can change
      * their values post-assignment without side effects on the source objects.
      *
-     * @return an object that is a copy of the original object this is called on
+     * @return an object that is a copy of the original object this is called
+     *         on
      */
     T deepCopy();
 }

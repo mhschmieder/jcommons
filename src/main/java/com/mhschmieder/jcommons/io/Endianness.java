@@ -53,15 +53,8 @@ public enum Endianness implements Labeled< Endianness > {
         label = pLabel;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public Endianness valueOfLabel( final String text ) {
-        return ( Endianness ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static Endianness defaultValue() {
+        return MATCH_PLATFORM;
     }
 
     @Override
@@ -72,8 +65,19 @@ public enum Endianness implements Labeled< Endianness > {
         return label();
     }
 
-    public static Endianness defaultValue() {
-        return MATCH_PLATFORM;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public Endianness valueOfLabel( final String text ) {
+        return ( Endianness ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                     values() );
+    }
+
+    public ByteOrder toByteOrder() {
+        return toByteOrder( this );
     }
 
     public static ByteOrder toByteOrder( final Endianness endianness ) {
@@ -91,23 +95,21 @@ public enum Endianness implements Labeled< Endianness > {
                 break;
             default:
                 final String errorMessage = "Unexpected Endianness: "
-                        + endianness;
+                                            + endianness;
                 throw new IllegalArgumentException( errorMessage );
         }
 
         return byteOrder;
     }
-    
-    public static String toByteOrderString( final Endianness endianness ) {
-        final ByteOrder byteOrder = toByteOrder( endianness );
-        return ( byteOrder != null ) ? byteOrder.toString() : null;
-    }
 
-    public ByteOrder toByteOrder() {
-        return toByteOrder( this );
-    }
-    
     public String toByteOrderString() {
         return toByteOrderString( this );
+    }
+
+    public static String toByteOrderString( final Endianness endianness ) {
+        final ByteOrder byteOrder = toByteOrder( endianness );
+        return ( byteOrder != null )
+               ? byteOrder.toString()
+               : null;
     }
 }

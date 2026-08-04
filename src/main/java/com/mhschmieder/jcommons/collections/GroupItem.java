@@ -34,5 +34,5 @@ public interface GroupItem< T extends GroupItem< T > > extends Item< T > {
 
     Group< T > getGroup();
 
-    void setGroup( final Group< T > group);
+    void setGroup( final Group< T > group );
 }

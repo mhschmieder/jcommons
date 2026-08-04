@@ -41,12 +41,19 @@ import java.security.NoSuchAlgorithmException;
  * <p>
  * The goal is to take a username and use MD5 to create a unique four to six
  * digit integer password, which can then be compared against an input string.
- *
+ * <p>
  * Please note that the passwords are case sensitive.
  */
 public final class Md5Password {
 
-    @SuppressWarnings("nls")
+    // Declare MD5 password as an integer.
+    private int md5Password = 0;
+
+    public Md5Password( final String username ) {
+        md5Password = Md5Password.makePassword( username );
+    }
+
+    @SuppressWarnings( "nls" )
     public static int makePassword( final String username ) {
         byte[] buf = new byte[ username.length() ];
         try {
@@ -73,16 +80,10 @@ public final class Md5Password {
 
         final int testint1 = digest[ 0 ];
         final int testint2 = digest[ 1 ];
-        final int newMd5Password = ( testint1 * testint1 ) + ( testint2 * testint2 );
+        final int newMd5Password = ( testint1 * testint1 ) + ( testint2
+                                                               * testint2 );
 
         return newMd5Password;
-    }
-
-    // Declare MD5 password as an integer.
-    private int md5Password = 0;
-
-    public Md5Password( final String username ) {
-        md5Password = Md5Password.makePassword( username );
     }
 
     public int getPassword() {
@@ -109,5 +110,4 @@ public final class Md5Password {
 
         return userPassword == md5Password;
     }
-
 }

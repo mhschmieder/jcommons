@@ -43,8 +43,8 @@ import java.util.concurrent.Executors;
 
 public class ProcessManager {
 
-    private static final Logger LOGGER = System.getLogger(
-            ProcessManager.class.getName() );
+    private static final Logger LOGGER
+            = System.getLogger( ProcessManager.class.getName() );
 
     private static final Map< Integer, Process > processMap = new HashMap<>();
     private static final Map< Integer, BufferedWriter > inputMap
@@ -52,24 +52,10 @@ public class ProcessManager {
     private static final Map< Integer, BufferedReader > outputMap
             = new HashMap<>();
 
-    private static final ExecutorService executor = Executors
-            .newCachedThreadPool( Executors.defaultThreadFactory() );
+    private static final ExecutorService executor
+            = Executors.newCachedThreadPool( Executors.defaultThreadFactory() );
 
     private ProcessManager() {
-    }
-
-    /**
-     * Gets a process handle if the hash code of the string matches in the
-     * stored map of processes.
-     *
-     * @param processName The name used to get the hash code
-     * @return The process stored from the {@code processName} hash code, or
-     * {@code null} if it does not exist.
-     */
-    public static Process getProcess( final String processName ) {
-        return processMap.getOrDefault(
-                processName.hashCode(),
-                null );
     }
 
     public static Process getProcess( final String processName,
@@ -81,16 +67,18 @@ public class ProcessManager {
         final ProcessBuilder processBuilder = new ProcessBuilder( command );
         try {
             processMap.put( processName.hashCode(), processBuilder.start() );
-        } catch( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             LOGGER.log( Level.ERROR,
-                    "Unable to start process: " + processName,
-                    e );
+                        "Unable to start process: " + processName,
+                        e );
             return null;
         }
 
         final Runnable remover = () -> {
             final Process process = getProcess( processName );
-            while ( process.isAlive() );
+            while ( process.isAlive() )
+                ;
 
             processMap.remove( processName.hashCode() );
             inputMap.remove( processName.hashCode() );
@@ -110,14 +98,24 @@ public class ProcessManager {
         return processMap.get( processName.hashCode() );
     }
 
+    /**
+     * Gets a process handle if the hash code of the string matches in the
+     * stored map of processes.
+     *
+     * @param processName The name used to get the hash code
+     * @return The process stored from the {@code processName} hash code, or
+     *         {@code null} if it does not exist.
+     */
+    public static Process getProcess( final String processName ) {
+        return processMap.getOrDefault( processName.hashCode(), null );
+    }
+
     public static BufferedWriter getInputStream( final String processName ) {
-        return inputMap.getOrDefault(
-                processName.hashCode(), null );
+        return inputMap.getOrDefault( processName.hashCode(), null );
     }
 
     public static BufferedReader getOutputStream( final String processName ) {
-        return outputMap.getOrDefault(
-                processName.hashCode(), null );
+        return outputMap.getOrDefault( processName.hashCode(), null );
     }
 
     public static boolean closeStream( final String processName ) {

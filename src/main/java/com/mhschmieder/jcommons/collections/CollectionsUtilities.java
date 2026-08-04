@@ -40,13 +40,15 @@ import java.util.List;
 public final class CollectionsUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private CollectionsUtilities() {}
+    private CollectionsUtilities() {
+    }
 
     /**
      * Returns the current physical capacity of the supplied {@link List}.
-     * 
+     *
      * @param list The {@link List} whose capacity will be queried
      * @return The current physical capacity of the supplied {@link List}
      * @throws Exception Thrown if the {@code elementData} field does not exist
@@ -59,10 +61,10 @@ public final class CollectionsUtilities {
         if ( list == null ) {
             return 0;
         }
-        
+
         final Field field = List.class.getDeclaredField( "elementData" );
-        field.setAccessible(  true  );
-        
-        return ( ( Object[] ) field.get(  list  ) ).length;
+        field.setAccessible( true );
+
+        return ( ( Object[] ) field.get( list ) ).length;
     }
 }

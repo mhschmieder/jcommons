@@ -36,46 +36,62 @@ package com.mhschmieder.jcommons.branding;
  * fields for common constructs such as major.minor.revision version numbers.
  */
 public class ProductVersion {
-    
-    /** The owner, manufacturer, or licenser of the product */
+
+    /**
+     * The owner, manufacturer, or licenser of the product
+     */
     public String productOwner;
-    
-    /** The base name of the product shared across all product variants */
+
+    /**
+     * The base name of the product shared across all product variants
+     */
     public String productBaseName;
-    
-    /** The level or variant of the product, such as Free or Pro */
+
+    /**
+     * The level or variant of the product, such as Free or Pro
+     */
     public String productLevel;
-    
-    /** The protection filed for the product, if any exists, such as (TM) */
+
+    /**
+     * The protection filed for the product, if any exists, such as (TM)
+     */
     public String protection;
-    
-    /** The major version of the product release, for major upgrades */
+
+    /**
+     * The major version of the product release, for major upgrades
+     */
     public int versionMajor;
-    
-    /** The minor version of the product release, for interim updates */
+
+    /**
+     * The minor version of the product release, for interim updates
+     */
     public int versionMinor;
-    
-    /** The revision of the product release, usually for emergency bugfixes */
+
+    /**
+     * The revision of the product release, usually for emergency bugfixes
+     */
     public int revision;
-    
-    /** Additional character to distinguish quick updates; usually a letter */
+
+    /**
+     * Additional character to distinguish quick updates; usually a letter
+     */
     public char update;
-    
-    /** 
-     * The Build ID of the product release, which generally gets bumped for 
+
+    /**
+     * The Build ID of the product release, which generally gets bumped for
      * unreleased builds and nightly interim internal releases. The ID is also
      * often useful in client/server situations to determine compatibility.
      */
     public long buildId;
-    
-    /** 
+
+    /**
      * The build date of the product release, not enforced to any format, and
-     * generally associated with the time of build vs. the time of release,
-     * as there may be regression testing with no code changes before release.
+     * generally associated with the time of build vs. the time of release, as
+     * there may be regression testing with no code changes before release.
      */
     public String buildDate;
-    
-    /** 
+
+    /**
      * The release date, in case this needs to be queried separately from the
      * build date, especially if there is a large gap in time due to testing.
      * Usually this is the published date and planned with testing in mind.
@@ -91,17 +107,17 @@ public class ProductVersion {
      * Rather than provide every possible combination of under-specified
      * constructors, clients should either mimic these default values in the
      * fully qualified constructor or derive a custom class of their own.
-     * 
+     *
      * @param pProductBaseName The Product Base Name of the application
-     * @param pVersionMajor The major version of the product release
-     * @param pVersionMinor The minor version of the product release
-     * @param pRevision The revision of the product release
-     * @param pReleaseDate The published date of the product release
+     * @param pVersionMajor    The major version of the product release
+     * @param pVersionMinor    The minor version of the product release
+     * @param pRevision        The revision of the product release
+     * @param pReleaseDate     The published date of the product release
      */
     public ProductVersion( final String pProductBaseName,
                            final int pVersionMajor,
                            final int pVersionMinor,
-                           final int pRevision ,
+                           final int pRevision,
                            final String pReleaseDate ) {
         this( "",
               pProductBaseName,
@@ -114,20 +130,22 @@ public class ProductVersion {
               "",
               pReleaseDate );
     }
-    
+
     /**
      * Returns an instance of {@code ProductVersion} nearly fully specified.
-     * 
-     * @param pProductOwner The optional owner of the associated application
+     *
+     * @param pProductOwner    The optional owner of the associated application
      * @param pProductBaseName The Product Base Name of the application
-     * @param pProductLevel The optional Product Level of the application
-     * @param pProtection The optional protection of the application
-     * @param pVersionMajor The major version of the product release
-     * @param pVersionMinor The minor version of the product release
-     * @param pRevision The revision of the product release
-     * @param pBuildId The optional Build ID of the baseline for the release
-     * @param pBuildDate The optional build date of the code for the release
-     * @param pReleaseDate The published date of the product release
+     * @param pProductLevel    The optional Product Level of the application
+     * @param pProtection      The optional protection of the application
+     * @param pVersionMajor    The major version of the product release
+     * @param pVersionMinor    The minor version of the product release
+     * @param pRevision        The revision of the product release
+     * @param pBuildId         The optional Build ID of the baseline for the
+     *                         release
+     * @param pBuildDate       The optional build date of the code for the
+     *                         release
+     * @param pReleaseDate     The published date of the product release
      */
     public ProductVersion( final String pProductOwner,
                            final String pProductBaseName,
@@ -151,25 +169,28 @@ public class ProductVersion {
               pBuildDate,
               pReleaseDate );
     }
-    
+
     /**
      * Returns an instance of {@code ProductVersion} fully specified.
      * <p>
-     * This slightly expanded constructor pulls in the new optional field
-     * for distinguishing quick builds and patches for a revision, which
-     * usually is represented by a single lower-case letter from a to z.
-     * 
-     * @param pProductOwner The optional owner of the associated application
+     * This slightly expanded constructor pulls in the new optional field for
+     * distinguishing quick builds and patches for a revision, which usually is
+     * represented by a single lower-case letter from a to z.
+     *
+     * @param pProductOwner    The optional owner of the associated application
      * @param pProductBaseName The Product Base Name of the application
-     * @param pProductLevel The optional Product Level of the application
-     * @param pProtection The optional protection of the application
-     * @param pVersionMajor The major version of the product release
-     * @param pVersionMinor The minor version of the product release
-     * @param pRevision The revision of the product release
-     * @param pUpdate The update of the revision, usually a letter (a..z)
-     * @param pBuildId The optional Build ID of the baseline for the release
-     * @param pBuildDate The optional build date of the code for the release
-     * @param pReleaseDate The published date of the product release
+     * @param pProductLevel    The optional Product Level of the application
+     * @param pProtection      The optional protection of the application
+     * @param pVersionMajor    The major version of the product release
+     * @param pVersionMinor    The minor version of the product release
+     * @param pRevision        The revision of the product release
+     * @param pUpdate          The update of the revision, usually a letter
+     *                         (a..z)
+     * @param pBuildId         The optional Build ID of the baseline for the
+     *                         release
+     * @param pBuildDate       The optional build date of the code for the
+     *                         release
+     * @param pReleaseDate     The published date of the product release
      */
     public ProductVersion( final String pProductOwner,
                            final String pProductBaseName,
@@ -186,20 +207,24 @@ public class ProductVersion {
         productBaseName = pProductBaseName;
         productLevel = pProductLevel;
         protection = pProtection;
-        
+
         versionMajor = pVersionMajor;
         versionMinor = pVersionMinor;
         revision = pRevision;
         update = pUpdate;
-        
+
         buildId = pBuildId;
         buildDate = pBuildDate;
         releaseDate = pReleaseDate;
     }
-    
+
+    public String getProductReleaseName() {
+        return getProductName() + " " + getVersionNumber();
+    }
+
     /**
      * Returns the full aggregated parts of the product version as a string.
-     * 
+     *
      * @return the full aggregated parts of the product version as a string
      */
     public String getVersionNumber() {
@@ -223,6 +248,18 @@ public class ProductVersion {
         return productName;
     }
 
+    public String getFullProductReleaseProtectedName() {
+        final String productReleaseProtectedName
+                = getProductReleaseProtectedName();
+        return ( !productOwner.trim().isEmpty() )
+               ? productOwner + " " + productReleaseProtectedName
+               : productReleaseProtectedName;
+    }
+
+    public String getProductReleaseProtectedName() {
+        return getProductProtectedName() + " " + getVersionNumber();
+    }
+
     public String getProductProtectedName() {
         String productName = productBaseName;
         if ( !protection.trim().isEmpty() ) {
@@ -232,20 +269,5 @@ public class ProductVersion {
             productName += " " + productLevel;
         }
         return productName;
-    }
-
-    public String getProductReleaseName() {
-        return getProductName() + " " + getVersionNumber();
-    }
-
-   public String getProductReleaseProtectedName() {
-       return getProductProtectedName() + " " + getVersionNumber();
-    }
-
-   public String getFullProductReleaseProtectedName() {
-       final String productReleaseProtectedName = getProductReleaseProtectedName();
-       return ( !productOwner.trim().isEmpty() )
-               ? productOwner + " " + productReleaseProtectedName
-               : productReleaseProtectedName;
     }
 }

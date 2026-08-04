@@ -66,21 +66,23 @@ public final class IoUtilities {
      * Cache the current user's Working Directory path, to avoid expensive
      * redundant calls and to enforce a consistent path that persists throughout
      * a session, unlike "." for the Current Directory. This also corresponds in
-     * many cases to Application Launch Path, which helps encapsulate app files.
+     * many cases to Application Launch Path, which helps encapsulate app
+     * files.
      */
-    public static final String WORKING_DIRECTORY_PATH = System.getProperty( 
+    public static final String WORKING_DIRECTORY_PATH = System.getProperty(
             "user.dir" );
 
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private IoUtilities() {}
+    private IoUtilities() {
+    }
 
-    public static String getJarResourceFilename(
-            final String jarRelativePackagePath,
-            final String resourceNameUnqualified,
-            final String fileExtension ) {
-        final StringBuilder jarResourceFilenameStringBuilder = new StringBuilder();
+    public static String getJarResourceFilename( final String jarRelativePackagePath,
+                                                 final String resourceNameUnqualified,
+                                                 final String fileExtension ) {
+        final StringBuilder jarResourceFilenameStringBuilder
+                = new StringBuilder();
 
         jarResourceFilenameStringBuilder.append( jarRelativePackagePath );
         jarResourceFilenameStringBuilder.append( resourceNameUnqualified );
@@ -92,11 +94,13 @@ public final class IoUtilities {
 
     // Generic method to fetch the contents of a named resource to a string.
     public static String getResourceAsString( final String resourceName ) {
-        try ( final InputStream inputStream = IoUtilities.class
-                .getResourceAsStream( resourceName ) ) {
+        try ( final InputStream inputStream =
+                      IoUtilities.class.getResourceAsStream(
+                resourceName ) ) {
             // Convert the text file to a standard string message.
             final String text = IOUtils.toString( inputStream,
-                                                  Charsets.toCharset( StandardCharsets.UTF_8 ) );
+                                                  Charsets.toCharset(
+                                                          StandardCharsets.UTF_8 ) );
             return text;
         }
         catch ( final Exception e ) {
@@ -122,7 +126,8 @@ public final class IoUtilities {
         }
 
         final int totalDataLength = dataOffset + numberOfDataPoints;
-        final int dataIndexLast = FastMath.min( totalDataLength, data.length ) - 1;
+        final int dataIndexLast = FastMath.min( totalDataLength, data.length )
+                                  - 1;
 
         try {
             // Load data into a double-precision array, pre-filling and/or
@@ -147,6 +152,23 @@ public final class IoUtilities {
         return true;
     }
 
+    // Generic method to load the contents of a file into a string builder.
+    public static boolean loadIntoStringBuilder( final File file,
+                                                 final StringBuilder fileContent ) {
+        // Chain a BufferedReader to a FileReader, for better performance.
+        try ( final FileReader fileReader = new FileReader( file );
+              final BufferedReader bufferedReader = new BufferedReader(
+                      fileReader ) ) {
+            final boolean fileOpened = loadIntoStringBuilder( bufferedReader,
+                                                              fileContent );
+            return fileOpened;
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Generic method to load the contents of a reader into a string builder.
     public static boolean loadIntoStringBuilder( final BufferedReader bufferedReader,
                                                  final StringBuilder fileContent ) {
@@ -164,31 +186,19 @@ public final class IoUtilities {
         }
     }
 
-    // Generic method to load the contents of a file into a string builder.
-    public static boolean loadIntoStringBuilder( final File file,
-                                                 final StringBuilder fileContent ) {
-        // Chain a BufferedReader to a FileReader, for better performance.
-        try ( final FileReader fileReader = new FileReader( file );
-                final BufferedReader bufferedReader = new BufferedReader( fileReader ) ) {
-            final boolean fileOpened = loadIntoStringBuilder( bufferedReader, fileContent );
-            return fileOpened;
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Generic method to load the contents of an input stream into a string
     // builder.
     public static boolean loadIntoStringBuilder( final InputStream inputStream,
                                                  final StringBuilder fileContent ) {
         // Chain a BufferedReader to an InputStreamReader, for better
         // performance.
-        try ( final InputStreamReader inputStreamReader = new InputStreamReader( inputStream,
-                                                                                 LATIN_1 );
-                final BufferedReader bufferedReader = new BufferedReader( inputStreamReader ) ) {
-            final boolean fileOpened = loadIntoStringBuilder( bufferedReader, fileContent );
+        try ( final InputStreamReader inputStreamReader = new InputStreamReader(
+                inputStream,
+                LATIN_1 );
+              final BufferedReader bufferedReader = new BufferedReader(
+                      inputStreamReader ) ) {
+            final boolean fileOpened = loadIntoStringBuilder( bufferedReader,
+                                                              fileContent );
             return fileOpened;
         }
         catch ( final Exception e ) {
@@ -198,10 +208,13 @@ public final class IoUtilities {
     }
 
     // Generic method to read an entire text file's contents into a String.
-    public static String readFile( final String fileName, final Charset encoding ) {
+    public static String readFile( final String fileName,
+                                   final Charset encoding ) {
         try {
-            final byte[] encodedContents = Files.readAllBytes( Paths.get( fileName ) );
-            return encoding.decode( ByteBuffer.wrap( encodedContents ) ).toString();
+            final byte[] encodedContents = Files.readAllBytes( Paths.get(
+                    fileName ) );
+            return encoding.decode( ByteBuffer.wrap( encodedContents ) )
+                           .toString();
         }
         catch ( final Exception e ) {
             e.printStackTrace();
@@ -220,24 +233,21 @@ public final class IoUtilities {
      * This method buffers the input internally, so there is no need to use a
      * {@code BufferedInputStream} wrapper.
      *
-     * @param inputStream
-     *            The {@link InputStream} to read from
-     * @param charset
-     *            The {@link Charset} to use for the character encoding of the
-     *            output; {@code null} means to use the platform default, which
-     *            is usually UTF-16 for Java
+     * @param inputStream The {@link InputStream} to read from
+     * @param charset     The {@link Charset} to use for the character encoding
+     *                    of the output; {@code null} means to use the platform
+     *                    default, which is usually UTF-16 for Java
      * @return The original {@link InputStream} converted to a {@link String}
-     * @throws NullPointerException
-     *             If the {@link InputStream} is null
-     * @throws IOException
-     *             If an I/O error occurs
-     *
+     * @throws NullPointerException If the {@link InputStream} is null
+     * @throws IOException          If an I/O error occurs
      * @since 1.0
      */
-    public static String streamToString( final InputStream inputStream, final Charset charset )
+    public static String streamToString( final InputStream inputStream,
+                                         final Charset charset )
             throws IOException {
-        try ( final InputStreamReader inputStreamReader = new InputStreamReader( inputStream,
-                                                                                 charset ) ) {
+        try ( final InputStreamReader inputStreamReader = new InputStreamReader(
+                inputStream,
+                charset ) ) {
             final int bufferSize = 4096;
             final char[] buffer = new char[ bufferSize ];
             final StringBuilder builder = new StringBuilder( bufferSize );
@@ -248,7 +258,8 @@ public final class IoUtilities {
             // Read until the stream reaches its end, unless we exceed the
             // maximum size, which is set to the largest integer value as the
             // StringBuilder class' capacity and length are stored as integers.
-            while ( ( numberOfCharactersRead = inputStreamReader.read( buffer ) ) != -1 ) {
+            while ( ( numberOfCharactersRead
+                              = inputStreamReader.read( buffer ) ) != -1 ) {
                 // Although it is unlikely we could exceed the maximum size of a
                 // StringBuilder, it is better to exit with a partial conversion
                 // if so, rather than a null or empty String.
@@ -291,30 +302,40 @@ public final class IoUtilities {
         // byte array stream, preserving byte order so that floating-point
         // interpretation (Little Endian/Big Endian) can be deferred to a
         // downstream filter.
-        try ( final InputStream servletResponseStream = httpURLConnection.getInputStream() ) {
+        try ( final InputStream servletResponseStream =
+                      httpURLConnection.getInputStream() ) {
             // Immediately cache the server response to a byte array in local
             // memory, for efficient and flexible reuse, and due to the a
             // frequent need to cycle through this stream twice (as a result of
             // order-dependent processing).
-            final byte[] byteArray = saveStreamToByteArray( servletResponseStream, statusMessage );
+            final byte[] byteArray = saveStreamToByteArray(
+                    servletResponseStream,
+                    statusMessage );
             return byteArray;
         }
         catch ( final NullPointerException npe ) {
             npe.printStackTrace();
-            statusMessage.append( "Server Communication Error: Invalid Response Stream Handle." ); //$NON-NLS-1$
+            statusMessage.append(
+                    "Server Communication Error: Invalid Response Stream "
+                    + "Handle." ); //$NON-NLS-1$
         }
         catch ( final UnknownServiceException use ) {
             use.printStackTrace();
-            statusMessage
-                    .append( "Server Protocol Error: Server Does Not Support Response Streams." ); //$NON-NLS-1$
+            statusMessage.append(
+                    "Server Protocol Error: Server Does Not Support Response "
+                    + "Streams." ); //$NON-NLS-1$
         }
         catch ( final SocketTimeoutException ste ) {
             ste.printStackTrace();
-            statusMessage.append( "Server Communication Error: Socket Read Timeout." ); //$NON-NLS-1$
+            statusMessage.append(
+                    "Server Communication Error: Socket Read Timeout." );
+            //$NON-NLS-1$
         }
         catch ( final IOException ioe ) {
             ioe.printStackTrace();
-            statusMessage.append( "Server Communication Error: Response Stream I/O Problems." ); //$NON-NLS-1$
+            statusMessage.append(
+                    "Server Communication Error: Response Stream I/O Problems"
+                    + "." ); //$NON-NLS-1$
         }
 
         return null;
@@ -332,7 +353,8 @@ public final class IoUtilities {
         // byte array stream, preserving byte order so that floating-point
         // interpretation (Little Endian/Big Endian) can be deferred to a
         // downstream filter.
-        try ( final InputStream bufferedInputStream = IOUtils.toBufferedInputStream( 
+        try ( final InputStream bufferedInputStream =
+                      IOUtils.toBufferedInputStream(
                 inputStream ) ) {
             final byte[] byteArray = IOUtils.toByteArray( bufferedInputStream );
             return byteArray;

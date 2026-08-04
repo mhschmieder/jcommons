@@ -48,43 +48,51 @@ import java.util.Locale;
  * <p>
  * The general approach is to append an underscore and a multi-digit integer.
  * This is partially accomplished by providing a helper method in TextUtilities
- * for creating a {@link NumberFormat} object, and another for appending an int.
+ * for creating a {@link NumberFormat} object, and another for appending an
+ * int.
  */
 public class LabeledObjectManagement {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private LabeledObjectManagement() {}
-
+    private LabeledObjectManagement() {
+    }
 
     // Find out if the candidate label is unique.
-    public static boolean isLabelUnique( final Collection< ? extends LabeledObject > labeledObjects,
+    public static boolean isLabelUnique( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate ) {
         // Check whether the supplied label candidate is unique within the 
         // context of its type-specific collection.
         // NOTE: The context of invocation isn't thread-safe and is highly
         //  re-entrant, so avoid parallel streams here to avoid freeze-ups.
-        final boolean labelNotUnique = labeledObjects.stream().anyMatch( labeledObject -> {
-             final String label = labeledObject.getLabel();
-            return ( label.equals( labelCandidate ) );
-        } );
+        final boolean labelNotUnique = labeledObjects.stream()
+                                                     .anyMatch( labeledObject -> {
+                                                         final String label
+                                                                 =
+                                                                 labeledObject.getLabel();
+                                                         return ( label.equals(
+                                                                 labelCandidate ) );
+                                                     } );
 
         return !labelNotUnique;
     }
-    
+
     // Get the corrected label for a new Labeled Object in the collection.
     // NOTE: The separator can be a blank, or an empty string.
     // NOTE: This should only be called by a GUI control when user edits
     //  are saved, to ensure that a bank string is replaced by a default.
-    public static String getCorrectedLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getCorrectedLabel( final Collection< ?
+                                                    extends LabeledObject > labeledObjects,
                                             final String labelCandidate,
                                             final String labelDefault,
                                             final String separator ) {
         // If a blank or null label was provided, replace it with a default.
         return ( ( labelCandidate == null ) || labelCandidate.trim().isEmpty() )
-                ? getNewLabelDefault( labeledObjects, labelDefault, separator )
-                : labelCandidate;
+               ? getNewLabelDefault( labeledObjects, labelDefault, separator )
+               : labelCandidate;
     }
 
     // Get the corrected label for a new Labeled Object in the collection.
@@ -92,23 +100,25 @@ public class LabeledObjectManagement {
     // NOTE: This should only be called by a GUI control when user edits
     //  are saved, to ensure that a bank string is replaced by a default.
     // NOTE: Some object types, such as Layers, start at zero vs. one.
-    public static String getCorrectedLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getCorrectedLabel( final Collection< ?
+                                                    extends LabeledObject > labeledObjects,
                                             final String labelCandidate,
                                             final String labelDefault,
                                             final String separator,
                                             final boolean startsAtZero ) {
         // If a blank or null label was provided, replace it with a default.
         return ( ( labelCandidate == null ) || labelCandidate.trim().isEmpty() )
-                ? getNewLabelDefault( labeledObjects, 
-                                      labelDefault, 
-                                      separator, 
-                                      startsAtZero )
-                : labelCandidate;
+               ? getNewLabelDefault( labeledObjects,
+                                     labelDefault,
+                                     separator,
+                                     startsAtZero )
+               : labelCandidate;
     }
 
     // Get the default label for a new Labeled Object in the collection.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getNewLabelDefault( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getNewLabelDefault( final Collection< ?
+                                                     extends LabeledObject > labeledObjects,
                                              final String labelDefault,
                                              final String separator ) {
         return getNewLabelDefault( labeledObjects,
@@ -117,11 +127,11 @@ public class LabeledObjectManagement {
                                    false );
     }
 
-
     // Get the default label for a new Labeled Object in the collection.
     // NOTE: The separator can be a blank, or an empty string.
     // NOTE: Some object types, such as Layers, start at zero vs. one.
-    public static String getNewLabelDefault( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getNewLabelDefault( final Collection< ?
+                                                     extends LabeledObject > labeledObjects,
                                              final String labelDefault,
                                              final String separator,
                                              final boolean startsAtZero ) {
@@ -136,33 +146,40 @@ public class LabeledObjectManagement {
                                       separator,
                                       newLabeledObjectNumber );
     }
+
     // Get the first available label from the base number.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getFirstAvailableLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getFirstAvailableLabel( final Collection< ?
+                                                         extends LabeledObject > labeledObjects,
                                                  final String labelDefault,
                                                  final String separator ) {
-        return getNextAvailableLabel( labeledObjects, labelDefault, separator, 1 );
+        return getNextAvailableLabel( labeledObjects,
+                                      labelDefault,
+                                      separator,
+                                      1 );
     }
 
     // Get the next available label from the current number.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getNextAvailableLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getNextAvailableLabel( final Collection< ?
+                                                        extends LabeledObject > labeledObjects,
                                                 final String labelDefault,
                                                 final String separator,
                                                 final int labeledObjectNumber ) {
         // Recursively search for (and enforce) name-uniqueness of the next
         // label using the current number as the basis.
-        String nextAvailableLabel = labelDefault + separator
-                + Integer.toString( labeledObjectNumber );
+        String nextAvailableLabel = labelDefault + separator + Integer.toString(
+                labeledObjectNumber );
         for ( final LabeledObject labeledObject : labeledObjects ) {
-             final String objectLabel = labeledObject.getLabel();
+            final String objectLabel = labeledObject.getLabel();
             if ( nextAvailableLabel.equals( objectLabel ) ) {
                 // If the proposed label is not unique in the collection, bump
                 // the Labeled Object Number recursively until unique.
                 nextAvailableLabel = getNextAvailableLabel( labeledObjects,
                                                             labelDefault,
                                                             separator,
-                                                            labeledObjectNumber + 1 );
+                                                            labeledObjectNumber
+                                                            + 1 );
                 break;
             }
         }
@@ -171,7 +188,8 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -185,13 +203,14 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
                                          final ClientProperties clientProperties,
                                          final boolean insertMode ) {
-         return getUniqueLabel( labeledObjects,
+        return getUniqueLabel( labeledObjects,
                                labelCandidate,
                                labelDefault,
                                separator,
@@ -200,15 +219,16 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
                                          final Locale locale,
                                          final boolean insertMode ) {
-        final NumberFormat uniquefierNumberFormat = NumberFormatUtilities
-                .getUniquefierNumberFormat( locale );
-        
+        final NumberFormat uniquefierNumberFormat
+                = NumberFormatUtilities.getUniquefierNumberFormat( locale );
+
         return getUniqueLabel( labeledObjects,
                                labelCandidate,
                                labelDefault,
@@ -218,7 +238,8 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -227,42 +248,45 @@ public class LabeledObjectManagement {
         // Ensure label uniqueness in case it's the same as the last object
         // edited or inserted (e.g. no user edits), by bumping if non-unique.
         // NOTE: We must ensure an initial Insert is uniquefied vs. bumped.
-        final String newLabelDefault = getNewLabelDefault( labeledObjects, 
-                                                           labelDefault, 
+        final String newLabelDefault = getNewLabelDefault( labeledObjects,
+                                                           labelDefault,
                                                            separator );
         return insertMode
-            ? getUniqueLabel( labeledObjects, 
-                              labelCandidate, 
-                              newLabelDefault, 
-                              null, 
-                              uniquefierNumberFormat )
-            : isLabelUnique( labeledObjects, labelCandidate )
-                ? labelCandidate
-                : newLabelDefault;
+               ? getUniqueLabel( labeledObjects,
+                                 labelCandidate,
+                                 newLabelDefault,
+                                 null,
+                                 uniquefierNumberFormat )
+               : isLabelUnique( labeledObjects, labelCandidate )
+                 ? labelCandidate
+                 : newLabelDefault;
     }
 
     // Get a unique label from the candidate label.
     // NOTE: The default label is only used when the edited label is blank.
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String labelToExclude,
                                          final NumberFormat uniquefierNumberFormat ) {
         // Recursively search for (and enforce) name-uniqueness of the label
-        // candidate, leaving unadorned if possible. If no label candidate exists, 
+        // candidate, leaving unadorned if possible. If no label candidate
+        // exists,
         // start with a default label.
         return ( ( labelCandidate == null ) || labelCandidate.trim().isEmpty() )
-                ? getUniqueLabel( labeledObjects,
-                                  labelDefault,
-                                  labelToExclude,
-                                  uniquefierNumberFormat )
-                : getUniqueLabel( labeledObjects,
-                                  labelCandidate,
-                                  labelToExclude,
-                                  uniquefierNumberFormat );
+               ? getUniqueLabel( labeledObjects,
+                                 labelDefault,
+                                 labelToExclude,
+                                 uniquefierNumberFormat )
+               : getUniqueLabel( labeledObjects,
+                                 labelCandidate,
+                                 labelToExclude,
+                                 uniquefierNumberFormat );
     }
 
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelToExclude,
                                          final NumberFormat uniquefierNumberFormat ) {
@@ -275,7 +299,8 @@ public class LabeledObjectManagement {
                                uniquefierNumberFormat );
     }
 
-    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ?
+                                                 extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelToExclude,
                                          final int uniquefierNumber,
@@ -284,13 +309,14 @@ public class LabeledObjectManagement {
         // label candidate and uniquefier number.
         // NOTE: We loop from the start of the collection, to allow reuse of 
         //  deleted names and to minimize or eliminate holes in the numbering.
-       final String uniquefierAppendix = TextUtilities
-                .getUniquefierAppendix( uniquefierNumber, uniquefierNumberFormat );
+        final String uniquefierAppendix = TextUtilities.getUniquefierAppendix(
+                uniquefierNumber,
+                uniquefierNumberFormat );
         String uniqueLabel = labelCandidate + uniquefierAppendix;
         for ( final LabeledObject labeledObject : labeledObjects ) {
             final String label = labeledObject.getLabel();
             if ( !label.equals( labelToExclude )
-                    && label.equals( uniqueLabel ) ) {
+                 && label.equals( uniqueLabel ) ) {
                 // Recursively guarantee the appendix-adjusted label is also
                 // unique, using a hopefully-unique number as the appendix.
                 uniqueLabel = getUniqueLabel( labeledObjects,
@@ -304,9 +330,10 @@ public class LabeledObjectManagement {
 
         return uniqueLabel;
     }
-    
+
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ?
+                                              extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator ) {
@@ -316,9 +343,10 @@ public class LabeledObjectManagement {
                        separator,
                        Locale.getDefault() );
     }
-   
+
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ?
+                                              extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,
@@ -329,25 +357,27 @@ public class LabeledObjectManagement {
                        separator,
                        clientProperties.locale );
     }
-    
+
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ?
+                                              extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,
                                       final Locale locale ) {
-        final NumberFormat uniquefierNumberFormat = NumberFormatUtilities
-                .getUniquefierNumberFormat( locale );
-        
+        final NumberFormat uniquefierNumberFormat
+                = NumberFormatUtilities.getUniquefierNumberFormat( locale );
+
         uniquefyLabel( labeledObjects,
                        labeledObject,
                        labelDefault,
                        separator,
                        uniquefierNumberFormat );
     }
-   
+
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ?
+                                              extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,

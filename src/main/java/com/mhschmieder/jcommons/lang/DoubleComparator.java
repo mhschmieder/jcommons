@@ -40,7 +40,8 @@ import java.util.Comparator;
  */
 public class DoubleComparator implements Comparator< Double >, Serializable {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 1L;
 
@@ -51,14 +52,16 @@ public class DoubleComparator implements Comparator< Double >, Serializable {
     /**
      * Returns an integer corresponding to the comparisons results of two
      * doubles.
-     * 
+     *
      * @param double1 The first double to compare, as the comparison source
      * @param double2 The second double to compare, as the comparison target
      * @return A negative integer if the first argument is less than the second
-     * argument; zero if equal to; or a positive integer if greater than
+     *         argument; zero if equal to; or a positive integer if greater
+     *         than
      */
     @Override
-    public int compare( final Double double1, final Double double2 ) {
-        return double1.compareTo(  double2  );
+    public int compare( final Double double1,
+                        final Double double2 ) {
+        return double1.compareTo( double2 );
     }
 }

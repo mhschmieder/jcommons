@@ -41,26 +41,25 @@ import java.text.NumberFormat;
 public class TextUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private TextUtilities() {}
+    private TextUtilities() {
+    }
 
     /**
      * This method generates a generic tool tip text string that guarantees
      * consistency within an application when presenting allowed value ranges
      * for manual entry in some sort of editor control.
      *
-     * @param valueDescriptor
-     *            The descriptor for the value category for the control that the
-     *            tool tip will be used on
-     * @param minimumValue
-     *            The minimum allowed value for the control this tool tip text
-     *            is designated for
-     * @param maximumValue
-     *            The maximum allowed value for the control this tool tip text
-     *            is designated for
-     * @param numberFormat
-     *            The number formatter to apply for the number representation
+     * @param valueDescriptor The descriptor for the value category for the
+     *                        control that the tool tip will be used on
+     * @param minimumValue    The minimum allowed value for the control this
+     *                        tool tip text is designated for
+     * @param maximumValue    The maximum allowed value for the control this
+     *                        tool tip text is designated for
+     * @param numberFormat    The number formatter to apply for the number
+     *                        representation
      * @return The tool tip text for the provided value range
      */
     public static String getValueRangeTooltipText( final String valueDescriptor,
@@ -94,25 +93,25 @@ public class TextUtilities {
      * This method cuts down on code bloat and cut/paste errors by formalizing
      * the @String formatting of paired quantities that are in the same units.
      *
-     * @param quantity1
-     *            The first quantity in the quantity pair
-     * @param quantity2
-     *            The second quantity in the quantity pair
-     * @param numberFormat
-     *            The number formatter for precision and locale
-     * @param unitLabel
-     *            The @String version of the unit for the quantities
+     * @param quantity1    The first quantity in the quantity pair
+     * @param quantity2    The second quantity in the quantity pair
+     * @param numberFormat The number formatter for precision and locale
+     * @param unitLabel    The @String version of the unit for the quantities
      * @return A @String representation of the Formatted Quantity Pair
      */
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static String getFormattedQuantityPair( final double quantity1,
                                                    final double quantity2,
                                                    final NumberFormat numberFormat,
                                                    final String unitLabel ) {
         final StringBuilder formattedQuantityPair = new StringBuilder();
 
-        final String quantity1cleaned = getNegativeSignStrippedQuantity( quantity1, numberFormat );
-        final String quantity2cleaned = getNegativeSignStrippedQuantity( quantity2, numberFormat );
+        final String quantity1cleaned = getNegativeSignStrippedQuantity(
+                quantity1,
+                numberFormat );
+        final String quantity2cleaned = getNegativeSignStrippedQuantity(
+                quantity2,
+                numberFormat );
 
         formattedQuantityPair.append( "(" );
         formattedQuantityPair.append( quantity1cleaned );
@@ -124,25 +123,30 @@ public class TextUtilities {
         return formattedQuantityPair.toString();
     }
 
+    public static String getNegativeSignStrippedQuantity( final double quantity,
+                                                          final NumberFormat numberFormat ) {
+        final String numberString = numberFormat.format( quantity );
+        final String signStrippedNumberString
+                = StringUtilities.stripNegativeSign( numberString );
+        return signStrippedNumberString;
+    }
+
     /**
      * This method cuts down on code bloat and cut/paste errors by formalizing
      * the @String formatting of paired quantities that are in different units.
      *
-     * @param quantity1
-     *            The first quantity in the quantity pair
-     * @param quantity2
-     *            The second quantity in the quantity pair
-     * @param numberFormat1
-     *            The first number formatter for precision and locale
-     * @param numberFormat2
-     *            The second number formatter for precision and locale
-     * @param unitLabel1
-     *            The @String version of the first unit for the quantities
-     * @param unitLabel2
-     *            The @String version of the second unit for the quantities
+     * @param quantity1     The first quantity in the quantity pair
+     * @param quantity2     The second quantity in the quantity pair
+     * @param numberFormat1 The first number formatter for precision and locale
+     * @param numberFormat2 The second number formatter for precision and
+     *                      locale
+     * @param unitLabel1    The @String version of the first unit for the
+     *                      quantities
+     * @param unitLabel2    The @String version of the second unit for the
+     *                      quantities
      * @return A @String representation of the Formatted Quantity Pair
      */
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static String getFormattedQuantityPair( final double quantity1,
                                                    final double quantity2,
                                                    final NumberFormat numberFormat1,
@@ -151,8 +155,12 @@ public class TextUtilities {
                                                    final String unitLabel2 ) {
         final StringBuilder formattedQuantityPair = new StringBuilder();
 
-        final String quantity1cleaned = getNegativeSignStrippedQuantity( quantity1, numberFormat1 );
-        final String quantity2cleaned = getNegativeSignStrippedQuantity( quantity2, numberFormat2 );
+        final String quantity1cleaned = getNegativeSignStrippedQuantity(
+                quantity1,
+                numberFormat1 );
+        final String quantity2cleaned = getNegativeSignStrippedQuantity(
+                quantity2,
+                numberFormat2 );
 
         formattedQuantityPair.append( "(" );
         formattedQuantityPair.append( quantity1cleaned );
@@ -171,27 +179,22 @@ public class TextUtilities {
      * <p>
      * NOTE: The third quantity is optional, so we check for NaN condition.
      *
-     * @param quantity1
-     *            The first quantity in the quantity triplet
-     * @param quantity2
-     *            The second quantity in the quantity triplet
-     * @param quantity3
-     *            The third quantity in the quantity triplet
-     * @param numberFormat1
-     *            The first number formatter for precision and locale
-     * @param numberFormat2
-     *            The second number formatter for precision and locale
-     * @param numberFormat3
-     *            The third number formatter for precision and locale
-     * @param unitLabel1
-     *            The @String version of the first unit for the quantities
-     * @param unitLabel2
-     *            The @String version of the second unit for the quantities
-     * @param unitLabel3
-     *            The @String version of the third unit for the quantities
+     * @param quantity1     The first quantity in the quantity triplet
+     * @param quantity2     The second quantity in the quantity triplet
+     * @param quantity3     The third quantity in the quantity triplet
+     * @param numberFormat1 The first number formatter for precision and locale
+     * @param numberFormat2 The second number formatter for precision and
+     *                      locale
+     * @param numberFormat3 The third number formatter for precision and locale
+     * @param unitLabel1    The @String version of the first unit for the
+     *                      quantities
+     * @param unitLabel2    The @String version of the second unit for the
+     *                      quantities
+     * @param unitLabel3    The @String version of the third unit for the
+     *                      quantities
      * @return A @String representation of the Formatted Quantity Triplet
      */
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static String getFormattedQuantityTriplet( final double quantity1,
                                                       final double quantity2,
                                                       final double quantity3,
@@ -203,9 +206,15 @@ public class TextUtilities {
                                                       final String unitLabel3 ) {
         final StringBuilder formattedQuantityTriplet = new StringBuilder();
 
-        final String quantity1cleaned = getNegativeSignStrippedQuantity( quantity1, numberFormat1 );
-        final String quantity2cleaned = getNegativeSignStrippedQuantity( quantity2, numberFormat2 );
-        final String quantity3cleaned = getNegativeSignStrippedQuantity( quantity3, numberFormat3 );
+        final String quantity1cleaned = getNegativeSignStrippedQuantity(
+                quantity1,
+                numberFormat1 );
+        final String quantity2cleaned = getNegativeSignStrippedQuantity(
+                quantity2,
+                numberFormat2 );
+        final String quantity3cleaned = getNegativeSignStrippedQuantity(
+                quantity3,
+                numberFormat3 );
 
         formattedQuantityTriplet.append( "(" );
         formattedQuantityTriplet.append( quantity1cleaned );
@@ -223,13 +232,6 @@ public class TextUtilities {
         return formattedQuantityTriplet.toString();
     }
 
-    public static String getNegativeSignStrippedQuantity( final double quantity,
-                                                          final NumberFormat numberFormat ) {
-        final String numberString = numberFormat.format( quantity );
-        final String signStrippedNumberString = StringUtilities.stripNegativeSign( numberString );
-        return signStrippedNumberString;
-    }
-
     public static String getUniquefierAppendix( final int uniquefierNumber,
                                                 final NumberFormat uniquefierNumberFormat ) {
         // Ignore numbers less than one, as that is the only way -- in a
@@ -237,8 +239,7 @@ public class TextUtilities {
         // the original label should be used as-is (when unique) vs. cases where
         // an appendix is always required.
         return ( uniquefierNumber > 0 )
-            ? uniquefierNumberFormat.format( uniquefierNumber )
-            : "";
+               ? uniquefierNumberFormat.format( uniquefierNumber )
+               : "";
     }
-
 }

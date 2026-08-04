@@ -38,9 +38,11 @@ package com.mhschmieder.jcommons.lang;
 public final class NumberUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private NumberUtilities() {}
+    private NumberUtilities() {
+    }
 
     /**
      * Returns {@code true} if the argument is a finite floating-point value;
@@ -48,9 +50,8 @@ public final class NumberUtilities {
      * <p>
      * NOTE: This is a substitute method for Float.isFinite() from Java 8, and
      * is provided as a courtesy to those who use this library with Java 6.
-     * 
-     * @param floatValue
-     *            The {@code float} value to be tested
+     *
+     * @param floatValue The {@code float} value to be tested
      * @return {@code true} if the argument is a finite floating-point value;
      *         {@code false} otherwise (for NaN and infinity arguments)
      */
@@ -64,34 +65,38 @@ public final class NumberUtilities {
      * <p>
      * NOTE: This is a substitute method for Double.isFinite() from Java 8, and
      * is provided as a courtesy to those who use this library with Java 6.
-     * 
-     * @param doubleValue
-     *            The {@code float} value to be tested
+     *
+     * @param doubleValue The {@code float} value to be tested
      * @return {@code true} if the argument is a finite floating-point value;
      *         {@code false} otherwise (for NaN and infinity arguments)
      */
     public static boolean isFinite( final double doubleValue ) {
-        return !Double.isNaN( doubleValue ) && !Double.isInfinite( doubleValue );
+        return !Double.isNaN( doubleValue )
+               && !Double.isInfinite( doubleValue );
     }
 
     // This is a null-safe replacement for auto-boxing of Integers to ints.
     public static int getIntegerAsInt( final Integer integer ) {
-        return ( integer != null ) ? integer.intValue() : 0;
+        return ( integer != null )
+               ? integer.intValue()
+               : 0;
     }
 
     public static double getFloatAsDouble( final float value ) {
-        return Double.valueOf( Float.valueOf( value ).toString() ).doubleValue();
+        return Double.valueOf( Float.valueOf( value ).toString() )
+                     .doubleValue();
     }
 
     public static Double getFloatAsDouble( final Float fValue ) {
-        return ( fValue != null ) ? Double.valueOf( fValue.toString() ) : Double.valueOf( 0.0d );
+        return ( fValue != null )
+               ? Double.valueOf( fValue.toString() )
+               : Double.valueOf( 0.0d );
     }
 
     /**
      * Parses the provided string to a boolean.
      *
-     * @param booleanString
-     *            The unconverted boolean value, as a String
+     * @param booleanString The unconverted boolean value, as a String
      * @return A boolean converted from the provided String
      */
     public static boolean parseBoolean( final String booleanString ) {
@@ -115,8 +120,7 @@ public final class NumberUtilities {
     /**
      * Parses the provided string to an integer.
      *
-     * @param integerString
-     *            The unconverted integer value, as a String
+     * @param integerString The unconverted integer value, as a String
      * @return An integer converted from the provided String
      */
     public static int parseInteger( final String integerString ) {
@@ -140,8 +144,7 @@ public final class NumberUtilities {
     /**
      * Parses the provided string to a long.
      *
-     * @param longString
-     *            The unconverted long value, as a String
+     * @param longString The unconverted long value, as a String
      * @return A long converted from the provided String
      */
     public static long parseLong( final String longString ) {
@@ -166,8 +169,7 @@ public final class NumberUtilities {
      * Parses the provided string to a single-precision float, first looking for
      * infinity and NaN.
      *
-     * @param floatString
-     *            The unconverted single-precision value, as a String
+     * @param floatString The unconverted single-precision value, as a String
      * @return The converted single-precision value, as a float, or zero
      */
     public static float parseFloat( final String floatString ) {
@@ -204,8 +206,7 @@ public final class NumberUtilities {
      * Parses the provided string to a double-precision float, first looking for
      * infinity and NaN.
      *
-     * @param doubleString
-     *            The unconverted double-precision value, as a String
+     * @param doubleString The unconverted double-precision value, as a String
      * @return The converted double-precision value, as a double, or zero
      */
     public static double parseDouble( final String doubleString ) {
@@ -237,5 +238,4 @@ public final class NumberUtilities {
             return 0.0d;
         }
     }
-
 }

@@ -45,7 +45,8 @@ public class PaddedNumberWriter {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public PaddedNumberWriter() {}
+    public PaddedNumberWriter() {
+    }
 
     /**
      * Prints formatted integers using the provided padding to add spaces.

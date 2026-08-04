@@ -56,7 +56,7 @@ public final class DataServerResponse extends HttpServletResponse {
               HttpURLConnection.HTTP_UNAVAILABLE,
               null );
     }
-    
+
     // Fully classified constructor for a data server response.
     public DataServerResponse( final String serverStatusMessage,
                                final String servletErrorMessage,

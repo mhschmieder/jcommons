@@ -41,7 +41,8 @@ public class BrandingUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public BrandingUtilities() {}
+    public BrandingUtilities() {
+    }
 
     // Generic method to get the "saved from" text to add to a document.
     public static String getSavedFrom( final ProductBranding productBranding,
@@ -51,7 +52,7 @@ public class BrandingUtilities {
         savedFrom.append( productBranding.productVersionProtected );
         savedFrom.append( "; Locale = " );
         savedFrom.append( locale.getDisplayName() );
-    
+
         return savedFrom.toString();
     }
 }

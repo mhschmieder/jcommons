@@ -50,5 +50,4 @@ public enum FileStatus {
     SAVED,
     IMPORTED,
     EXPORTED
-
 }

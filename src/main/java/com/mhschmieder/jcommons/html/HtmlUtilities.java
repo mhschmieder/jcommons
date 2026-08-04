@@ -42,25 +42,31 @@ public class HtmlUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    private HtmlUtilities() {}
+    private HtmlUtilities() {
+    }
 
     // This is a utility method to strip typical HTML formatting from labels.
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static String stripHtmlFormatting( final String formattedString ) {
         if ( formattedString == null ) {
             return null;
         }
 
         String unformattedString = formattedString;
-        unformattedString = StringUtilities.replace( unformattedString, "<html>", "" );
-        unformattedString = StringUtilities.replace( unformattedString, "</html>", "" );
-        unformattedString = StringUtilities.replace( unformattedString, "<br>", ". " );
+        unformattedString = StringUtilities.replace( unformattedString,
+                                                     "<html>",
+                                                     "" );
+        unformattedString = StringUtilities.replace( unformattedString,
+                                                     "</html>",
+                                                     "" );
+        unformattedString = StringUtilities.replace( unformattedString,
+                                                     "<br>",
+                                                     ". " );
         return unformattedString;
     }
 
-    @SuppressWarnings("nls")
-    public static StringBuilder getHtmlTableColumnHeader(
-            final String tableColumnHeader ) {
+    @SuppressWarnings( "nls" )
+    public static StringBuilder getHtmlTableColumnHeader( final String tableColumnHeader ) {
         final StringBuilder htmlTableColumnHeader = new StringBuilder(
                 "<th><b><i>" );
         htmlTableColumnHeader.append( tableColumnHeader );
@@ -68,7 +74,7 @@ public class HtmlUtilities {
         return htmlTableColumnHeader;
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public static StringBuilder getHtmlImageHeader( final String imageLabel ) {
         final StringBuilder imageHeader = new StringBuilder(
                 "<p /><h1 align=\"center\">" );

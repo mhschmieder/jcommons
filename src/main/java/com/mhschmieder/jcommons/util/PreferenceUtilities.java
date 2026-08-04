@@ -55,21 +55,23 @@ public class PreferenceUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public PreferenceUtilities() {}
+    public PreferenceUtilities() {
+    }
 
     // Load the MRU Filename Cache from User Preferences.
     // TODO: Use the same collection or array type for load and save.
     public static String[] loadMruPreferences( final Preferences preferences ) {
         final int maximumNumberOfMruFiles = PreferenceUtilities.MRU_CACHE_SIZE;
         final String[] mruFilenames = new String[ maximumNumberOfMruFiles ];
-    
+
         for ( int i = 0; i < maximumNumberOfMruFiles; i++ ) {
             final int mruFileNumber = i + 1;
-            final String mruFilenameKey = "mruFilename" + Integer.toString( mruFileNumber );
+            final String mruFilenameKey = "mruFilename" + Integer.toString(
+                    mruFileNumber );
             final String mruFilename = preferences.get( mruFilenameKey, "" );
             mruFilenames[ i ] = mruFilename;
         }
-    
+
         return mruFilenames;
     }
 
@@ -77,16 +79,24 @@ public class PreferenceUtilities {
     // TODO: Use the same collection or array type for load and save.
     public static void saveMruPreferences( final List< String > mruFilenames,
                                            final Preferences preferences ) {
-        final int maximumNumberOfMruFiles = FastMath.min(
-                PreferenceUtilities.MRU_CACHE_SIZE,
-                mruFilenames.size() );
-    
+        final int maximumNumberOfMruFiles
+                = FastMath.min( PreferenceUtilities.MRU_CACHE_SIZE,
+                                mruFilenames.size() );
+
         for ( int i = 0; i < maximumNumberOfMruFiles; i++ ) {
             final String mruFilename = mruFilenames.get( i );
             final int mruFileNumber = i + 1;
-            final String mruFilenameKey = "mruFilename" + Integer.toString( mruFileNumber );
+            final String mruFilenameKey = "mruFilename" + Integer.toString(
+                    mruFileNumber );
             preferences.put( mruFilenameKey, mruFilename );
         }
+    }
+
+    // Load the Default Directory from User Preferences.
+    public static File loadDefaultDirectoryPreference( final Preferences preferences ) {
+        return PreferenceUtilities.loadDirectoryPreference( preferences,
+                                                            "defaultDirectory"
+                                                          );
     }
 
     // Load a specified Directory from User Preferences.
@@ -96,7 +106,7 @@ public class PreferenceUtilities {
         // This gets used if the preferred directory is malformed or doesn't
         // exist, or if an exception is thrown during preferences handling.
         File directory = FileUtils.getUserDirectory();
-    
+
         // NOTE: The current user's Working Directory is set as the default if
         //  the preferred default directory hasn't been set as a preference yet.
         //  This often corresponds to the application installation directory and
@@ -106,8 +116,10 @@ public class PreferenceUtilities {
         try {
             final String preferredDirectoryPath = preferences.get( directoryKey,
                                                                    workingDirectoryPath );
-            if ( ( preferredDirectoryPath != null ) && !preferredDirectoryPath.trim().isEmpty() ) {
-                final File preferredDirectory = new File( preferredDirectoryPath );
+            if ( ( preferredDirectoryPath != null )
+                 && !preferredDirectoryPath.trim().isEmpty() ) {
+                final File preferredDirectory
+                        = new File( preferredDirectoryPath );
                 if ( Files.isDirectory( preferredDirectory.toPath() ) ) {
                     // If the preferred directory exists and is valid, set it.
                     directory = preferredDirectory;
@@ -117,8 +129,16 @@ public class PreferenceUtilities {
         catch ( final Exception e ) {
             e.printStackTrace();
         }
-    
+
         return directory;
+    }
+
+    // Save the Default Directory to User Preferences.
+    public static void saveDefaultDirectoryPreference( final File defaultDirectory,
+                                                       final Preferences preferences ) {
+        PreferenceUtilities.saveDirectoryPreference( defaultDirectory,
+                                                     preferences,
+                                                     "defaultDirectory" );
     }
 
     // Save a specified Directory to User Preferences.
@@ -128,29 +148,16 @@ public class PreferenceUtilities {
         if ( preferredDirectory == null ) {
             return;
         }
-    
+
         try {
             if ( Files.isDirectory( preferredDirectory.toPath() ) ) {
                 // If the preferred directory exists and is valid, save it.
-                preferences.put( directoryKey, preferredDirectory.getCanonicalPath() );
+                preferences.put( directoryKey,
+                                 preferredDirectory.getCanonicalPath() );
             }
         }
         catch ( final Exception e ) {
             e.printStackTrace();
         }
-    }
-
-    // Load the Default Directory from User Preferences.
-    public static File loadDefaultDirectoryPreference( final Preferences preferences ) {
-        return PreferenceUtilities.loadDirectoryPreference( preferences, 
-                                                            "defaultDirectory" );
-    }
-
-    // Save the Default Directory to User Preferences.
-    public static void saveDefaultDirectoryPreference( final File defaultDirectory,
-                                                       final Preferences preferences ) {
-        PreferenceUtilities.saveDirectoryPreference( defaultDirectory, 
-                                                     preferences, 
-                                                     "defaultDirectory" );
     }
 }

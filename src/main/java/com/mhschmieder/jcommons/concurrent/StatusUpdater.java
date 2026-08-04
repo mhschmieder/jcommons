@@ -33,7 +33,8 @@ package com.mhschmieder.jcommons.concurrent;
 /**
  * Contracts implementers to provide status update methods, which allows for
  * concurrent task oriented API's to avoid coupling to simpler low-level
- * libraries or unwanted dependency on GUI modules that host a Progress Monitor.
+ * libraries or unwanted dependency on GUI modules that host a Progress
+ * Monitor.
  */
 public interface StatusUpdater {
 
@@ -53,9 +54,10 @@ public interface StatusUpdater {
      * Some downstream use may need to cast longs to doubles, if storing work
      * done as a ratio of the total number of tasks.
      *
-     * @param workDone The amount of work done, unitless in {0..totalWork} range
+     * @param workDone  The amount of work done, unitless in {0..totalWork}
+     *                  range
      * @param totalWork The total amount of work expected, unitless
-     * @param message An optional message to update related to current status
+     * @param message   An optional message to update related to current status
      */
     void updateStatus( final long workDone,
                        final long totalWork,

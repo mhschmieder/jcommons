@@ -38,11 +38,12 @@ package com.mhschmieder.jcommons.util;
  * options that vary more in speed than in accuracy: a full update vs. partial.
  * <p>
  * The latter is called Dynamic Update because usually it is triggered by mouse
- * drag actions, which can be fast and furious, vs. GUI buttons for full updates.
+ * drag actions, which can be fast and furious, vs. GUI buttons for full
+ * updates.
  * <p>
  * Consumers of this API may have data subsets that apply to Dynamic Updates.
  */
 public enum DataUpdateType {
-    FULL_UPDATE, 
+    FULL_UPDATE,
     DYNAMIC_UPDATE
 }

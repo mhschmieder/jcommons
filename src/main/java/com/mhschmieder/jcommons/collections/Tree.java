@@ -47,10 +47,11 @@ public class Tree< T extends Item< T > > implements Item< Tree< T > > {
     }
 
     public Tree( String pLabel ) {
-        this( pLabel,null );
+        this( pLabel, null );
     }
 
-    public Tree( String pLabel, T rootValue ) {
+    public Tree( String pLabel,
+                 T rootValue ) {
         label = pLabel;
         root = new Node<>( "Root", rootValue );
     }
@@ -63,8 +64,8 @@ public class Tree< T extends Item< T > > implements Item< Tree< T > > {
     @Override
     public boolean equals( final Object obj ) {
         return ( obj instanceof Tree< ? extends Item< T > > tree )
-                && Objects.equals( label, tree.label )
-                && Objects.equals( root, tree.root );
+               && Objects.equals( label, tree.label ) && Objects.equals( root,
+                                                                         tree.root );
     }
 
     public List< Node< T > > getRootChildren() {
@@ -77,7 +78,8 @@ public class Tree< T extends Item< T > > implements Item< Tree< T > > {
         return list;
     }
 
-    private void collectValues( Node< T > node, List< T > list ) {
+    private void collectValues( Node< T > node,
+                                List< T > list ) {
         if ( node == null ) {
             return;
         }
@@ -98,13 +100,14 @@ public class Tree< T extends Item< T > > implements Item< Tree< T > > {
         return list;
     }
 
-    protected void getNodes( List< Node< T > > list, Node< T > pNode ) {
+    protected void getNodes( List< Node< T > > list,
+                             Node< T > pNode ) {
         list.add( pNode );
-        if ( pNode.isLeaf() ){
+        if ( pNode.isLeaf() ) {
             return;
         }
         for ( final Node< T > child : pNode.getChildren() ) {
-            if( !child.isLeaf() ) {
+            if ( !child.isLeaf() ) {
                 getNodes( list, child );
             }
             list.add( child );
@@ -113,8 +116,8 @@ public class Tree< T extends Item< T > > implements Item< Tree< T > > {
 
     public Node< T > getNode( final String pLabel ) {
         final List< Node< T > > list = getAllNodes();
-        for ( final Node<T> node : list ) {
-            if ( Objects.equals( node.getLabel(), pLabel ) ){
+        for ( final Node< T > node : list ) {
+            if ( Objects.equals( node.getLabel(), pLabel ) ) {
                 return node;
             }
         }

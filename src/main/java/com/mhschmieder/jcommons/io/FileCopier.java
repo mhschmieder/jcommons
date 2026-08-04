@@ -47,8 +47,9 @@ public class FileCopier {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public FileCopier() {}
-    
+    public FileCopier() {
+    }
+
     /*
      * fileCopy
      *
@@ -63,11 +64,8 @@ public class FileCopier {
         }
         catch ( final Exception e ) {
             e.printStackTrace();
-            System.out.println(
-                    "Could Not Copy File "
-                    + inputFilename
-                    + " to "
-                    + outputFilename );
+            System.out.println( "Could Not Copy File " + inputFilename + " to "
+                                + outputFilename );
             return false;
         }
 
@@ -76,27 +74,28 @@ public class FileCopier {
 
     // Copy a file using streams (the oldest approach, but sometimes fastest).
     // NOTE: There is no need to provide a wrapper for Java NIO Files.copy() as
-    //  an additional option, as Apache Commons IO FileUtils.copyFile() does that.
-    public static long copyFileUsingStreams( final File source, 
+    //  an additional option, as Apache Commons IO FileUtils.copyFile() does
+    //  that.
+    public static long copyFileUsingStreams( final File source,
                                              final File dest ) {
         long totalNumberOfBytesRead = 0L;
-    
+
         try ( final InputStream is = new FileInputStream( source );
-                final OutputStream os = new FileOutputStream( dest ) ) {
+              final OutputStream os = new FileOutputStream( dest ) ) {
             totalNumberOfBytesRead = FileCopier.copyFileStream( is, os );
         }
         catch ( final Exception e ) {
             e.printStackTrace();
         }
-    
+
         return totalNumberOfBytesRead;
     }
 
     // Copy a file stream using traditional Java IO.
-    public static long copyFileStream( final InputStream is, 
+    public static long copyFileStream( final InputStream is,
                                        final OutputStream os ) {
         long totalNumberOfBytesRead = 0L;
-    
+
         try {
             byte[] buffer = new byte[ 8192 ];
             int numberOfBytesRead;
@@ -108,29 +107,32 @@ public class FileCopier {
         catch ( final Exception e ) {
             e.printStackTrace();
         }
-    
+
         return totalNumberOfBytesRead;
     }
 
     // Copy a file using channels (a somewhat newer approach, sometimes
     // fastest).
     // NOTE: There is no need to provide a wrapper for Java NIO Files.copy() as
-    //  an additional option, as Apache Commons IO FileUtils.copyFile() does that.
-    public static long copyFileUsingChannels( final File source, 
+    //  an additional option, as Apache Commons IO FileUtils.copyFile() does
+    //  that.
+    public static long copyFileUsingChannels( final File source,
                                               final File dest ) {
         long totalNumberOfBytesRead = 0L;
-    
-        try ( final FileInputStream sourceStream = new FileInputStream( source );
-                final FileChannel sourceChannel = sourceStream.getChannel();
-                final FileOutputStream destStream = new FileOutputStream( dest );
-                final FileChannel destChannel = destStream.getChannel() ) {
-            totalNumberOfBytesRead = destChannel
-                    .transferFrom( sourceChannel, 0L, sourceChannel.size() );
+
+        try ( final FileInputStream sourceStream =
+                      new FileInputStream( source );
+              final FileChannel sourceChannel = sourceStream.getChannel();
+              final FileOutputStream destStream = new FileOutputStream( dest );
+              final FileChannel destChannel = destStream.getChannel() ) {
+            totalNumberOfBytesRead = destChannel.transferFrom( sourceChannel,
+                                                               0L,
+                                                               sourceChannel.size() );
         }
         catch ( final Exception e ) {
             e.printStackTrace();
         }
-    
+
         return totalNumberOfBytesRead;
     }
 }

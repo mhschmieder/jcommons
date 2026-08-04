@@ -40,24 +40,28 @@ import java.time.temporal.ChronoUnit;
 public final class DurationUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private DurationUtilities() {}
+    private DurationUtilities() {
+    }
 
     /**
      * Returns the timestep (index) based on the given time from start (seconds)
      * divided by the interval (seconds) between timesteps.
      * <p>
-     * As timesteps start at zero (an AI tradition), they correspond to indices.
+     * As timesteps start at zero (an AI tradition), they correspond to
+     * indices.
      *
      * @param timeFromStartSeconds the time from start (seconds) to convert
-     * @param timestepDuration the duration of each timestep in a timeline
+     * @param timestepDuration     the duration of each timestep in a timeline
      * @return the timestep (index) for the given time from start (seconds)
      */
     public static int getTimestepIndex( final long timeFromStartSeconds,
                                         final Duration timestepDuration ) {
-        return FastMath.toIntExact( ( long ) FastMath.floor( ( double )
-                timeFromStartSeconds / timestepDuration.toSeconds() ) );
+        return FastMath.toIntExact( ( long ) FastMath.floor(
+                ( double ) timeFromStartSeconds
+                / timestepDuration.toSeconds() ) );
     }
 
     /**
@@ -67,13 +71,12 @@ public final class DurationUtilities {
      * As timesteps start at zero (an AI tradition), we do not decrement before
      * multiplying as the resulting time offset is correct for all timesteps.
      *
-     * @param timestepIndex the timestep (index from 0) to convert
+     * @param timestepIndex    the timestep (index from 0) to convert
      * @param timestepDuration the duration of each timestep in a timeline
      * @return the time from start (seconds) for the given timestep (index)
      */
-    public static long getTimeFromStartSeconds(
-            final int timestepIndex,
-            final Duration timestepDuration ) {
+    public static long getTimeFromStartSeconds( final int timestepIndex,
+                                                final Duration timestepDuration ) {
         return timestepIndex * timestepDuration.toSeconds();
     }
 
@@ -99,12 +102,12 @@ public final class DurationUtilities {
                 if ( indexOf >= 0 ) {
                     String roundoffMillis = durationText.substring( indexOf );
 
-                    long extraValueNanos = ( long ) ( numberParse.parse(
-                            roundoffMillis ).doubleValue()
+                    long extraValueNanos = ( long ) (
+                            numberParse.parse( roundoffMillis ).doubleValue()
                             * TimeConversion.MILLIS_TO_NANOS );
 
-                    duration = duration.plus(
-                            extraValueNanos, ChronoUnit.NANOS );
+                    duration = duration.plus( extraValueNanos,
+                                              ChronoUnit.NANOS );
                 }
             }
             case SECONDS -> {
@@ -112,12 +115,12 @@ public final class DurationUtilities {
                 if ( indexOf >= 0 ) {
                     String roundoffSeconds = durationText.substring( indexOf );
 
-                    long extraValueNanos = ( long ) ( numberParse.parse(
-                            roundoffSeconds ).doubleValue()
+                    long extraValueNanos = ( long ) (
+                            numberParse.parse( roundoffSeconds ).doubleValue()
                             * TimeConversion.SECONDS_TO_NANOS );
 
-                    duration = duration.plus(
-                            extraValueNanos, ChronoUnit.NANOS );
+                    duration = duration.plus( extraValueNanos,
+                                              ChronoUnit.NANOS );
                 }
             }
             case MINUTES -> {
@@ -125,12 +128,12 @@ public final class DurationUtilities {
                 if ( indexOf >= 0 ) {
                     String roundoffMinutes = durationText.substring( indexOf );
 
-                    long extraValueNanos = ( long ) ( numberParse.parse(
-                            roundoffMinutes ).doubleValue()
+                    long extraValueNanos = ( long ) (
+                            numberParse.parse( roundoffMinutes ).doubleValue()
                             * TimeConversion.MINUTES_TO_NANOS );
 
-                    duration = duration.plus(
-                            extraValueNanos, ChronoUnit.NANOS );
+                    duration = duration.plus( extraValueNanos,
+                                              ChronoUnit.NANOS );
                 }
             }
             case HOURS -> {
@@ -138,12 +141,12 @@ public final class DurationUtilities {
                 if ( indexOf >= 0 ) {
                     String roundOffHours = durationText.substring( indexOf );
 
-                    long extraValueNanos = ( long ) ( numberParse.parse(
-                            roundOffHours ).doubleValue()
+                    long extraValueNanos = ( long ) (
+                            numberParse.parse( roundOffHours ).doubleValue()
                             * TimeConversion.HOURS_TO_NANOS );
 
-                    duration = duration.plus(
-                            extraValueNanos, ChronoUnit.NANOS );
+                    duration = duration.plus( extraValueNanos,
+                                              ChronoUnit.NANOS );
                 }
             }
             case DAYS -> {
@@ -151,29 +154,28 @@ public final class DurationUtilities {
                 if ( indexOf >= 0 ) {
                     String roundoffDays = durationText.substring( indexOf );
 
-                    long extraValueNanos = ( long ) ( numberParse.parse(
-                            roundoffDays ).doubleValue()
+                    long extraValueNanos = ( long ) (
+                            numberParse.parse( roundoffDays ).doubleValue()
                             * TimeConversion.DAYS_TO_NANOS );
 
-                    duration = duration.plus(
-                            extraValueNanos, ChronoUnit.NANOS );
+                    duration = duration.plus( extraValueNanos,
+                                              ChronoUnit.NANOS );
                 }
             }
-            default -> {}
+            default -> {
+            }
         }
 
         return duration;
     }
 
-    public static Duration getDurationFromSecondsDouble(
-            final double valueSeconds ) {
+    public static Duration getDurationFromSecondsDouble( final double valueSeconds ) {
         double valueNanos = valueSeconds * TimeConversion.SECONDS_TO_NANOS;
 
-        return Duration.ofNanos( (long) FastMath.floor( valueNanos ) );
+        return Duration.ofNanos( ( long ) FastMath.floor( valueNanos ) );
     }
 
-    public static double getDoubleSecondsFromDuration(
-            final Duration duration ) {
+    public static double getDoubleSecondsFromDuration( final Duration duration ) {
         long valueNanos = duration.toNanos();
 
         return valueNanos * TimeConversion.NANOS_TO_SECONDS;

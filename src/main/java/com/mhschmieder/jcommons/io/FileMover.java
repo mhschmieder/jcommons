@@ -48,30 +48,28 @@ public class FileMover {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public FileMover() {}
-
-    public static String moveFileToCache(
-            final String originalDirectoryBasePathname,
-            final String originalFilename,
-            final String cacheDirectoryPathname,
-            final String cacheFileBaseName,
-            final boolean copyToCache ) {
-        return moveFileToCache(
-                originalDirectoryBasePathname,
-                originalFilename,
-                cacheDirectoryPathname,
-                cacheFileBaseName,
-                null,
-                copyToCache );
+    public FileMover() {
     }
 
-    public static String moveFileToCache(
-            final String originalDirectoryBasePathname,
-            final String originalFilename,
-            final String cacheDirectoryPathname,
-            final String cacheFileBaseName,
-            final String cacheFileSuffix,
-            final boolean copyToCache ) {
+    public static String moveFileToCache( final String originalDirectoryBasePathname,
+                                          final String originalFilename,
+                                          final String cacheDirectoryPathname,
+                                          final String cacheFileBaseName,
+                                          final boolean copyToCache ) {
+        return moveFileToCache( originalDirectoryBasePathname,
+                                originalFilename,
+                                cacheDirectoryPathname,
+                                cacheFileBaseName,
+                                null,
+                                copyToCache );
+    }
+
+    public static String moveFileToCache( final String originalDirectoryBasePathname,
+                                          final String originalFilename,
+                                          final String cacheDirectoryPathname,
+                                          final String cacheFileBaseName,
+                                          final String cacheFileSuffix,
+                                          final boolean copyToCache ) {
         // This is the file path that we start with, but it gets replaced by the
         // cache directory path if the file moves are successful.
         final String originalFilePath
@@ -86,15 +84,18 @@ public class FileMover {
                 return null;
             }
 
-            final String suffix = ( cacheFileSuffix != null )
-                    && !cacheFileSuffix.isEmpty()
+            final String suffix =
+                    ( cacheFileSuffix != null ) && !cacheFileSuffix.isEmpty()
                     ? cacheFileSuffix
-                    : StringConstants.PERIOD + FilenameUtilities.getExtension( 
+                    : StringConstants.PERIOD + FilenameUtilities.getExtension(
                             originalFilename );
 
             final File cacheFileLocation = FileUtilities.makeTempFile(
-                    cacheDirectoryPathname, cacheFileBaseName, suffix );
-            final String cacheFilePathname = cacheFileLocation.getAbsolutePath();
+                    cacheDirectoryPathname,
+                    cacheFileBaseName,
+                    suffix );
+            final String cacheFilePathname
+                    = cacheFileLocation.getAbsolutePath();
 
             // Conditionally copy or rename the original file to the cache
             // directory location. Typically this is meant to preserve interim
@@ -127,11 +128,11 @@ public class FileMover {
                 //  then a "delete quietly" call on the destination file if the
                 //  source file deletion failed.
                 FileUtils.forceDelete( cacheFileLocation );
-                FileUtils.copyFile(
-                        originalFileLocation,
-                        cacheFileLocation,
-                        StandardCopyOption.REPLACE_EXISTING );
-            } else {
+                FileUtils.copyFile( originalFileLocation,
+                                    cacheFileLocation,
+                                    StandardCopyOption.REPLACE_EXISTING );
+            }
+            else {
                 // Apache Commons moveFile checks if target file exists and
                 // fails if so. In our case the target file already exists
                 // because the cached file is generated using Java core calls
@@ -146,45 +147,49 @@ public class FileMover {
                 if ( !originalFileLocation.renameTo( cacheFileLocation ) ) {
                     System.out.println(
                             ">> Trouble Moving File to Cache Directory: "
-                                    + originalFilePath );
+                            + originalFilePath );
                     return originalFilePath;
                 }
             }
 
-            // Now it is safe to use the cache directory as the cached file path.
+            // Now it is safe to use the cache directory as the cached file
+            // path.
             return cacheFilePathname;
         }
         catch ( final Exception e ) {
             e.printStackTrace();
             System.out.println(
                     ">> Exception Moving or Copying File to Cache Directory: "
-                            + originalFilePath );
+                    + originalFilePath );
             return originalFilePath;
         }
     }
 
     // Move or rename a source file to a target file (system-specific).
-    public static boolean moveFile( final File sourceFile, 
+    public static boolean moveFile( final File sourceFile,
                                     final File targetFile ) {
         // TODO: Verify that network drives work as the target location, as
         //  it is illegal to rename (vs. copy) a file from one system to
         //  another. Probably Java NIO2 deals with this for us.
         final Path sourcePath = sourceFile.toPath();
         final Path targetPath = targetFile.toPath();
-    
+
         try {
             // Do not move invalid or empty source files.
-            if ( !PathUtils.isRegularFile( sourcePath, LinkOption.NOFOLLOW_LINKS )
-                    || PathUtils.isEmptyFile( sourcePath ) ) {
+            if ( !PathUtils.isRegularFile( sourcePath,
+                                           LinkOption.NOFOLLOW_LINKS )
+                 || PathUtils.isEmptyFile( sourcePath ) ) {
                 return false;
             }
-    
+
             // NOTE: File status can change suddenly, so it is best to
             //  re-check whether a target file is writable before a move or
             //  rename operation. We always replace an existing file, and
             //  depend on the file chooser to alert the user of overwrites.
-            final boolean isTargetFile = Files.exists( targetPath, LinkOption.NOFOLLOW_LINKS )
-                    && !Files.notExists( targetPath, LinkOption.NOFOLLOW_LINKS );
+            final boolean isTargetFile =
+                    Files.exists( targetPath, LinkOption.NOFOLLOW_LINKS )
+                    && !Files.notExists( targetPath,
+                                         LinkOption.NOFOLLOW_LINKS );
             if ( !isTargetFile ) {
                 // If the target file doesn't exist, create it.
                 Files.createFile( targetPath );
@@ -192,16 +197,18 @@ public class FileMover {
             if ( !Files.isWritable( targetPath ) ) {
                 return false;
             }
-    
+
             // NOTE: If we also specify to copy the attributes, we get
             //  run-time exceptions on Windows 10 due to security issues.
-            Files.move( sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING );
+            Files.move( sourcePath,
+                        targetPath,
+                        StandardCopyOption.REPLACE_EXISTING );
         }
         catch ( final Exception e ) {
             e.printStackTrace();
             return false;
         }
-    
+
         return true;
     }
 }

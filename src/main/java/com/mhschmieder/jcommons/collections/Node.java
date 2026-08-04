@@ -38,8 +38,7 @@ import java.util.Objects;
 
 public class Node< T extends Item< T > > implements Item< Node< T > > {
 
-    private static final String DEFAULT_NODE_LABEL
-            = "New Node";
+    private static final String DEFAULT_NODE_LABEL = "New Node";
 
     private String label;
 
@@ -57,16 +56,16 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
         this( pLabel, null );
     }
 
-    public Node( final T pValue ) {
-        this( pValue.getLabel(), pValue );
-    }
-
     public Node( final String pLabel,
                  final T pValue ) {
         label = pLabel;
         value = pValue;
         parent = null;
         children = new ArrayList<>();
+    }
+
+    public Node( final T pValue ) {
+        this( pValue.getLabel(), pValue );
     }
 
     public void addChild( final Node< T > pChild ) {
@@ -77,7 +76,7 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
 
     public void clearChildren() {
         final List< Node< T > > oldChildren = new ArrayList<>( children );
-        for( final Node< T > child : oldChildren ) {
+        for ( final Node< T > child : oldChildren ) {
             removeChild( child );
         }
     }
@@ -89,7 +88,7 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
     }
 
     public void checkChild( final Node< T > pChild )
-            throws IllegalArgumentException, NoSuchElementException{
+            throws IllegalArgumentException, NoSuchElementException {
         if ( pChild == null ) {
             throw new IllegalArgumentException( "Child is null" );
         }
@@ -97,7 +96,7 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
 
     public void checkParent( final Node< T > pChild ) {
         if ( !children.contains( pChild )
-                || !Objects.equals( pChild.getParent(), this ) ) {
+             || !Objects.equals( pChild.getParent(), this ) ) {
             throw new NoSuchElementException( "Child is not found" );
         }
     }
@@ -117,15 +116,15 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
     }
 
     @Override
-    public boolean equals( final Object obj ) {
-        return ( obj instanceof Node< ? extends Item< T > > node )
-                && Objects.equals( value, node.value )
-                && Objects.equals( label, node.label );
+    public int hashCode() {
+        return Objects.hash( value, label );
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash( value, label );
+    public boolean equals( final Object obj ) {
+        return ( obj instanceof Node< ? extends Item< T > > node )
+               && Objects.equals( value, node.value ) && Objects.equals( label,
+                                                                         node.label );
     }
 
     public T getValue() {
@@ -141,8 +140,8 @@ public class Node< T extends Item< T > > implements Item< Node< T > > {
     }
 
     public void setParent( final Node< T > pParent ) {
-        if ( ( parent != null ) && !Objects.equals(
-                parent.getValue(), pParent.getValue() ) ) {
+        if ( ( parent != null ) && !Objects.equals( parent.getValue(),
+                                                    pParent.getValue() ) ) {
             parent.removeChild( this );
         }
         parent = pParent;

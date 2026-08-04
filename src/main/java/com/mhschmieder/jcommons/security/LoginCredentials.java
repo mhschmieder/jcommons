@@ -34,7 +34,7 @@ public class LoginCredentials {
 
     // Declare default constants, where appropriate, for all fields.
     public static final String USER_NAME_DEFAULT = "";
-    public static final String PASSWORD_DEFAULT  = "";
+    public static final String PASSWORD_DEFAULT = "";
 
     private String userName;
     private String password;
@@ -45,21 +45,21 @@ public class LoginCredentials {
     }
 
     // Fully Qualified Constructor.
-    public LoginCredentials( final String pUserName, final String pPassword ) {
+    public LoginCredentials( final String pUserName,
+                             final String pPassword ) {
         setLogin( pUserName, pPassword );
+    }
+
+    public final void setLogin( final String pUserName,
+                                final String pPassword ) {
+        userName = pUserName;
+        password = pPassword;
     }
 
     // Copy Constructor; offered in place of clone() to guarantee that the
     // source object is never modified by the new target object created here.
     public LoginCredentials( final LoginCredentials loginCredentials ) {
         this( loginCredentials.getUserName(), loginCredentials.getPassword() );
-    }
-
-    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
-    // instead.
-    @Override
-    protected final Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
     }
 
     public final String getUserName() {
@@ -70,21 +70,24 @@ public class LoginCredentials {
         return password;
     }
 
+    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
+    // instead.
+    @Override
+    protected final Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+
     public final boolean isValid() {
-        return ( ( getUserName().trim().length() > 0 ) && ( getPassword().trim().length() > 0 ) );
+        return ( ( getUserName().trim().length() > 0 ) && (
+                getPassword().trim().length() > 0 ) );
     }
 
     public void reset() {
-        setLogin( LoginCredentials.USER_NAME_DEFAULT, LoginCredentials.PASSWORD_DEFAULT );
-    }
-
-    public final void setLogin( final String pUserName, final String pPassword ) {
-        userName = pUserName;
-        password = pPassword;
+        setLogin( LoginCredentials.USER_NAME_DEFAULT,
+                  LoginCredentials.PASSWORD_DEFAULT );
     }
 
     public final void setLogin( final LoginCredentials loginCredentials ) {
         setLogin( getUserName(), getPassword() );
     }
-
 }

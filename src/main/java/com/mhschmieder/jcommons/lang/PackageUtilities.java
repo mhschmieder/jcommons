@@ -38,14 +38,16 @@ public class PackageUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public PackageUtilities() {}
+    public PackageUtilities() {
+    }
 
     // Get a package path from a jar-resident class instance, to use as a file
     // prefix when supplying only the file name.
     public static String getPackagePath( final Class< ? > classInstance ) {
-        final String packagePath = "/"
-                + classInstance.getClass().getPackage().getName().replaceAll( 
-                        "\\.", "/" );
+        final String packagePath = "/" + classInstance.getClass()
+                                                      .getPackage()
+                                                      .getName()
+                                                      .replaceAll( "\\.", "/" );
         return packagePath;
     }
 }

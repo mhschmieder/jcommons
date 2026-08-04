@@ -38,28 +38,19 @@ import java.util.Objects;
 
 public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
 
-    private static final Logger LOGGER = System.getLogger(
-            Group.class.getName() );
+    private static final Logger LOGGER
+            = System.getLogger( Group.class.getName() );
 
-    private static final String DEFAULT_LABEL
-            = "New Group";
-
+    private static final String DEFAULT_LABEL = "New Group";
+    private final List< T > items;
     private String label;
-
-    private final List<T> items;
 
     public Group() {
         this( DEFAULT_LABEL );
     }
 
     public Group( final String label ) {
-        this(
-                label,
-                new ArrayList<>() );
-    }
-
-    public Group( final List< T > items ) {
-        this( DEFAULT_LABEL, items );
+        this( label, new ArrayList<>() );
     }
 
     public Group( final String pLabel,
@@ -72,6 +63,10 @@ public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
         }
     }
 
+    public Group( final List< T > items ) {
+        this( DEFAULT_LABEL, items );
+    }
+
     @SafeVarargs
     public final void addAll( final T... items ) {
         for ( final T item : items ) {
@@ -79,17 +74,11 @@ public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
         }
     }
 
-    @SafeVarargs
-    public final void removeAll( final T... items ) {
-        for ( final T item : items ) {
-            removeItem( item );
-        }
-    }
-
     public void addItem( final T pItem ) {
         try {
             checkItem( pItem );
-        } catch( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             LOGGER.log( Level.ERROR, e.getMessage(), e );
         }
 
@@ -105,7 +94,8 @@ public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
         try {
             checkItem( pItem );
             checkGroup( pItem );
-        } catch( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             LOGGER.log( Level.ERROR, e.getMessage(), e );
         }
 
@@ -113,35 +103,41 @@ public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
         pItem.setGroup( null );
     }
 
-    public void moveItem( final int idx,
-                          final T pItem ) {
-        try {
-            checkItem( pItem );
-            checkGroup( pItem );
-        } catch( final Exception e ) {
-            LOGGER.log( Level.ERROR, e.getMessage(), e );
+    protected void checkGroup( final T pItem ) throws IllegalStateException {
+        if ( !Objects.equals( pItem.getGroup(), this ) ) {
+            throw new IllegalArgumentException( "Item is not in this group" );
         }
-
-        if( ( idx < 0 ) || ( idx >= items.size() ) ) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        items.remove( pItem );
-        items.add( idx, pItem );
     }
 
-    protected void checkItem( final T pItem )
-            throws IllegalArgumentException {
+    protected void checkItem( final T pItem ) throws IllegalArgumentException {
         if ( pItem == null ) {
             throw new IllegalArgumentException( "Item is null" );
         }
     }
 
-    protected void checkGroup( final T pItem )
-            throws IllegalStateException{
-        if ( !Objects.equals( pItem.getGroup(), this ) ) {
-            throw new IllegalArgumentException( "Item is not in this group" );
+    @SafeVarargs
+    public final void removeAll( final T... items ) {
+        for ( final T item : items ) {
+            removeItem( item );
         }
+    }
+
+    public void moveItem( final int idx,
+                          final T pItem ) {
+        try {
+            checkItem( pItem );
+            checkGroup( pItem );
+        }
+        catch ( final Exception e ) {
+            LOGGER.log( Level.ERROR, e.getMessage(), e );
+        }
+
+        if ( ( idx < 0 ) || ( idx >= items.size() ) ) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        items.remove( pItem );
+        items.add( idx, pItem );
     }
 
     @Override
@@ -162,8 +158,8 @@ public class Group< T extends GroupItem< T > > implements Item< Group< T > > {
     @Override
     public boolean equals( final Object obj ) {
         return ( obj instanceof Group< ? extends GroupItem< T > > group )
-                && Objects.equals( group.label, label )
-                && Objects.equals( group.items, items );
+               && Objects.equals( group.label, label )
+               && Objects.equals( group.items, items );
     }
 
     public List< T > getItems() {

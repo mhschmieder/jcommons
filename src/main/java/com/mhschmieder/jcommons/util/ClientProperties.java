@@ -36,16 +36,16 @@ import java.util.Locale;
 public class ClientProperties {
 
     // Cache the verbose OS Name compounded from system toolkit queries.
-    public String     osNameVerbose;
+    public String osNameVerbose;
 
     // Cache the System Type to special-case for macOS, Linux, etc.
     public SystemType systemType;
 
     // Cache the locale, so it can be easily queried and/or changed.
-    public Locale     locale;
+    public Locale locale;
 
     // Cache the user default directory as it is expensive to query.
-    public File       userHomeDirectory;
+    public File userHomeDirectory;
 
     public ClientProperties( final String pOsNameVerbose,
                              final Locale pLocale,

@@ -55,33 +55,32 @@ public class ZipUtilities {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public ZipUtilities() {}
+    public ZipUtilities() {
+    }
 
     /**
      * This method finds an occurrence of a particular file name in a supplied
      * ZIP file, and returns a ready-to-use ZIP Entry wrapped in an Optional, to
      * avoid null pointer exceptions.
      *
-     * @param zipFile
-     *            The ZIP File to search for a specific File Name
-     * @param fileName
-     *            The simple file name to search for, sans path
+     * @param zipFile  The ZIP File to search for a specific File Name
+     * @param fileName The simple file name to search for, sans path
      * @return A ZIP Entry corresponding to a file match, or null if not
      *         present, but wrapped as an Optional for code safety
      */
-    public static Optional< ? extends ZipEntry > findFileNameInZip(
-            final ZipFile zipFile,
-            final String fileName ) {
+    public static Optional< ? extends ZipEntry > findFileNameInZip( final ZipFile zipFile,
+                                                                    final String fileName ) {
         // Each file access has to start a new stream due to auto-close.
         final Stream< ? extends ZipEntry > zipStream = zipFile.stream();
-        final Predicate< ZipEntry > isCorrectFileName = zipEntry
-                -> zipEntry.getName().equals( fileName );
-    
-        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry
-                .isDirectory();
-        final Optional< ? extends ZipEntry > optionalZipEntry = zipStream
-                .filter( isFile.and( isCorrectFileName ) ).findFirst();
-    
+        final Predicate< ZipEntry > isCorrectFileName
+                = zipEntry -> zipEntry.getName().equals( fileName );
+
+        final Predicate< ZipEntry > isFile
+                = zipEntry -> !zipEntry.isDirectory();
+        final Optional< ? extends ZipEntry > optionalZipEntry
+                = zipStream.filter( isFile.and( isCorrectFileName ) )
+                           .findFirst();
+
         return optionalZipEntry;
     }
 
@@ -90,27 +89,28 @@ public class ZipUtilities {
      * supplied ZIP file, and returns a ready-to-use ZIP Entry wrapped in an
      * Optional so as to avoid null pointer exceptions.
      *
-     * @param zipFile
-     *            The ZIP File to search for a specific File Type
-     * @param fileType
-     *            The simple file extension used to search for the File Type
+     * @param zipFile  The ZIP File to search for a specific File Type
+     * @param fileType The simple file extension used to search for the File
+     *                 Type
      * @return A ZIP Entry corresponding to the first match, or null if not
      *         present, but wrapped as an Optional for code safety
      */
-    public static Optional< ? extends ZipEntry > findFileTypeInZip(
-            final ZipFile zipFile,
-            final String fileType ) {
+    public static Optional< ? extends ZipEntry > findFileTypeInZip( final ZipFile zipFile,
+                                                                    final String fileType ) {
         // Each file access has to start a new stream due to auto-close.
         final Stream< ? extends ZipEntry > zipStream = zipFile.stream();
-        final Predicate< ZipEntry > isCorrectFileType = zipEntry
-                -> FilenameUtils.isExtension(
-                        zipEntry.getName().toLowerCase( Locale.ENGLISH ), fileType );
-    
-        final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry
-                .isDirectory();
-        final Optional< ? extends ZipEntry > optionalZipEntry = zipStream
-                .filter( isFile.and( isCorrectFileType ) ).findFirst();
-    
+        final Predicate< ZipEntry > isCorrectFileType
+                = zipEntry -> FilenameUtils.isExtension( zipEntry.getName()
+                                                                 .toLowerCase(
+                                                                         Locale.ENGLISH ),
+                                                         fileType );
+
+        final Predicate< ZipEntry > isFile
+                = zipEntry -> !zipEntry.isDirectory();
+        final Optional< ? extends ZipEntry > optionalZipEntry
+                = zipStream.filter( isFile.and( isCorrectFileType ) )
+                           .findFirst();
+
         return optionalZipEntry;
     }
 
@@ -128,26 +128,33 @@ public class ZipUtilities {
         // ".zip" extension), an exception will be caught, so it is up to the
         // caller whether to check in advance for file type validity.
         try ( final ZipFile zipFile = new ZipFile( file ) ) {
-            final Predicate< ZipEntry > isFile = zipEntry -> !zipEntry.isDirectory();
-            final Predicate< ZipEntry > isXml = zipEntry -> FilenameUtils
-                    .isExtension( zipEntry.getName().toLowerCase( Locale.ENGLISH ), contentType );
-    
-            final Optional< ? extends ZipEntry > optionalXmlEntry = zipFile.stream()
-                    .filter( isFile.and( isXml ) ).findFirst();
-    
+            final Predicate< ZipEntry > isFile
+                    = zipEntry -> !zipEntry.isDirectory();
+            final Predicate< ZipEntry > isXml
+                    = zipEntry -> FilenameUtils.isExtension( zipEntry.getName()
+                                                                     .toLowerCase(
+                                                                             Locale.ENGLISH ),
+                                                             contentType );
+
+            final Optional< ? extends ZipEntry > optionalXmlEntry
+                    = zipFile.stream()
+                             .filter( isFile.and( isXml ) )
+                             .findFirst();
+
             // There must be a valid entry of the specified content type, in
             // order for this ZIP file to be considered valid.
             if ( !optionalXmlEntry.isPresent() ) {
                 return false;
             }
-    
+
             // Read in the relevant zip entry as an in-memory stream.
             boolean fileOpened = false;
-            try ( final InputStream inputStream =
-                                                zipFile.getInputStream( optionalXmlEntry.get() ) ) {
-                fileOpened = IoUtilities.loadIntoStringBuilder( inputStream, fileContent );
+            try ( final InputStream inputStream = zipFile.getInputStream(
+                    optionalXmlEntry.get() ) ) {
+                fileOpened = IoUtilities.loadIntoStringBuilder( inputStream,
+                                                                fileContent );
             }
-    
+
             return fileOpened;
         }
         catch ( final Exception e ) {
@@ -164,32 +171,35 @@ public class ZipUtilities {
         try {
             // Add a header so that WINZIP and other tools can easily identify
             // this as a ZIP file produced from a specific application.
-            ZipUtilities.prepareZipForWrite( zipOutputStream, productBranding, locale );
-    
+            ZipUtilities.prepareZipForWrite( zipOutputStream,
+                                             productBranding,
+                                             locale );
+
             // Chain a ZipInputStream to a ByteArrayInputStream to the byte
             // array, to inflate the ZIP entries.
             try ( final ByteArrayInputStream byteArrayInputStream =
-                                                                  new ByteArrayInputStream( byteArray );
-                    final ZipInputStream zipInputStream =
-                                                        new ZipInputStream( byteArrayInputStream ) ) {
+                          new ByteArrayInputStream(
+                    byteArray );
+                  final ZipInputStream zipInputStream = new ZipInputStream(
+                          byteArrayInputStream ) ) {
                 ZipEntry zipEntry = null;
                 while ( ( zipEntry = zipInputStream.getNextEntry() ) != null ) {
                     // Echo the current ZIP entry to the saved ZIP file (this
                     // should also preserve the original server time/date
                     // stamp).
                     zipOutputStream.putNextEntry( zipEntry );
-    
+
                     // Copy the current ZIP entry from the byte array directly
                     // to the new ZIP output file.
                     // NOTE: We don't care about the returned data size; if it
                     // was "-1", it simply means it was too large to fit in an
                     // int.
                     IOUtils.copy( zipInputStream, zipOutputStream );
-    
+
                     // Close the current ZIP input entry to prepare to read the
                     // next entry.
                     zipInputStream.closeEntry();
-    
+
                     // Close the current ZIP output entry (copy) to prevent
                     // further modification.
                     zipOutputStream.closeEntry();
@@ -200,7 +210,7 @@ public class ZipUtilities {
             e.printStackTrace();
             return FileStatus.WRITE_ERROR;
         }
-    
+
         return FileStatus.SAVED;
     }
 
@@ -210,7 +220,8 @@ public class ZipUtilities {
     public static void prepareZipForWrite( final ZipOutputStream zipOutputStream,
                                            final ProductBranding productBranding,
                                            final Locale locale ) {
-        final String savedFrom = BrandingUtilities.getSavedFrom( productBranding, locale );
+        final String savedFrom
+                = BrandingUtilities.getSavedFrom( productBranding, locale );
         zipOutputStream.setComment( savedFrom );
         zipOutputStream.setMethod( ZipOutputStream.DEFLATED );
         zipOutputStream.setLevel( 9 );

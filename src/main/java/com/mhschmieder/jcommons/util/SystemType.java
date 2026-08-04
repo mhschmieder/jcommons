@@ -33,22 +33,26 @@ package com.mhschmieder.jcommons.util;
 import java.util.Locale;
 
 public enum SystemType {
-    WINDOWS, 
-    MACOS, 
-    LINUX, 
-    UNIX, 
-    SOLARIS, 
+    WINDOWS,
+    MACOS,
+    LINUX,
+    UNIX,
+    SOLARIS,
     OTHER;
 
-    /** Cache the detected System Type to limit property queries. */
-    @SuppressWarnings("nls") public static final SystemType DETECTED_SYSTEM_TYPE        =
-                                                                                 valueFromOsName( System
-                                                                                         .getProperty( "os.name" ) );
+    /**
+     * Cache the detected System Type to limit property queries.
+     */
+    @SuppressWarnings( "nls" )
+    public static final SystemType DETECTED_SYSTEM_TYPE = valueFromOsName(
+            System.getProperty( "os.name" ) );
 
-    /** Cache the simplified version of the detected OS Name. */
-    public static final String                              DETECTED_OS_NAME_SIMPLIFIED =
-                                                                                        getSimplifiedOsName( DETECTED_SYSTEM_TYPE );
-    
+    /**
+     * Cache the simplified version of the detected OS Name.
+     */
+    public static final String DETECTED_OS_NAME_SIMPLIFIED
+            = getSimplifiedOsName( DETECTED_SYSTEM_TYPE );
+
     public static SystemType defaultValue() {
         return DETECTED_SYSTEM_TYPE;
     }
@@ -65,7 +69,8 @@ public enum SystemType {
             return WINDOWS;
         }
 
-        if ( osNameAdjusted.contains( "os x" ) || osNameAdjusted.contains( "macos" ) ) {
+        if ( osNameAdjusted.contains( "os x" ) || osNameAdjusted.contains(
+                "macos" ) ) {
             return MACOS;
         }
 
@@ -84,36 +89,36 @@ public enum SystemType {
         return OTHER;
     }
 
+    public String getSimplifiedOsName() {
+        return getSimplifiedOsName( this );
+    }
+
     public static String getSimplifiedOsName( final SystemType systemType ) {
         String simplifiedOsName;
         switch ( systemType ) {
-        case WINDOWS:
-            simplifiedOsName = "windows";
-            break;
-        case MACOS:
-            simplifiedOsName = "macos";
-            break;
-        case LINUX:
-            simplifiedOsName = "linux";
-            break;
-        case UNIX:
-            simplifiedOsName = "unix";
-            break;
-        case SOLARIS:
-            simplifiedOsName = "solaris";
-            break;
-        case OTHER:
-            simplifiedOsName = "other";
-            break;
-        default:
-            simplifiedOsName = "unknown";
-            break;
+            case WINDOWS:
+                simplifiedOsName = "windows";
+                break;
+            case MACOS:
+                simplifiedOsName = "macos";
+                break;
+            case LINUX:
+                simplifiedOsName = "linux";
+                break;
+            case UNIX:
+                simplifiedOsName = "unix";
+                break;
+            case SOLARIS:
+                simplifiedOsName = "solaris";
+                break;
+            case OTHER:
+                simplifiedOsName = "other";
+                break;
+            default:
+                simplifiedOsName = "unknown";
+                break;
         }
 
         return simplifiedOsName;
-    }
-
-    public String getSimplifiedOsName() {
-        return getSimplifiedOsName( this );
     }
 }

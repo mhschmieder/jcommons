@@ -40,7 +40,8 @@ import java.util.Comparator;
  */
 public class IntegerComparator implements Comparator< Integer >, Serializable {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 1L;
 
@@ -51,14 +52,16 @@ public class IntegerComparator implements Comparator< Integer >, Serializable {
     /**
      * Returns an integer corresponding to the comparisons results of two
      * integers.
-     * 
+     *
      * @param integer1 The first integer to compare, as the comparison source
      * @param integer2 The second integer to compare, as the comparison target
      * @return A negative integer if the first argument is less than the second
-     * argument; zero if equal to; or a positive integer if greater than
+     *         argument; zero if equal to; or a positive integer if greater
+     *         than
      */
     @Override
-    public int compare( final Integer integer1, final Integer integer2 ) {
-        return integer1.compareTo(  integer2  );
+    public int compare( final Integer integer1,
+                        final Integer integer2 ) {
+        return integer1.compareTo( integer2 );
     }
 }

@@ -43,14 +43,16 @@ import java.util.logging.Logger;
  */
 public class LogOutputStream extends OutputStream {
 
-    /** Define a static Logger to log the legacy STDERR/STDOUT messages. */
-    private static Logger LOGGER = Logger.getLogger(
-            LogOutputStream.class.getName() );
+    /**
+     * Define a static Logger to log the legacy STDERR/STDOUT messages.
+     */
+    private static Logger LOGGER
+            = Logger.getLogger( LogOutputStream.class.getName() );
 
     private final StringBuffer buffer = new StringBuffer();
 
     private final char lineSeparatorEndUnixDos = 'n';
-    private final char lineSeparatorEndMac     = 'r';
+    private final char lineSeparatorEndMac = 'r';
 
     @Override
     public void write( final int b ) throws IOException {
@@ -70,7 +72,8 @@ public class LogOutputStream extends OutputStream {
         // lineSeparatorEnd char is used to detect probable line separators and
         // then a substring search is used (with the actual line separator) to
         // confirm it and to print out the contents of the buffer.
-        if ( ( ch == lineSeparatorEndUnixDos ) || ( ch == lineSeparatorEndMac ) ) {
+        if ( ( ch == lineSeparatorEndUnixDos ) || ( ch
+                                                    == lineSeparatorEndMac ) ) {
             // Check on a char by char basis for speed.
             final String s = buffer.toString();
             if ( s.indexOf( StringConstants.LINE_SEPARATOR ) != -1 ) {
@@ -79,10 +82,10 @@ public class LogOutputStream extends OutputStream {
                 // configure the levels, as that is the default level for
                 // logging. This may not catch all third-party tracing though.
                 LOGGER.info( s.substring( 0,
-                                          s.length() - StringConstants.LINE_SEPARATOR.length() ) );
+                                          s.length()
+                                          - StringConstants.LINE_SEPARATOR.length() ) );
                 buffer.setLength( 0 );
             }
         }
     }
-
 }

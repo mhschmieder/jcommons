@@ -35,17 +35,25 @@ package com.mhschmieder.jcommons.net;
  */
 public class HttpServletResponse {
 
-    /** Server Status Message determined by a number of factors. */
-    protected String  _serverStatusMessage;
+    /**
+     * Server Status Message determined by a number of factors.
+     */
+    protected String _serverStatusMessage;
 
-    /** Servlet Error Message conditionally returned via HTTP Header. */
-    protected String  _servletErrorMessage;
+    /**
+     * Servlet Error Message conditionally returned via HTTP Header.
+     */
+    protected String _servletErrorMessage;
 
-    /** Combined HTTP Response Code and Response Message (formatted). */
-    protected String  _httpResponse;
+    /**
+     * Combined HTTP Response Code and Response Message (formatted).
+     */
+    protected String _httpResponse;
 
-    /** Forwarding of HTTP Response Code for further post-processing. */
-    protected int     _httpResponseCode;
+    /**
+     * Forwarding of HTTP Response Code for further post-processing.
+     */
+    protected int _httpResponseCode;
 
     public HttpServletResponse( final String serverStatusMessage,
                                 final String servletErrorMessage,

@@ -34,7 +34,8 @@ import org.apache.commons.math3.util.FastMath;
 
 /**
  * Utilities for packing and unpacking bit arrays; in particular, when not
- * divisible by eight and thus not representable using ByteBuffer or byte array.
+ * divisible by eight and thus not representable using ByteBuffer or byte
+ * array.
  * <p>
  * Java does not have unsigned types and cannot use longs as indices into static
  * arrays, so some clever binary logic must be applied in bitwise fashion.
@@ -42,26 +43,21 @@ import org.apache.commons.math3.util.FastMath;
 public class BitPackUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
-     */
-    private BitPackUtilities() {}
-
-    /**
      * Hexadecimal 8-bit masks that consecutively turn on the next bit from left
      * to right in a byte, ignoring the sign bit. Each consecutive value, when
      * combined with the same index in the hexadecimal inverse masks below,
      * results in all-ones, allowing for invertibility.
      */
-    protected static final byte[] mask    = {
-                                              0x00,
-                                              ( byte ) 0x80,
-                                              ( byte ) 0xc0,
-                                              ( byte ) 0xe0,
-                                              ( byte ) 0xf0,
-                                              ( byte ) 0xf8,
-                                              ( byte ) 0xfc,
-                                              ( byte ) 0xfe };
-
+    protected static final byte[] mask = {
+            0x00,
+            ( byte ) 0x80,
+            ( byte ) 0xc0,
+            ( byte ) 0xe0,
+            ( byte ) 0xf0,
+            ( byte ) 0xf8,
+            ( byte ) 0xfc,
+            ( byte ) 0xfe
+    };
     /**
      * Hexadecimal 8-bit inverse masks that consecutively turn off the next bit
      * from left to right in a byte, ignoring the sign bit. Each consecutive
@@ -69,14 +65,15 @@ public class BitPackUtilities {
      * results in all-ones, allowing for invertibility.
      */
     protected static final byte[] notMask = {
-                                              ( byte ) 0xff,
-                                              0x7f,
-                                              0x3f,
-                                              0x1f,
-                                              0x0f,
-                                              0x07,
-                                              0x03,
-                                              0x01 };
+            ( byte ) 0xff, 0x7f, 0x3f, 0x1f, 0x0f, 0x07, 0x03, 0x01
+    };
+
+    /**
+     * The default constructor is disabled, as this is a static utilities
+     * class.
+     */
+    private BitPackUtilities() {
+    }
 
     /**
      * Packs a long value into 'numberOfPackedBits' consecutive bits in a
@@ -87,22 +84,21 @@ public class BitPackUtilities {
      * store the packed bits. The byte array is returned regardless, for more
      * flexibility.
      * <p>
-     * <b>TODO:</b> Check the number of bits against the size of a long as well.
+     * <b>TODO:</b> Check the number of bits against the size of a long as
+     * well.
      * <p>
      * <b>TODO:</b> Verify and test this method as it was derived from a C
      * function but has not been verified for proper handling of the sign bit.
      *
-     * @param packedBuffer
-     *            The byte array to use for storing the packed bits
-     * @param startBitIndex
-     *            The initial offset into packedBuffer
-     * @param numberOfPackedBits
-     *            The number of bits to retrieve from packedBuffer
-     * @param value
-     *            The long value to pack into consecutive bits
+     * @param packedBuffer       The byte array to use for storing the packed
+     *                           bits
+     * @param startBitIndex      The initial offset into packedBuffer
+     * @param numberOfPackedBits The number of bits to retrieve from
+     *                           packedBuffer
+     * @param value              The long value to pack into consecutive bits
      * @return The byte array containing the packed bits
-     * @throws IllegalArgumentException
-     *             If packedBuffer is smaller than the stated number of bits
+     * @throws IllegalArgumentException If packedBuffer is smaller than the
+     *                                  stated number of bits
      */
     public static byte[] bitPack( final byte[] packedBuffer,
                                   final int startBitIndex,
@@ -112,8 +108,11 @@ public class BitPackUtilities {
         // As the buffer size is dictated by the caller, it is the caller's
         // responsibility to ensure that its size is large enough to cover
         // the stated number of packed bits, if they provided the buffer.
-        if ( ( packedBuffer != null ) && ( packedBuffer.length < numberOfPackedBits ) ) {
-            throw new IllegalArgumentException( "bitPack: buffer size is smaller than the stated number of packed bits" );
+        if ( ( packedBuffer != null ) && ( packedBuffer.length
+                                           < numberOfPackedBits ) ) {
+            throw new IllegalArgumentException(
+                    "bitPack: buffer size is smaller than the stated number "
+                    + "of packed bits" );
         }
 
         // If the user didn't pass in a buffer, allocate a new one of sufficient
@@ -121,8 +120,8 @@ public class BitPackUtilities {
         // TODO: Verify that the resulting buffer is large enough when the
         // number of bits is not precisely divisible by 16.
         final byte[] packedBits = ( packedBuffer != null )
-            ? packedBuffer
-            : new byte[ numberOfPackedBits % 16 ];
+                                  ? packedBuffer
+                                  : new byte[ numberOfPackedBits % 16 ];
 
         // Bits are packed from right to left, in BIG ENDIAN order.
         int bitIndex = startBitIndex + numberOfPackedBits;
@@ -152,13 +151,15 @@ public class BitPackUtilities {
 
             // Mask anything in the left-shifted value that is prior to the
             // start bit and after the end bit.
-            packedBits[ startByte ] |= ( valueShifted & ( notMask[ startBit ] | mask[ endBit ] ) );
+            packedBits[ startByte ] |= ( valueShifted & ( notMask[ startBit ]
+                                                          | mask[ endBit ] ) );
         }
         else {
             // Mask data prior to the start bit of the first byte, then shift to
             // the right by the necessary amount.
             packedBits[ startByte ] &= mask[ startBit ];
-            long valueShifted = value >> ( numberOfPackedBits - ( 8 - startBit ) );
+            long valueShifted = value >> ( numberOfPackedBits - ( 8
+                                                                  - startBit ) );
 
             // Get the upper bits of the right-shifted value and mask anything
             // prior to the start bit.
@@ -207,17 +208,15 @@ public class BitPackUtilities {
      * supplied byte array, starting at a given bit position.
      * <p>
      *
-     * @param packedBuffer
-     *            The byte array containing the packed bits
-     * @param startBitIndex
-     *            The initial offset into packedBuffer
-     * @param numberOfPackedBits
-     *            The number of packed bits to retrieve from packedBuffer
+     * @param packedBuffer       The byte array containing the packed bits
+     * @param startBitIndex      The initial offset into packedBuffer
+     * @param numberOfPackedBits The number of packed bits to retrieve from
+     *                           packedBuffer
      * @return An unpacked long value
-     * @throws IllegalArgumentException
-     *             If packedBuffer is smaller than the stated number of bits, or
-     *             either the start bit or the request number of bits is out of
-     *             range
+     * @throws IllegalArgumentException If packedBuffer is smaller than the
+     *                                  stated number of bits, or either the
+     *                                  start bit or the request number of bits
+     *                                  is out of range
      */
     public static long bitUnpack( final byte[] packedBuffer,
                                   final int startBitIndex,
@@ -227,10 +226,13 @@ public class BitPackUtilities {
         // responsibility to ensure that its size is large enough to cover
         // the stated number of packed bits.
         if ( packedBuffer == null ) {
-            throw new IllegalArgumentException( "bitUnpack: buffer is null; no data to unpack" );
+            throw new IllegalArgumentException(
+                    "bitUnpack: buffer is null; no data to unpack" );
         }
         if ( numberOfPackedBits < 1 ) {
-            throw new IllegalArgumentException( "bitUnpack: number of packed bits is less than one; impossible to store data" );
+            throw new IllegalArgumentException(
+                    "bitUnpack: number of packed bits is less than one; "
+                    + "impossible to store data" );
         }
 
         // Bits are packed from right to left, in BIG ENDIAN order.
@@ -255,8 +257,8 @@ public class BitPackUtilities {
         if ( startByteIndex == endByteIndex ) {
             // Mask anything prior to the start bit and after the end bit.
             final byte startByte = packedBuffer[ startByteIndex ];
-            final byte maskedStartByte = ( byte ) ( startByte
-                    & ( notMask[ startBit ] & mask[ endBit ] ) );
+            final byte maskedStartByte = ( byte ) ( startByte & (
+                    notMask[ startBit ] & mask[ endBit ] ) );
 
             // Store the masked result as the only byte in the long to return.
             longValue = toCorrectedLongValue( maskedStartByte );
@@ -268,7 +270,8 @@ public class BitPackUtilities {
             // Mask data prior to the start bit of the start byte, then shift to
             // the left by the necessary amount to start at correct bit index.
             final byte startByte = packedBuffer[ startByteIndex ];
-            final byte maskedStartByte = ( byte ) ( startByte & notMask[ startBit ] );
+            final byte maskedStartByte = ( byte ) ( startByte
+                                                    & notMask[ startBit ] );
 
             // Store the masked result as the first byte in the long to return.
             longValue = toCorrectedLongValue( maskedStartByte );
@@ -314,7 +317,8 @@ public class BitPackUtilities {
                 // For the last byte, we mask anything after the end bit, then
                 // shift to the right by (8 - endBit) bits.
                 final byte endByte = packedBuffer[ byteIndex ];
-                final byte maskedEndByte = ( byte ) ( endByte & mask[ endBit ] );
+                final byte maskedEndByte = ( byte ) ( endByte
+                                                      & mask[ endBit ] );
                 long endByteCorrected = toCorrectedLongValue( maskedEndByte );
 
                 // Shift the value to the right, still safely within a long.
@@ -335,9 +339,8 @@ public class BitPackUtilities {
      * Java, we otherwise get incorrect values when bit shifting across byte
      * boundaries in a larger data type such as an int or a long. This method
      * applies a foolproof approach using bitwise binary logic to copy values.
-     * 
-     * @param byteValue
-     *            The byte to promote to a long without a sign bit set
+     *
+     * @param byteValue The byte to promote to a long without a sign bit set
      * @return A long value with the eighth bit of the original
      *         {@code byteValue} preserved as a non-sign bit in the new long
      */

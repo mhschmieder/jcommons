@@ -45,17 +45,6 @@ public enum DurationFormat implements Labeled< DurationFormat > {
         label = pLabel;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public DurationFormat valueOfLabel( final String text ) {
-        return ( DurationFormat ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
-    }
-
     public static DurationFormat defaultValue() {
         return ISO_8601;
     }
@@ -66,5 +55,16 @@ public enum DurationFormat implements Labeled< DurationFormat > {
         //  its custom label form when a Combo Box is hosted by a Table Cell. It
         //  also addresses an issue with the Jackson parser if in a JSON file.
         return label();
+    }
+
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public DurationFormat valueOfLabel( final String text ) {
+        return ( DurationFormat ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                         values() );
     }
 }

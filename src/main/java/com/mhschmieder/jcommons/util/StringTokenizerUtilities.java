@@ -39,24 +39,28 @@ import java.util.StringTokenizer;
  * string tokenizer functionality.
  */
 public final class StringTokenizerUtilities {
-    
+
     /**
      * Allowed delimiters for tokens in a text stream that follow traditional
      * standards for supported control characters that mimic old typewriters.
      * These symbols are currently used to separate fields in CSV type files.
      * <p>
      * NOTE: These delimiters are used as a combined string to be passed to
-     *  StringTokenizer's {@code getNextToken()} method, to reset criteria.
+     * StringTokenizer's {@code getNextToken()} method, to reset criteria.
      */
-    public static final String TOKEN_DELIMITERS = StringConstants.SPACE 
-            + StringConstants.TAB + StringConstants.LF + StringConstants.CR 
-            + StringConstants.SHIFT_IN;
+    public static final String TOKEN_DELIMITERS = StringConstants.SPACE
+                                                  + StringConstants.TAB
+                                                  + StringConstants.LF
+                                                  + StringConstants.CR
+                                                  + StringConstants.SHIFT_IN;
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private StringTokenizerUtilities() {}
-    
+    private StringTokenizerUtilities() {
+    }
+
     public static String extractQuotedString( final StringTokenizer t ) {
         // Quoted strings must be handled specially, by consuming the start
         // quotes and setting them as the new delimiter, then grabbing (i.e.,

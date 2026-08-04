@@ -50,30 +50,30 @@ import java.util.zip.ZipFile;
 /**
  * {@code CsvUtilities} is a utilities class for handling the CSV format.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public final class CsvUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private CsvUtilities() {}
+    private CsvUtilities() {
+    }
 
-    public static boolean convertCsvToStringVector(
-            final File file,
-            final Collection< Collection< String > > rows ) {
+    public static boolean convertCsvToStringVector( final File file,
+                                                    final Collection< Collection< String > > rows ) {
         final String fileName = file.getName();
-        final String fileNameCaseInsensitive = fileName.toLowerCase(
-                Locale.ENGLISH );
+        final String fileNameCaseInsensitive
+                = fileName.toLowerCase( Locale.ENGLISH );
         if ( FilenameUtils.isExtension( fileNameCaseInsensitive, "csv" ) ) {
             // Load the project from a CSV file.
             //
             // Chain a BufferedReader to a FileReader, for better performance.
             try ( final FileReader fileReader = new FileReader( file );
-                    final BufferedReader bufferedReader = new BufferedReader(
-                            fileReader ) ) {
+                  final BufferedReader bufferedReader = new BufferedReader(
+                          fileReader ) ) {
                 final boolean fileOpened = loadFromCsv( bufferedReader, rows );
                 if ( !fileOpened ) {
                     return false;
@@ -84,8 +84,8 @@ public final class CsvUtilities {
                 return false;
             }
         }
-        else if ( FilenameUtils.isExtension(
-                fileNameCaseInsensitive, "zip" ) ) {
+        else if ( FilenameUtils.isExtension( fileNameCaseInsensitive,
+                                             "zip" ) ) {
             // Load the project from a ZIP file. Send the file vs. a
             // ZipInputStream, due to the need to cycle twice, and due to
             // problems with ZipInputStream.
@@ -99,9 +99,8 @@ public final class CsvUtilities {
     }
 
     // Load a comma-delimited stream into a data vector.
-    public static boolean loadFromCsv(
-            final BufferedReader bufferedReader,
-            final Collection< Collection< String > > rows ) {
+    public static boolean loadFromCsv( final BufferedReader bufferedReader,
+                                       final Collection< Collection< String > > rows ) {
         List< String > columns = new ArrayList<>();
         final StringBuilder buffer = new StringBuilder();
 
@@ -121,7 +120,8 @@ public final class CsvUtilities {
                         inString = true;
                     }
                     else if ( ( c == '"' ) && ( ( ( i + 1 ) == line.length() )
-                            || ( line.charAt( i + 1 ) != '"' ) ) ) {
+                                                || ( line.charAt( i + 1 )
+                                                     != '"' ) ) ) {
                         inString = false;
                     }
                     else if ( c == '"' ) {
@@ -153,20 +153,21 @@ public final class CsvUtilities {
     }
 
     // TODO: Find a way to report errors if not a legitimate ZIP file.
-    public static boolean loadFromZip(
-            final File file,
-            final Collection< Collection< String > > rows ) {
+    public static boolean loadFromZip( final File file,
+                                       final Collection< Collection< String > > rows ) {
         try ( final ZipFile zipFile = new ZipFile( file ) ) {
-            final Predicate< ZipEntry > isFile = zipEntry
-                    -> !zipEntry.isDirectory();
-            final Predicate< ZipEntry > isCsv = zipEntry
-                    -> FilenameUtils.isExtension(
-                            zipEntry.getName().toLowerCase( Locale.ENGLISH ),
-                    "csv" );
+            final Predicate< ZipEntry > isFile
+                    = zipEntry -> !zipEntry.isDirectory();
+            final Predicate< ZipEntry > isCsv
+                    = zipEntry -> FilenameUtils.isExtension( zipEntry.getName()
+                                                                     .toLowerCase(
+                                                                             Locale.ENGLISH ),
+                                                             "csv" );
 
             final Optional< ? extends ZipEntry > optionalCsvEntry
-                    = zipFile.stream().filter( isFile.and( isCsv ) )
-                    .findFirst();
+                    = zipFile.stream()
+                             .filter( isFile.and( isCsv ) )
+                             .findFirst();
 
             // There must be a valid CSV entry in order for this ZIP file to be
             // considered valid.
@@ -181,10 +182,11 @@ public final class CsvUtilities {
             boolean fileOpened = false;
             try ( final InputStream inputStream = zipFile.getInputStream(
                     optionalCsvEntry.get() );
-                    final InputStreamReader inputStreamReader
-                            = new InputStreamReader( inputStream );
-                    final BufferedReader bufferedReader = new BufferedReader(
-                            inputStreamReader ) ) {
+                  final InputStreamReader inputStreamReader =
+                          new InputStreamReader(
+                          inputStream );
+                  final BufferedReader bufferedReader = new BufferedReader(
+                          inputStreamReader ) ) {
                 fileOpened = loadFromCsv( bufferedReader, rows );
             }
 

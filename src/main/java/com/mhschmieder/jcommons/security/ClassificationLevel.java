@@ -39,50 +39,43 @@ import com.mhschmieder.jcommons.lang.Labeled;
  * modified starting around 2017 or thereabouts.
  * <p>
  * NOTE: Until hearing otherwise, the verbose "Controlled Unclassified
- *  Information" classification level is only presented by its "CUI" acronym.
+ * Information" classification level is only presented by its "CUI" acronym.
  * <p>
  * TODO: Carefully vet the current abbreviations and re-review CUI for any
  *  preferred unabbreviated forms, as well as case-sensitivity of all terms.
  */
-public enum ClassificationLevel implements Labeled< ClassificationLevel >, 
-        Abbreviated< ClassificationLevel > {
-    UNCLASSIFIED( "Unclassified", "U" ), 
-    CUI( "CUI", "CUI" ), 
-    CONFIDENTIAL( "Confidential", "C" ), 
-    SECRET( "Secret", "S" ), 
+public enum ClassificationLevel implements Labeled< ClassificationLevel >,
+                                           Abbreviated< ClassificationLevel > {
+    UNCLASSIFIED( "Unclassified", "U" ),
+    CUI( "CUI", "CUI" ),
+    CONFIDENTIAL( "Confidential", "C" ),
+    SECRET( "Secret", "S" ),
     TOP_SECRET( "Top Secret", "TS" ),
     SCI( "SCI", "SCI" );
-    
+
     private final String label;
     private final String abbreviation;
-    
+
     ClassificationLevel( final String pLabel,
                          final String pAbbreviation ) {
         label = pLabel;
         abbreviation = pAbbreviation;
     }
 
-    @Override 
-    public String label() {
-        return label;
+    public static ClassificationLevel defaultValue() {
+        return UNCLASSIFIED;
     }
 
     @Override
-    public ClassificationLevel valueOfLabel( final String text ) {
-        return ( ClassificationLevel ) EnumUtilities.getLabeledEnumFromLabel( 
-            text, values() );
-    }
-
-    @Override 
     public String abbreviation() {
         return abbreviation;
     }
 
     @Override
-    public ClassificationLevel valueOfAbbreviation(
-            final String abbreviatedText ) {
-        return ( ClassificationLevel ) EnumUtilities.
-                getAbbreviatedEnumFromAbbreviation( abbreviatedText, values() );
+    public ClassificationLevel valueOfAbbreviation( final String abbreviatedText ) {
+        return ( ClassificationLevel ) EnumUtilities.getAbbreviatedEnumFromAbbreviation(
+                abbreviatedText,
+                values() );
     }
 
     @Override
@@ -93,7 +86,15 @@ public enum ClassificationLevel implements Labeled< ClassificationLevel >,
         return label();
     }
 
-    public static ClassificationLevel defaultValue() {
-        return UNCLASSIFIED;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public ClassificationLevel valueOfLabel( final String text ) {
+        return ( ClassificationLevel ) EnumUtilities.getLabeledEnumFromLabel(
+                text,
+                values() );
     }
 }

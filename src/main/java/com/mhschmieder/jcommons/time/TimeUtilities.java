@@ -33,39 +33,17 @@ package com.mhschmieder.jcommons.time;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Utility methods for elapsed time facilities; especially those dedicated
- * to specialized string formatting for display. These methods are especially
+ * Utility methods for elapsed time facilities; especially those dedicated to
+ * specialized string formatting for display. These methods are especially
  * useful for timeline readouts that accompany animation sliders.
  */
 public class TimeUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private TimeUtilities() {}
-
-    /**
-     * Returns the time formatted as an hours:minutes:seconds.ms string.
-     *
-     * @param timeMilliseconds The unformatted time in milliseconds (long)
-     * @return The time formatted as an hours:minutes:seconds.ms string
-     */
-    public static String millisecondsToFormattedHoursMinutesSeconds(
-            final long timeMilliseconds,
-            final boolean showMilliseconds ) {
-        final long hr = TimeUnit.MILLISECONDS.toHours( timeMilliseconds );
-        final long min = TimeUnit.MILLISECONDS.toMinutes( 
-                timeMilliseconds - TimeUnit.HOURS.toMillis( hr ) );
-        final long sec = TimeUnit.MILLISECONDS.toSeconds(
-                timeMilliseconds - TimeUnit.HOURS.toMillis( hr ) 
-                - TimeUnit.MINUTES.toMillis( min ) );
-        final long ms = TimeUnit.MILLISECONDS.toMillis(
-                timeMilliseconds - TimeUnit.HOURS.toMillis (hr ) 
-                - TimeUnit.MINUTES.toMillis( min ) 
-                - TimeUnit.SECONDS.toMillis (sec ) );
-        return showMilliseconds
-                ? String.format( "%03d:%02d:%02d.%03d", hr, min, sec, ms )
-                : String.format( "%03d:%02d:%02d", hr, min, sec );
+    private TimeUtilities() {
     }
 
     /**
@@ -74,30 +52,52 @@ public class TimeUtilities {
      * @param timeSeconds The unformatted time in seconds (long)
      * @return The time formatted as an hours:minutes:seconds string
      */
-    public static String secondsToFormattedHoursMinutesSeconds(
-            final long timeSeconds ) {
+    public static String secondsToFormattedHoursMinutesSeconds( final long timeSeconds ) {
         final long timeMilliseconds = timeSeconds * 1000L;
-        return millisecondsToFormattedHoursMinutesSeconds( 
-                timeMilliseconds, false );
+        return millisecondsToFormattedHoursMinutesSeconds( timeMilliseconds,
+                                                           false );
     }
 
-    public static long secondsFromFormattedHoursMinutesSeconds(
-            final String formattedHoursMinutesSeconds ) {
-        final int hoursMinutesSeparatorIndex = formattedHoursMinutesSeconds
-                .indexOf( ":" );
-        final String hours = formattedHoursMinutesSeconds.substring(
-                0, hoursMinutesSeparatorIndex + 1 );
+    /**
+     * Returns the time formatted as an hours:minutes:seconds.ms string.
+     *
+     * @param timeMilliseconds The unformatted time in milliseconds (long)
+     * @return The time formatted as an hours:minutes:seconds.ms string
+     */
+    public static String millisecondsToFormattedHoursMinutesSeconds( final long timeMilliseconds,
+                                                                     final boolean showMilliseconds ) {
+        final long hr = TimeUnit.MILLISECONDS.toHours( timeMilliseconds );
+        final long min = TimeUnit.MILLISECONDS.toMinutes(
+                timeMilliseconds - TimeUnit.HOURS.toMillis( hr ) );
+        final long sec = TimeUnit.MILLISECONDS.toSeconds(
+                timeMilliseconds - TimeUnit.HOURS.toMillis( hr )
+                - TimeUnit.MINUTES.toMillis( min ) );
+        final long ms = TimeUnit.MILLISECONDS.toMillis(
+                timeMilliseconds - TimeUnit.HOURS.toMillis( hr )
+                - TimeUnit.MINUTES.toMillis( min ) - TimeUnit.SECONDS.toMillis(
+                        sec ) );
+        return showMilliseconds
+               ? String.format( "%03d:%02d:%02d.%03d", hr, min, sec, ms )
+               : String.format( "%03d:%02d:%02d", hr, min, sec );
+    }
+
+    public static long secondsFromFormattedHoursMinutesSeconds( final String formattedHoursMinutesSeconds ) {
+        final int hoursMinutesSeparatorIndex
+                = formattedHoursMinutesSeconds.indexOf( ":" );
+        final String hours = formattedHoursMinutesSeconds.substring( 0,
+                                                                     hoursMinutesSeparatorIndex
+                                                                     + 1 );
         final String minutesSeconds = formattedHoursMinutesSeconds.substring(
                 hoursMinutesSeparatorIndex + 1 );
-        final int minutesSecondsSeparatorIndex = minutesSeconds.indexOf(
-                ":" );
-        final String minutes = minutesSeconds.substring(
-                0, minutesSecondsSeparatorIndex + 1 );
+        final int minutesSecondsSeparatorIndex = minutesSeconds.indexOf( ":" );
+        final String minutes = minutesSeconds.substring( 0,
+                                                         minutesSecondsSeparatorIndex
+                                                         + 1 );
         final String seconds = minutesSeconds.substring(
                 minutesSecondsSeparatorIndex + 1 );
 
         return TimeUnit.HOURS.toSeconds( Long.parseLong( hours ) )
-                + TimeUnit.MINUTES.toSeconds( Long.parseLong( minutes ) )
-                + Long.parseLong( seconds );
+               + TimeUnit.MINUTES.toSeconds( Long.parseLong( minutes ) )
+               + Long.parseLong( seconds );
     }
 }

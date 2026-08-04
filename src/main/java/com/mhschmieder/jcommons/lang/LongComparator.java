@@ -40,7 +40,8 @@ import java.util.Comparator;
  */
 public class LongComparator implements Comparator< Long >, Serializable {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 1L;
 
@@ -50,14 +51,16 @@ public class LongComparator implements Comparator< Long >, Serializable {
 
     /**
      * Returns a long corresponding to the comparisons results of two longs.
-     * 
+     *
      * @param long1 The first long to compare, as the comparison source
      * @param long2 The second long to compare, as the comparison target
      * @return A negative integer if the first argument is less than the second
-     * argument; zero if equal to; or a positive integer if greater than
+     *         argument; zero if equal to; or a positive integer if greater
+     *         than
      */
     @Override
-    public int compare( final Long long1, final Long long2 ) {
-        return long1.compareTo(  long2  );
+    public int compare( final Long long1,
+                        final Long long2 ) {
+        return long1.compareTo( long2 );
     }
 }

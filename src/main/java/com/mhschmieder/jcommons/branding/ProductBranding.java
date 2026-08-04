@@ -33,8 +33,8 @@ package com.mhschmieder.jcommons.branding;
 public class ProductBranding {
 
     /**
-     * The fully qualified application name, which can help distinguish
-     * which server a deployment is targeted for, in client/server based
+     * The fully qualified application name, which can help distinguish which
+     * server a deployment is targeted for, in client/server based
      * architectures, making it easier to compare behavior and performance.
      */
     public String applicationName;
@@ -44,20 +44,10 @@ public class ProductBranding {
     public String productVersion;
     public String productVersionProtected;
     public String revisionDate;
-    
+
     // NOTE: A default blanker is provided to discourage using null references.
     public ProductBranding() {
         this( "", "", "", "", "" );
-    }
-    
-    // Cross-constructor from {@link ProductVersion}.
-    public ProductBranding( final String pApplicationName,
-                            final ProductVersion pProductVersion ) {
-        this( pApplicationName,
-              pProductVersion.getProductName(),
-              pProductVersion.getProductReleaseName(),
-              pProductVersion.getFullProductReleaseProtectedName(),
-              pProductVersion.releaseDate );
     }
 
     // Fully qualified constructor.
@@ -68,14 +58,24 @@ public class ProductBranding {
                             final String pRevisionDate ) {
         // If the supplied Application Name is null or empty, use the regular
         // Product Name as a fallback.
-        applicationName = ( ( pApplicationName != null ) 
-                && !pApplicationName.trim().isEmpty() ) 
-                ? pApplicationName 
-                : productName;
-        
+        applicationName = ( ( pApplicationName != null )
+                            && !pApplicationName.trim().isEmpty() )
+                          ? pApplicationName
+                          : productName;
+
         productName = pProductName;
         productVersion = pProductVersion;
         productVersionProtected = pProductVersionProtected;
         revisionDate = pRevisionDate;
+    }
+
+    // Cross-constructor from {@link ProductVersion}.
+    public ProductBranding( final String pApplicationName,
+                            final ProductVersion pProductVersion ) {
+        this( pApplicationName,
+              pProductVersion.getProductName(),
+              pProductVersion.getProductReleaseName(),
+              pProductVersion.getFullProductReleaseProtectedName(),
+              pProductVersion.releaseDate );
     }
 }

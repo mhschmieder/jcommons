@@ -67,7 +67,8 @@ public class ProjectProperties {
     protected String projectAuthor;
 
     /**
-     * The date that the project was created or last edited, in local time zone.
+     * The date that the project was created or last edited, in local time
+     * zone.
      */
     protected LocalDate projectDate;
 
@@ -83,13 +84,12 @@ public class ProjectProperties {
      * default values, initializing anything that requires memory allocation.
      */
     public ProjectProperties() {
-        this(
-                DEFAULT_PROJECT_NAME,
-                DEFAULT_PROJECT_TYPE,
-                DEFAULT_PROJECT_LOCATION,
-                DEFAULT_PROJECT_AUTHOR,
-                DEFAULT_PROJECT_DATE,
-                DEFAULT_PROJECT_NOTES );
+        this( DEFAULT_PROJECT_NAME,
+              DEFAULT_PROJECT_TYPE,
+              DEFAULT_PROJECT_LOCATION,
+              DEFAULT_PROJECT_AUTHOR,
+              DEFAULT_PROJECT_DATE,
+              DEFAULT_PROJECT_NOTES );
     }
 
     /*
@@ -116,78 +116,15 @@ public class ProjectProperties {
      * guarantee that the source object is never modified by the new target
      * object created here.
      *
-     * @param pProjectProperties
-     *            The Project Properties reference for the copy
+     * @param pProjectProperties The Project Properties reference for the copy
      */
     public ProjectProperties( final ProjectProperties pProjectProperties ) {
-        this(
-                pProjectProperties.getProjectName(),
-                pProjectProperties.getProjectType(),
-                pProjectProperties.getProjectLocation(),
-                pProjectProperties.getProjectAuthor(),
-                pProjectProperties.getProjectDate(),
-                pProjectProperties.getProjectNotes() );
-    }
-
-    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
-    //  instead.
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
-    }
-
-    /**
-     * Resets all fields to their default values, which are blank.
-     * <p>
-     * Serves as a default pseudo-constructor.
-     */
-    public void reset() {
-        setProjectProperties(
-                DEFAULT_PROJECT_NAME,
-                DEFAULT_PROJECT_TYPE,
-                DEFAULT_PROJECT_LOCATION,
-                DEFAULT_PROJECT_AUTHOR,
-                DEFAULT_PROJECT_DATE,
-                DEFAULT_PROJECT_NOTES );
-    }
-
-    /*
-     * Fully qualified pseudo-constructor.
-     */
-    public void setProjectProperties( final String pProjectName,
-                                      final String pProjectType,
-                                      final String pProjectLocation,
-                                      final String pProjectAuthor,
-                                      final LocalDate pProjectDate,
-                                      final String pProjectNotes ) {
-        setProjectName( pProjectName );
-        setProjectType( pProjectType );
-        setProjectLocation( pProjectLocation );
-        setProjectAuthor( pProjectAuthor );
-        setProjectDate( pProjectDate );
-
-        if ( pProjectNotes != null ) {
-            setProjectNotes( pProjectNotes );
-        }
-    }
-
-    /**
-     * Sets all fields to match the values in the referenced instance.
-     * <p>
-     * This serves as a copy pseudo-constructor.
-     *
-     * @param pProjectProperties
-     *            The Project Properties reference for the copy
-     */
-    public void setProjectProperties(
-            final ProjectProperties pProjectProperties ) {
-        setProjectProperties(
-                pProjectProperties.getProjectName(),
-                pProjectProperties.getProjectType(),
-                pProjectProperties.getProjectLocation(),
-                pProjectProperties.getProjectAuthor(),
-                pProjectProperties.getProjectDate(),
-                pProjectProperties.getProjectNotes() );
+        this( pProjectProperties.getProjectName(),
+              pProjectProperties.getProjectType(),
+              pProjectProperties.getProjectLocation(),
+              pProjectProperties.getProjectAuthor(),
+              pProjectProperties.getProjectDate(),
+              pProjectProperties.getProjectNotes() );
     }
 
     public String getProjectName() {
@@ -236,5 +173,62 @@ public class ProjectProperties {
 
     public void setProjectNotes( final String pProjectNotes ) {
         projectNotes = pProjectNotes;
+    }
+
+    // NOTE: Cloning is disabled as it is dangerous; use the copy constructor
+    //  instead.
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+
+    /**
+     * Resets all fields to their default values, which are blank.
+     * <p>
+     * Serves as a default pseudo-constructor.
+     */
+    public void reset() {
+        setProjectProperties( DEFAULT_PROJECT_NAME,
+                              DEFAULT_PROJECT_TYPE,
+                              DEFAULT_PROJECT_LOCATION,
+                              DEFAULT_PROJECT_AUTHOR,
+                              DEFAULT_PROJECT_DATE,
+                              DEFAULT_PROJECT_NOTES );
+    }
+
+    /*
+     * Fully qualified pseudo-constructor.
+     */
+    public void setProjectProperties( final String pProjectName,
+                                      final String pProjectType,
+                                      final String pProjectLocation,
+                                      final String pProjectAuthor,
+                                      final LocalDate pProjectDate,
+                                      final String pProjectNotes ) {
+        setProjectName( pProjectName );
+        setProjectType( pProjectType );
+        setProjectLocation( pProjectLocation );
+        setProjectAuthor( pProjectAuthor );
+        setProjectDate( pProjectDate );
+
+        if ( pProjectNotes != null ) {
+            setProjectNotes( pProjectNotes );
+        }
+    }
+
+    /**
+     * Sets all fields to match the values in the referenced instance.
+     * <p>
+     * This serves as a copy pseudo-constructor.
+     *
+     * @param pProjectProperties The Project Properties reference for the copy
+     */
+    public void setProjectProperties( final ProjectProperties pProjectProperties ) {
+        setProjectProperties( pProjectProperties.getProjectName(),
+                              pProjectProperties.getProjectType(),
+                              pProjectProperties.getProjectLocation(),
+                              pProjectProperties.getProjectAuthor(),
+                              pProjectProperties.getProjectDate(),
+                              pProjectProperties.getProjectNotes() );
     }
 }

@@ -30,11 +30,12 @@
  */
 package com.mhschmieder.jcommons.lang;
 
-public class AutoCompleteStringComparator implements AutoCompleteComparator< String > {
+public class AutoCompleteStringComparator
+        implements AutoCompleteComparator< String > {
 
     @Override
-    public boolean matches( final String typedText, final String objectToCompare ) {
+    public boolean matches( final String typedText,
+                            final String objectToCompare ) {
         return ( typedText != null ) && typedText.equals( objectToCompare );
     }
-
 }

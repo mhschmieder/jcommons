@@ -31,11 +31,11 @@
 package com.mhschmieder.jcommons.util;
 
 /**
- * This interface assigns the minimal set of methods needed on all
- * Import/Export actions, to enforce consistency of naming and coverage.
+ * This interface assigns the minimal set of methods needed on all Import/Export
+ * actions, to enforce consistency of naming and coverage.
  * <p>
- * This is specifically meant to be implemented by data models that pair
- * with GUI option panes used in import and export actions.
+ * This is specifically meant to be implemented by data models that pair with
+ * GUI option panes used in import and export actions.
  */
 public interface ImportExportOptions {
 
@@ -43,10 +43,9 @@ public interface ImportExportOptions {
         setSelected( false );
     }
 
+    void setSelected( final boolean selected );
+
     void reset();
 
     void setAll();
-
-    void setSelected( final boolean selected );
-
 }

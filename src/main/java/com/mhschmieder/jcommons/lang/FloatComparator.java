@@ -40,7 +40,8 @@ import java.util.Comparator;
  */
 public class FloatComparator implements Comparator< Float >, Serializable {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 1L;
 
@@ -51,14 +52,16 @@ public class FloatComparator implements Comparator< Float >, Serializable {
     /**
      * Returns an integer corresponding to the comparisons results of two
      * floats.
-     * 
+     *
      * @param float1 The first float to compare, as the comparison source
      * @param float2 The second float to compare, as the comparison target
      * @return A negative integer if the first argument is less than the second
-     * argument; zero if equal to; or a positive integer if greater than
+     *         argument; zero if equal to; or a positive integer if greater
+     *         than
      */
     @Override
-    public int compare( final Float float1, final Float float2 ) {
-        return float1.compareTo(  float2  );
+    public int compare( final Float float1,
+                        final Float float2 ) {
+        return float1.compareTo( float2 );
     }
 }

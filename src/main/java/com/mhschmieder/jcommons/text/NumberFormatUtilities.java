@@ -37,18 +37,20 @@ import java.util.Locale;
 
 /**
  * This is a utility class for methods related to common use of Number Format
- * functionality. Many of these methods are placeholders for legacy code,
- * where we would prefer to eventually move to Number Converters instead. Use
+ * functionality. Many of these methods are placeholders for legacy code, where
+ * we would prefer to eventually move to Number Converters instead. Use
  * {@code NumbertUtilities} for the unformatted versions of these methods.
  */
 public final class NumberFormatUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private NumberFormatUtilities() {}
+    private NumberFormatUtilities() {
+    }
 
-    public static String formatInteger( final int integerValue, 
+    public static String formatInteger( final int integerValue,
                                         final NumberFormat numberFormat ) {
         try {
             final String integerString = numberFormat.format( integerValue );
@@ -63,7 +65,7 @@ public final class NumberFormatUtilities {
         }
     }
 
-    public static String formatLong( final long longValue, 
+    public static String formatLong( final long longValue,
                                      final NumberFormat numberFormat ) {
         try {
             final String longString = numberFormat.format( longValue );
@@ -78,7 +80,7 @@ public final class NumberFormatUtilities {
         }
     }
 
-    public static String formatFloat( final float floatValue, 
+    public static String formatFloat( final float floatValue,
                                       final NumberFormat numberFormat ) {
         if ( Float.isNaN( floatValue ) ) {
             return Float.toString( Float.NaN );
@@ -107,7 +109,7 @@ public final class NumberFormatUtilities {
         }
     }
 
-    public static String formatDouble( final double doubleValue, 
+    public static String formatDouble( final double doubleValue,
                                        final NumberFormat numberFormat ) {
         if ( Double.isNaN( doubleValue ) ) {
             return Double.toString( Float.NaN );
@@ -139,13 +141,12 @@ public final class NumberFormatUtilities {
     /**
      * Parses the provided string to an integer, using a number formatter.
      *
-     * @param integerString
-     *            The unconverted integer value, as a String
-     * @param numberFormat
-     *            The number formatter to use for determining precision
+     * @param integerString The unconverted integer value, as a String
+     * @param numberFormat  The number formatter to use for determining
+     *                      precision
      * @return An integer converted from the provided String
      */
-    public static int parseInteger( final String integerString, 
+    public static int parseInteger( final String integerString,
                                     final NumberFormat numberFormat ) {
         // In case of null or empty (non-numeric) string, default to zero.
         if ( ( integerString == null ) || integerString.isEmpty() ) {
@@ -153,7 +154,8 @@ public final class NumberFormatUtilities {
         }
 
         try {
-            final int integerValue = numberFormat.parse( integerString ).intValue();
+            final int integerValue = numberFormat.parse( integerString )
+                                                 .intValue();
 
             return integerValue;
         }
@@ -176,13 +178,12 @@ public final class NumberFormatUtilities {
     /**
      * Parses the provided string to a long, using a number formatter.
      *
-     * @param longString
-     *            The unconverted long value, as a String
-     * @param numberFormat
-     *            The number formatter to use for determining precision
+     * @param longString   The unconverted long value, as a String
+     * @param numberFormat The number formatter to use for determining
+     *                     precision
      * @return A long converted from the provided String
      */
-    public static long parseLong( final String longString, 
+    public static long parseLong( final String longString,
                                   final NumberFormat numberFormat ) {
         // In case of null or empty (non-numeric) string, default to zero.
         if ( ( longString == null ) || longString.isEmpty() ) {
@@ -214,13 +215,12 @@ public final class NumberFormatUtilities {
      * Parses the provided string to a single-precision float, using a number
      * formatter, but first looking for infinity and NaN.
      *
-     * @param floatString
-     *            The unconverted single-precision value, as a String
-     * @param numberFormat
-     *            The number formatter to use for determining precision
+     * @param floatString  The unconverted single-precision value, as a String
+     * @param numberFormat The number formatter to use for determining
+     *                     precision
      * @return The converted single-precision value, as a float, or zero
      */
-    public static float parseFloat( final String floatString, 
+    public static float parseFloat( final String floatString,
                                     final NumberFormat numberFormat ) {
         // In case of null or empty (non-numeric) string, default to zero.
         if ( ( floatString == null ) || floatString.isEmpty() ) {
@@ -240,7 +240,8 @@ public final class NumberFormatUtilities {
         }
 
         try {
-            final float floatValue = numberFormat.parse( floatString ).floatValue();
+            final float floatValue = numberFormat.parse( floatString )
+                                                 .floatValue();
 
             return floatValue;
         }
@@ -264,13 +265,12 @@ public final class NumberFormatUtilities {
      * Parses the provided string to a double-precision float, using a number
      * formatter, but first looking for infinity and NaN.
      *
-     * @param doubleString
-     *            The unconverted double-precision value, as a String
-     * @param numberFormat
-     *            The number formatter to use for determining precision
+     * @param doubleString The unconverted double-precision value, as a String
+     * @param numberFormat The number formatter to use for determining
+     *                     precision
      * @return The converted double-precision value, as a double, or zero
      */
-    public static double parseDouble( final String doubleString, 
+    public static double parseDouble( final String doubleString,
                                       final NumberFormat numberFormat ) {
         // In case of null or empty (non-numeric) string, default to zero.
         if ( ( doubleString == null ) || doubleString.isEmpty() ) {
@@ -290,7 +290,8 @@ public final class NumberFormatUtilities {
         }
 
         try {
-            final double doubleValue = numberFormat.parse( doubleString ).doubleValue();
+            final double doubleValue = numberFormat.parse( doubleString )
+                                                   .doubleValue();
 
             return doubleValue;
         }
@@ -311,14 +312,17 @@ public final class NumberFormatUtilities {
     }
 
     public static NumberFormat getUniquefierNumberFormat( final Locale locale ) {
-        final NumberFormat uniquefierNumberFormat = NumberFormat.getNumberInstance( locale );
+        final NumberFormat uniquefierNumberFormat
+                = NumberFormat.getNumberInstance( locale );
 
         // NOTE: The choice of three digits for name uniqueness, is to allow
-        //  for table row sorting in numeric order by forcing leading zeroes. Any
+        //  for table row sorting in numeric order by forcing leading zeroes.
+        //  Any
         //  more than three digits might cause a comma or other locale-specific
         //  delimiter to be inserted.
         if ( uniquefierNumberFormat instanceof DecimalFormat ) {
-            final DecimalFormat decimalFormat = ( DecimalFormat ) uniquefierNumberFormat;
+            final DecimalFormat decimalFormat
+                    = ( DecimalFormat ) uniquefierNumberFormat;
             decimalFormat.applyPattern( "_000" );
             decimalFormat.setDecimalSeparatorAlwaysShown( false );
         }
@@ -334,15 +338,19 @@ public final class NumberFormatUtilities {
         // NOTE: Not all locales support decimal formatting. In such cases, we
         //  also forego units as we don't want to have to defer the expensive
         //  creation of the number formatter to the callback methods, where we
-        //  could alternately format the number with the unit but no localization
+        //  could alternately format the number with the unit but no
+        //  localization
         //  of number representation. This should be revisited for commonality.
-        final NumberFormat numberFormat = NumberFormat.getNumberInstance( locale );
+        final NumberFormat numberFormat
+                = NumberFormat.getNumberInstance( locale );
         if ( numberFormat instanceof DecimalFormat ) {
             final DecimalFormat decimalFormat = ( DecimalFormat ) numberFormat;
             final String augmentedPattern = ( ( measurementUnitString != null )
-                    && !measurementUnitString.trim().isEmpty() )
-                        ? numericFormatterPattern + measurementUnitString
-                        : numericFormatterPattern;
+                                              && !measurementUnitString.trim()
+                                                                       .isEmpty() )
+                                            ? numericFormatterPattern
+                                              + measurementUnitString
+                                            : numericFormatterPattern;
             decimalFormat.applyPattern( augmentedPattern );
             decimalFormat.setDecimalSeparatorAlwaysShown( false );
         }

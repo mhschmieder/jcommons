@@ -32,6 +32,6 @@ package com.mhschmieder.jcommons.lang;
 
 public interface AutoCompleteComparator< T > {
 
-    boolean matches( final String typedText, final T objectToCompare );
-
+    boolean matches( final String typedText,
+                     final T objectToCompare );
 }

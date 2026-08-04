@@ -41,22 +41,14 @@ public final class ServerLoginCredentials extends LoginCredentials {
     public static final boolean AUTHORIZED_ON_SERVER_DEFAULT = false;
 
     // The default expiration date is the beginning of computer time (1970).
-    public static final long    EXPIRATION_DATE_DEFAULT      = 0L;
+    public static final long EXPIRATION_DATE_DEFAULT = 0L;
 
     // Declare a flag for whether the user is authorized on this client/server
     // combination or not.
-    private boolean             authorizedOnServer;
+    private boolean authorizedOnServer;
 
     // Cache the user's expiration date for their license, in milliseconds.
-    private long                expirationDateEpochMs;
-
-    // Fully Qualified Constructor.
-    public ServerLoginCredentials( final String pUserName,
-                                   final String pPassword,
-                                   final boolean pAuthorizedOnServer,
-                                   final long pExpirationDate ) {
-        setLoginCredentials( pUserName, pPassword, pAuthorizedOnServer, pExpirationDate );
-    }
+    private long expirationDateEpochMs;
 
     // Copy Constructor; offered in place of clone() to guarantee that the
     // source object is never modified by the new target object created here.
@@ -65,6 +57,26 @@ public final class ServerLoginCredentials extends LoginCredentials {
               loginCredentials.getPassword(),
               loginCredentials.isAuthorizedOnServer(),
               loginCredentials.getExpirationDate() );
+    }
+
+    // Fully Qualified Constructor.
+    public ServerLoginCredentials( final String pUserName,
+                                   final String pPassword,
+                                   final boolean pAuthorizedOnServer,
+                                   final long pExpirationDate ) {
+        setLoginCredentials( pUserName,
+                             pPassword,
+                             pAuthorizedOnServer,
+                             pExpirationDate );
+    }
+
+    public void setLoginCredentials( final String pUserName,
+                                     final String pPassword,
+                                     final boolean pAuthorizedOnServer,
+                                     final long pExpirationDate ) {
+        setLogin( pUserName, pPassword );
+        setAuthorizedOnServer( pAuthorizedOnServer );
+        setExpirationDate( pExpirationDate );
     }
 
     public boolean isAuthorizedOnServer() {
@@ -90,8 +102,10 @@ public final class ServerLoginCredentials extends LoginCredentials {
         // representing "ms" since 1 JAN 1970 GMT (in server's locale).
         final LocalDateTime dateTime = LocalDateTime.now();
         final long epochSecond = Math.round( 0.001 * expirationDateEpochMs );
-        final LocalDateTime expirationDate = LocalDateTime
-                .ofEpochSecond( epochSecond, 0, ZoneOffset.UTC );
+        final LocalDateTime expirationDate = LocalDateTime.ofEpochSecond(
+                epochSecond,
+                0,
+                ZoneOffset.UTC );
         return dateTime.compareTo( expirationDate ) > 0;
     }
 
@@ -110,15 +124,6 @@ public final class ServerLoginCredentials extends LoginCredentials {
         setAuthorizedOnServer( AUTHORIZED_ON_SERVER_DEFAULT );
     }
 
-    public void setLoginCredentials( final String pUserName,
-                                     final String pPassword,
-                                     final boolean pAuthorizedOnServer,
-                                     final long pExpirationDate ) {
-        setLogin( pUserName, pPassword );
-        setAuthorizedOnServer( pAuthorizedOnServer );
-        setExpirationDate( pExpirationDate );
-    }
-
     public void setLoginCredentials( final ServerLoginCredentials loginCredentials ) {
         setLoginCredentials( loginCredentials.getUserName(),
                              loginCredentials.getPassword(),
@@ -128,19 +133,20 @@ public final class ServerLoginCredentials extends LoginCredentials {
 
     public void updateUserAuthorizationStatus( final AuthorizationServerResponse authorizationServerResponse ) {
         // Cache the new "authorized on server" status.
-        final boolean isAuthorizedOnServer = authorizationServerResponse.isAuthorizedOnServer();
+        final boolean isAuthorizedOnServer
+                = authorizationServerResponse.isAuthorizedOnServer();
         setAuthorizedOnServer( isAuthorizedOnServer );
 
         if ( isAuthorizedOnServer ) {
             // Overload the cached user license expiration date if a valid one
             // was returned; otherwise do not disturb the current cached value,
             // as this could lead to annoying multiple login dialogs.
-            final long expirationDate = authorizationServerResponse.getExpirationDate();
+            final long expirationDate
+                    = authorizationServerResponse.getExpirationDate();
             if ( expirationDate > EXPIRATION_DATE_DEFAULT ) {
                 // Cache the new expiration date, in milliseconds since 1970.
                 setExpirationDate( expirationDate );
             }
         }
     }
-
 }

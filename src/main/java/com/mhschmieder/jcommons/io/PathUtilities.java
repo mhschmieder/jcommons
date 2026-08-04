@@ -38,35 +38,38 @@ import java.nio.file.Paths;
 /**
  * Utilities for working with Java NIO paths, such as making a filename unique.
  * <p>
- * NOTE: Most of these methods return a Path, to quickly and safely make a File.
+ * NOTE: Most of these methods return a Path, to quickly and safely make a
+ * File.
  */
 public class PathUtilities {
 
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public PathUtilities() {}
+    public PathUtilities() {
+    }
 
     // Get a unique revision tagged filename, given a fully specified path as
     // the filename candidate.
-    public static Path getUniqueRevisionTaggedFilePath( 
-            final StringBuilder filenameCandidate ) {
+    public static Path getUniqueRevisionTaggedFilePath( final StringBuilder filenameCandidate ) {
         Path path = Paths.get( filenameCandidate.toString() );
         int fileRevision = 1;
         while ( Files.isRegularFile( path, LinkOption.NOFOLLOW_LINKS ) ) {
             // Append the modified revision string to the filename.
             final StringBuilder revisionTaggedFilenameCandidate
-                    = FilenameUtilities.getRevisionTaggedFilename( filenameCandidate, 
-                                                                   fileRevision );
-    
+                    = FilenameUtilities.getRevisionTaggedFilename(
+                    filenameCandidate,
+                    fileRevision );
+
             // Make a new path to check for uniqueness within the directory.
             path = Paths.get( revisionTaggedFilenameCandidate.toString() );
-            
-            // Increment the revision number until we have a unique filename in the
+
+            // Increment the revision number until we have a unique filename
+            // in the
             // specified directory.
             fileRevision++;
         }
-    
+
         return path;
     }
 }

@@ -38,7 +38,7 @@ import java.nio.file.Paths;
 
 /**
  * {@code FileDiagnostics} is a static utilities class for common file
- * diagnostics that wasn't part of Core Java or Apache Commons IO at the time 
+ * diagnostics that wasn't part of Core Java or Apache Commons IO at the time
  * this library was created.
  */
 public class FileDiagnostics {
@@ -46,7 +46,8 @@ public class FileDiagnostics {
     /**
      * The default constructor is disabled, as this is a static utilities class
      */
-    public FileDiagnostics() {}
+    public FileDiagnostics() {
+    }
 
     public static boolean checkFileExists( final String filePath,
                                            final String fileType,
@@ -55,11 +56,11 @@ public class FileDiagnostics {
         try {
             final Path path = Paths.get( filePath );
             fileExists = checkFileExists( path, fileType, reportNotExists );
-        } catch ( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             e.printStackTrace();
-            System.out.println(
-                    ">> " + fileType
-                            + " Invalid or Denied Access: " + filePath );
+            System.out.println( ">> " + fileType + " Invalid or Denied Access: "
+                                + filePath );
         }
 
         return fileExists;
@@ -74,15 +75,15 @@ public class FileDiagnostics {
             if ( !fileExists ) {
                 if ( reportNotExists ) {
                     System.out.println(
-                            ">> " + fileType
-                                    + " Does Not Exist or is Empty: " + path );
+                            ">> " + fileType + " Does Not Exist or is Empty: "
+                            + path );
                 }
             }
-        } catch ( final Exception e ) {
+        }
+        catch ( final Exception e ) {
             e.printStackTrace();
             System.out.println(
-                    ">> " + fileType
-                            + " Invalid or Denied Access: " + path );
+                    ">> " + fileType + " Invalid or Denied Access: " + path );
         }
 
         return fileExists;

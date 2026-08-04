@@ -38,8 +38,8 @@ import com.mhschmieder.jcommons.lang.LabeledObject;
  *
  * @param <T> the generic type of object that gets wrapped by {@code Item}
  */
-public interface Item< T extends Item< T > > extends Comparable< T >,
-        LabeledObject {
+public interface Item< T extends Item< T > >
+        extends Comparable< T >, LabeledObject {
 
     @Override
     default int compareTo( T labeledObject ) {

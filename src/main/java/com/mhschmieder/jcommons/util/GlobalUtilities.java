@@ -50,9 +50,11 @@ import java.util.ResourceBundle;
 public class GlobalUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private GlobalUtilities() {}
+    private GlobalUtilities() {
+    }
 
     // Pad a collection of String collections to the maximum column count.
     // NOTE: This is designed as a generic preparatory task for loading
@@ -92,14 +94,14 @@ public class GlobalUtilities {
      * The general strategy is to try to find them in the named arguments, and
      * then if still uninitialized, fetch them from the System Properties.
      *
-     * @param namedArguments
-     *            The named arguments passed to the application launcher,
-     *            including JNLP parameters and command-line JVM arguments
-     *
+     * @param namedArguments The named arguments passed to the application
+     *                       launcher, including JNLP parameters and
+     *                       command-line JVM arguments
      * @return An instance of {@link ClientProperties} to avoid redundant
      *         run-time queries
      */
-    public static ClientProperties makeClientProperties( final Map< String, String > namedArguments ) {
+    public static ClientProperties makeClientProperties( final Map< String,
+            String > namedArguments ) {
         // First determine whether we have command-line or JNLP arguments.
         final boolean hasNamedArguments = !namedArguments.isEmpty();
 
@@ -149,9 +151,10 @@ public class GlobalUtilities {
         }
 
         // Make a Client Properties singleton for hosting global data.
-        final ClientProperties clientProperties = new ClientProperties( osNameVerbose,
-                                                                        locale,
-                                                                        userDefaultDirectory );
+        final ClientProperties clientProperties = new ClientProperties(
+                osNameVerbose,
+                locale,
+                userDefaultDirectory );
 
         return clientProperties;
     }
@@ -162,23 +165,22 @@ public class GlobalUtilities {
      * at startup during class loading), but it can be an expensive call so is
      * best queried once and cached within the application lifecycle.
      *
-     * @param clientProperties
-     *            The {@link ClientProperties} that include the User Locale
-     * @param bundleName
-     *            The Bundle Name that distinguishes this Resource Bundle from
-     *            others in the system (generally this is a Class Name)
-     * @param ignoreUserLocale
-     *            {@code true} if the User Locale should be ignored in favor of
-     *            using the default Locale of US-English
+     * @param clientProperties The {@link ClientProperties} that include the
+     *                         User Locale
+     * @param bundleName       The Bundle Name that distinguishes this Resource
+     *                         Bundle from others in the system (generally this
+     *                         is a Class Name)
+     * @param ignoreUserLocale {@code true} if the User Locale should be ignored
+     *                         in favor of using the default Locale of
+     *                         US-English
      * @return A {@link ResourceBundle} returned by the JVM's Security Manager
      */
-    public static ResourceBundle getResourceBundle(
-            final ClientProperties clientProperties,
-            final String bundleName,
-            final boolean ignoreUserLocale ) {
+    public static ResourceBundle getResourceBundle( final ClientProperties clientProperties,
+                                                    final String bundleName,
+                                                    final boolean ignoreUserLocale ) {
         final Locale locale = ignoreUserLocale
-            ? Locale.forLanguageTag( "en-US" )
-            : clientProperties.locale;
+                              ? Locale.forLanguageTag( "en-US" )
+                              : clientProperties.locale;
         return ResourceBundle.getBundle( bundleName, locale );
     }
 }

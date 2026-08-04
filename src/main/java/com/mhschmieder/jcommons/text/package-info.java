@@ -29,6 +29,7 @@
  * Project: https://github.com/mhschmieder/jcommons
  */
 /**
- * This package is for classes and utilities related to Java Text functionality.
+ * This package is for classes and utilities related to Java Text
+ * functionality.
  */
 package com.mhschmieder.jcommons.text;

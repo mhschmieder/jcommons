@@ -34,24 +34,17 @@ import com.mhschmieder.jcommons.lang.EnumUtilities;
 import com.mhschmieder.jcommons.lang.Labeled;
 
 public enum LoginType implements Labeled< LoginType > {
-    SERVER( "Server" ), 
+    SERVER( "Server" ),
     PROXY( "Proxy" );
-    
+
     private final String label;
-    
+
     LoginType( final String pLabel ) {
         label = pLabel;
     }
 
-    @Override
-    public String label() {
-        return label;
-    }
-
-    @Override
-    public LoginType valueOfLabel( final String text ) {
-        return ( LoginType ) EnumUtilities.getLabeledEnumFromLabel(
-                text, values() );
+    public static LoginType defaultValue() {
+        return SERVER;
     }
 
     @Override
@@ -62,7 +55,14 @@ public enum LoginType implements Labeled< LoginType > {
         return label();
     }
 
-    public static LoginType defaultValue() {
-        return SERVER;
+    @Override
+    public String label() {
+        return label;
+    }
+
+    @Override
+    public LoginType valueOfLabel( final String text ) {
+        return ( LoginType ) EnumUtilities.getLabeledEnumFromLabel( text,
+                                                                    values() );
     }
 }
