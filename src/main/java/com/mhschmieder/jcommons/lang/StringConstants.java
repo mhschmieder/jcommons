@@ -119,6 +119,7 @@ public class StringConstants {
     public static final String DEGREES_KELVIN = " K";
     public static final String DEGREES_CELSIUS = DEGREES_SYMBOL + "C";
     public static final String DEGREES_FAHRENHEIT = DEGREES_SYMBOL + "F";
+
     /**
      * The default constructor is disabled, as this is a static constants
      * class.

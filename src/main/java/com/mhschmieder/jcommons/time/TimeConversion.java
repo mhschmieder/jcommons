@@ -70,6 +70,7 @@ public final class TimeConversion {
     public static final double NANOS_TO_SECONDS = 1.0d / SECONDS_TO_NANOS;
     public static final double NANOS_TO_MILLIS = 1.0d / MILLIS_TO_NANOS;
     public static final double MILLIS_TO_SECONDS = 1.0d / NANOS_TO_MILLIS;
+
     /**
      * The default constructor is disabled, as this is a static constants
      * class.

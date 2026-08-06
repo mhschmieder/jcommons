@@ -39,6 +39,7 @@ import java.util.Comparator;
  * In other words, a sorting comparator class that sorts by double value.
  */
 public class DoubleComparator implements Comparator< Double >, Serializable {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

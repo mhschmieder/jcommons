@@ -78,6 +78,7 @@ public class CharConstants {
     public static final char DEGREES_SYMBOL = '\u00B0';
     public static final char DEGREES_CELSIUS_SYMBOL = '\u2103';
     public static final char DEGREES_FAHRENHEIT_SYMBOL = '\u2109';
+
     /**
      * The default constructor is disabled, as this is a static constants
      * class.

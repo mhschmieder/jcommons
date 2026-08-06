@@ -61,8 +61,7 @@ public class LabeledObjectManagement {
     }
 
     // Find out if the candidate label is unique.
-    public static boolean isLabelUnique( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static boolean isLabelUnique( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate ) {
         // Check whether the supplied label candidate is unique within the 
         // context of its type-specific collection.
@@ -84,8 +83,7 @@ public class LabeledObjectManagement {
     // NOTE: The separator can be a blank, or an empty string.
     // NOTE: This should only be called by a GUI control when user edits
     //  are saved, to ensure that a bank string is replaced by a default.
-    public static String getCorrectedLabel( final Collection< ?
-                                                    extends LabeledObject > labeledObjects,
+    public static String getCorrectedLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                             final String labelCandidate,
                                             final String labelDefault,
                                             final String separator ) {
@@ -100,8 +98,7 @@ public class LabeledObjectManagement {
     // NOTE: This should only be called by a GUI control when user edits
     //  are saved, to ensure that a bank string is replaced by a default.
     // NOTE: Some object types, such as Layers, start at zero vs. one.
-    public static String getCorrectedLabel( final Collection< ?
-                                                    extends LabeledObject > labeledObjects,
+    public static String getCorrectedLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                             final String labelCandidate,
                                             final String labelDefault,
                                             final String separator,
@@ -117,8 +114,7 @@ public class LabeledObjectManagement {
 
     // Get the default label for a new Labeled Object in the collection.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getNewLabelDefault( final Collection< ?
-                                                     extends LabeledObject > labeledObjects,
+    public static String getNewLabelDefault( final Collection< ? extends LabeledObject > labeledObjects,
                                              final String labelDefault,
                                              final String separator ) {
         return getNewLabelDefault( labeledObjects,
@@ -130,8 +126,7 @@ public class LabeledObjectManagement {
     // Get the default label for a new Labeled Object in the collection.
     // NOTE: The separator can be a blank, or an empty string.
     // NOTE: Some object types, such as Layers, start at zero vs. one.
-    public static String getNewLabelDefault( final Collection< ?
-                                                     extends LabeledObject > labeledObjects,
+    public static String getNewLabelDefault( final Collection< ? extends LabeledObject > labeledObjects,
                                              final String labelDefault,
                                              final String separator,
                                              final boolean startsAtZero ) {
@@ -149,8 +144,7 @@ public class LabeledObjectManagement {
 
     // Get the first available label from the base number.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getFirstAvailableLabel( final Collection< ?
-                                                         extends LabeledObject > labeledObjects,
+    public static String getFirstAvailableLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                                  final String labelDefault,
                                                  final String separator ) {
         return getNextAvailableLabel( labeledObjects,
@@ -161,8 +155,7 @@ public class LabeledObjectManagement {
 
     // Get the next available label from the current number.
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getNextAvailableLabel( final Collection< ?
-                                                        extends LabeledObject > labeledObjects,
+    public static String getNextAvailableLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                                 final String labelDefault,
                                                 final String separator,
                                                 final int labeledObjectNumber ) {
@@ -188,8 +181,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -203,8 +195,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -219,8 +210,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -238,8 +228,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String separator,
@@ -264,8 +253,7 @@ public class LabeledObjectManagement {
 
     // Get a unique label from the candidate label.
     // NOTE: The default label is only used when the edited label is blank.
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelDefault,
                                          final String labelToExclude,
@@ -285,8 +273,7 @@ public class LabeledObjectManagement {
                                  uniquefierNumberFormat );
     }
 
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelToExclude,
                                          final NumberFormat uniquefierNumberFormat ) {
@@ -299,8 +286,7 @@ public class LabeledObjectManagement {
                                uniquefierNumberFormat );
     }
 
-    public static String getUniqueLabel( final Collection< ?
-                                                 extends LabeledObject > labeledObjects,
+    public static String getUniqueLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                          final String labelCandidate,
                                          final String labelToExclude,
                                          final int uniquefierNumber,
@@ -332,8 +318,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ?
-                                              extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator ) {
@@ -345,8 +330,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ?
-                                              extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,
@@ -359,8 +343,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ?
-                                              extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,
@@ -376,8 +359,7 @@ public class LabeledObjectManagement {
     }
 
     // NOTE: The separator can be a blank, or an empty string.
-    public static void uniquefyLabel( final Collection< ?
-                                              extends LabeledObject > labeledObjects,
+    public static void uniquefyLabel( final Collection< ? extends LabeledObject > labeledObjects,
                                       final LabeledObject labeledObject,
                                       final String labelDefault,
                                       final String separator,

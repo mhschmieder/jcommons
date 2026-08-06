@@ -41,36 +41,33 @@ public class FileExtensions {
     public static final String ALL_EXTENSIONS = "*.*";
     public static final String BMP_DESCRIPTION = "BMP";
     public static final String[] BMP_EXTENSIONS = new String[] {
-            "*.bmp",
-            "*.dib"
+            "*.bmp", "*.dib"
     };
     public static final String CSV_DESCRIPTION = "CSV";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     public static final String CSV_EXTENSIONS = "*.csv";
     public static final String DXF_DESCRIPTION = "AutoCAD DXF";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     public static final String DXF_EXTENSIONS = "*.dxf";
     public static final String EPS_DESCRIPTION = "Encapsulated PostScript";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] EPS_EXTENSIONS = new String[] {
-            "*.eps",
-            "*.epsf"
+            "*.eps", "*.epsf"
     };
     public static final String FPX_DESCRIPTION = "FlashPix Bitmap";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String FPX_EXTENSIONS = "*.fpx";
     public static final String GIF_DESCRIPTION = "GIF";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String GIF_EXTENSIONS = "*.gif";
     public static final String HTML_DESCRIPTION = "HTML";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] HTML_EXTENSIONS = new String[] {
-            "*.html",
-            "*.htm"
+            "*.html", "*.htm"
     };
     // NOTE: TIFF requires either ImageIO-Ext or JAI 1.1.3 JAR's. Both are
     // quite large (especially the former, which also has JNI support that might
@@ -90,129 +87,111 @@ public class FileExtensions {
     public static final String[] IMAGE_GRAPHICS_EXTENSIONS = new String[] {
             "*.png",
             // "*.pnm",
-            "*.gif",
-            "*.jpg",
-            "*.jpeg",
-            "*.jpe",
-            "*.tiff",
-            "*.tif",
+            "*.gif", "*.jpg", "*.jpeg", "*.jpe", "*.tiff", "*.tif",
             // "*.ps",
             // "*.wbm",
             // "*.wbmp",
-            "*.bmp",
-            "*.dib"
+            "*.bmp", "*.dib"
     };
     public static final String JAR_DESCRIPTION = "JAR";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String JAR_EXTENSIONS = "*.jar";
     public static final String JPEG_DESCRIPTION = "JPEG";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] JPEG_EXTENSIONS = new String[] {
-            "*.jpg",
-            "*.jpeg",
-            "*.jpe"
+            "*.jpg", "*.jpeg", "*.jpe"
     };
     public static final String LOG_DESCRIPTION = "Log File";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String LOG_EXTENSIONS = "*.log";
     public static final String PDF_DESCRIPTION = "Adobe PDF";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PDF_EXTENSIONS = "*.pdf";
     public static final String PNG_DESCRIPTION = "PNG";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PNG_EXTENSIONS = "*.png";
     public static final String PNM_DESCRIPTION = "PNM";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PNM_EXTENSIONS = "*.pnm";
     public static final String PPT_DESCRIPTION = "Presentation";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PPT_EXTENSIONS = "*.ppt";
     public static final String PPTX_DESCRIPTION = "Presentation";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PPTX_EXTENSIONS = "*.pptx";
     public static final String PRESENTATION_DESCRIPTION = "Presentation Files";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] PRESENTATION_EXTENSIONS = new String[] {
-            "*.pptx",
-            "*.ppts"
+            "*.pptx", "*.ppts"
     };
     public static final String PS_DESCRIPTION = "PostScript";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String PS_EXTENSIONS = "*.ps";
     public static final String RASTER_IMAGE_DESCRIPTION = "Raster Image Files";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] RASTER_IMAGE_EXTENSIONS = new String[] {
-            "*.png",
-            "*.gif",
-            "*.jpg",
-            "*.jpeg",
-            "*.jpe"
+            "*.png", "*.gif", "*.jpg", "*.jpeg", "*.jpe"
     };
     public static final String SPREADSHEET_DESCRIPTION = "Spreadsheet Files";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] SPREADSHEET_EXTENSIONS = new String[] {
-            "*.xlsx",
-            "*.xls"
+            "*.xlsx", "*.xls"
     };
     public static final String SVG_DESCRIPTION = "SVG";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String SVG_EXTENSIONS = "*.svg";
     public static final String TIFF_DESCRIPTION = "TIFF";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] TIFF_EXTENSIONS = new String[] {
-            "*.tiff",
-            "*.tif"
+            "*.tiff", "*.tif"
     };
     public static final String TXT_DESCRIPTION = "Text File";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String TXT_EXTENSIONS = "*.txt";
     public static final String VECTOR_GRAPHICS_DESCRIPTION
             = "Vector Graphics Files"; //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] VECTOR_GRAPHICS_EXTENSIONS = new String[] {
-            "*.eps",
-            "*.epsf",
-            "*.pdf",
-            "*.svg"
+            "*.eps", "*.epsf", "*.pdf", "*.svg"
     };
     public static final String WBMP_DESCRIPTION = "Wireless Bitmap";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String[] WBMP_EXTENSIONS = new String[] {
-            "*.wbm",
-            "*.wbmp"
+            "*.wbm", "*.wbmp"
     };
     public static final String XLS_DESCRIPTION = "Excel 97-2003 Workbook";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String XLS_EXTENSIONS = "*.xls";
     public static final String XLSX_DESCRIPTION = "Office Open XML";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String XLSX_EXTENSIONS = "*.xlsx";
     public static final String XML_DESCRIPTION = "XML";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String XML_EXTENSIONS = "*.xml";
     public static final String ZIP_DESCRIPTION = "ZIP";
-            //$NON-NLS-1$
+    //$NON-NLS-1$
     @SuppressWarnings( "nls" )
     public static final String ZIP_EXTENSIONS = "*.zip";
+
     /**
      * The default constructor is disabled, as this is a static constants
      * class.

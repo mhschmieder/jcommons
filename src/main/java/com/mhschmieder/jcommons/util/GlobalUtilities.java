@@ -101,7 +101,7 @@ public class GlobalUtilities {
      *         run-time queries
      */
     public static ClientProperties makeClientProperties( final Map< String,
-            String > namedArguments ) {
+                                                                          String > namedArguments ) {
         // First determine whether we have command-line or JNLP arguments.
         final boolean hasNamedArguments = !namedArguments.isEmpty();
 

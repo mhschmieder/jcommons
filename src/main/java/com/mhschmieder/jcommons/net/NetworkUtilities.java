@@ -145,12 +145,12 @@ public final class NetworkUtilities {
         }
         catch ( final IOException ioe ) {
             ioe.printStackTrace();
-            statusMessage =
-                    "Server Connection Error: I/O Error Occurred While "
-                    + "Opening Server Connection."
-                    //$NON-NLS-1$
-                    + "Unable to connect to " + serviceType //$NON-NLS-1$
-                    + " service."; //$NON-NLS-1$
+            statusMessage = "Server Connection Error: I/O Error Occurred While "
+                            + "Opening Server Connection."
+                            //$NON-NLS-1$
+                            + "Unable to connect to " + serviceType
+                            //$NON-NLS-1$
+                            + " service."; //$NON-NLS-1$
             return statusMessage;
         }
 
